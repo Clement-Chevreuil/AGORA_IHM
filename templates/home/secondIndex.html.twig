@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home index{% endblock %}
+
+{% block body %}
+    <h1>Home index</h1>
+
+    <table class="table">
+        {# <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead> #}
+        <tbody>
+
+
+            <div style="box-sizing: border-box; display:block; position: relative; transform: translateY(35%);">
+
+                <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
+                <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
+
+                <div class="tourniquer">
+                    <div id="slide1" class="left-slide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+            
+                        </div>
+                    </div>
+
+                    <div id="slide2" class="mid-slide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+
+                        </div>
+                    </div>
+
+                    <div id="slide3" class="right-slide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+
+                        </div>
+                    </div>
+
+                    <div id="slide4" class="vide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+
+                        </div>
+                    </div>
+
+                    <div id="slide5" class="vide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+
+                        </div>
+                    </div>
+
+                    <div id="slide6" class="vide">
+                        <div class="div_post div_post_mini" name="post" id="post">
+
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+
+
+
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="{{ path('home_new') }}">Create new</a>
+    <a href="{{ path('home_new') }}">Create new</a>
+
+
+{% endblock %}
+
+
+
