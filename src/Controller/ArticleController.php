@@ -30,11 +30,16 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $article = new Article($article, $this->getUser());
+            $article->setUser($this->getUser());
+            //comment chercher par id ?
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
