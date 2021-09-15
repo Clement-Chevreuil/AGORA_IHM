@@ -1,0 +1,15 @@
+{% extends 'public/layout.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+    
+    <div class="p-2">
+    
+        <h1> Article Liker : </h1>
+        <a href="{{ path('user_edit', {'id': user.id}) }}"><button class="btn btn-primary">Editer le profil</button></a>
+    </div>
+
+    
+{% endblock %}

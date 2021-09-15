@@ -17,13 +17,13 @@
                         <a class="navbar-brand" href="#">Agora</a>
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ path('home_new') }}">Accueil</a>
+                                <a class="nav-link" href="{{ path('home_index') }}">Accueil</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ path('article_index') }}">Voir/Ajouter un article</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('home_new') }}">Profil</a>
+                                <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>

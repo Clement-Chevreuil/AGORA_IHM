@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -36,6 +38,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $article;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="signet")
+     */
+    private $signet;
+
+    public function __construct()
+    {
+        $this->article = new ArrayCollection();
+        $this->signet = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -124,5 +143,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticle(): Collection
+    {
+        return $this->article;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->article->contains($article)) {
+            $this->article[] = $article;
+            $article->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->article->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getUser() === $this) {
+                $article->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getSignet(): Collection
+    {
+        return $this->signet;
+    }
+
+    public function addSignet(Article $signet): self
+    {
+        if (!$this->signet->contains($signet)) {
+            $this->signet[] = $signet;
+            $signet->addSignet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignet(Article $signet): self
+    {
+        if ($this->signet->removeElement($signet)) {
+            $signet->removeSignet($this);
+        }
+
+        return $this;
     }
 }

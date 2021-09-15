@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,22 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="article")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="signet")
+     */
+    private $signet;
+
+    public function __construct()
+    {
+        $this->signet = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +87,42 @@ class Article
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getSignet(): Collection
+    {
+        return $this->signet;
+    }
+
+    public function addSignet(User $signet): self
+    {
+        if (!$this->signet->contains($signet)) {
+            $this->signet[] = $signet;
+        }
+
+        return $this;
+    }
+
+    public function removeSignet(User $signet): self
+    {
+        $this->signet->removeElement($signet);
 
         return $this;
     }
