@@ -1,0 +1,10 @@
+Choses à faire :
+
+Profil Utilisateur
+Facade Admin
+Fil d'ariane
+gestion image sur un article
+
+En cours : 
+Ajax pour enregistre la publication
+
