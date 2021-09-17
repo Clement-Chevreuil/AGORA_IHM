@@ -49,6 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $signet;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -198,6 +203,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->signet->removeElement($signet)) {
             $signet->removeSignet($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

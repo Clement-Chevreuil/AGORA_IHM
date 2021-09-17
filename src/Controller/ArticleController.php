@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,16 @@ class ArticleController extends AbstractController
             'articles' => $articleRepository->findAll(),
         ]);
     }
+    
+    /**
+     * @Route("/ArticleUser", name="article_user", methods={"GET"})
+     */
+    public function indexArticleUser(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('article/user.html.twig', [
+            'articles' => $articleRepository->findAllWithUserId($this->getUser()->getId()),
+        ]);
+    }
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
@@ -36,10 +47,8 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $article = new Article($article, $this->getUser());
-            $article->setUser($this->getUser());
-            //comment chercher par id ?
 
+            $article->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();

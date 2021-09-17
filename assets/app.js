@@ -21,6 +21,9 @@ var variable_second_function = variable - 1;
 
 var variable_fix = variable;
 
+$( "#target" ).click(function() {
+  alert( "Handler for .click() called." );
+});
 
 
 function update_number_div(nb)

@@ -1,39 +1,90 @@
-{% extends 'base.html.twig' %}
+{% extends 'public/layout.html.twig' %}
 
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
+
         <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.name }}</td>
-                <td>{{ article.description }}</td>
-                <td>{{ article.picture }}</td>
-                <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
+
+
+            <div style="box-sizing: border-box; display:block; position: relative; transform: translateY(35%);">
+
+                <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
+                <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
+
+                <div class="tourniquer">
+
+                {% set counta = 0 %}
+                {% for article in articles %}
+                    {% set counta = counta + 1 %}
+
+                    {% if counta == 1 %}
+                        <div id= {{ 'slide' ~ counta }} class="left-slide">
+                            <div class="div_post div_post_mini" name="post" id="post">
+                                <h1> {{ article.name }} </h1>
+                                <p> {{ article.description }} </p>
+                                <p> {{ article.user.name }} </p>
+                                <button class="btn btn-primary">enregistrer</button>
+                    
+                            </div>
+                        </div>
+
+                    {% elseif counta == 2 %}
+                        <div id= {{ 'slide' ~ counta }} class="mid-slide">
+                                <div class="div_post div_post_mini" name="post" id="post">
+                                    <h1> {{ article.name }} </h1>
+                                    <p> {{ article.description }} </p>
+                                    <p> {{ article.user.name }} </p>
+                                    <button class="btn btn-primary">enregistrer</button>
+                                </div>
+                        </div>
+
+                    {% elseif counta == 3 %}
+                        <div id= {{ 'slide' ~ counta }} class="right-slide">
+                            <div class="div_post div_post_mini" name="post" id="post">
+                                <h1> {{ article.name }} </h1>
+                                <p> {{ article.description }} </p>
+                                <p> {{ article.user.name }} </p>
+                                <button class="btn btn-primary">enregistrer</button>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div id = {{ 'slide' ~ counta }} class="vide">
+                            <div class="div_post div_post_mini" name="post" id="post">
+                                <h1> {{ article.name }} </h1>
+                                <p> {{ article.description }} </p>
+                                <p> {{ article.user.name }} </p>
+                                <button class="btn btn-primary">enregistrer</button>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                {% else %}
+                    <tr>
+                        <td colspan="3">no records found</td>
+                    </tr>
+                {% endfor %}
+                </div>
+            </div>
         </tbody>
     </table>
 
-    <a href="{{ path('article_new') }}">Create new</a>
+    {# <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="{{ path('home_new') }}">Create new</a>
+    <br>
+    <a href="{{ path('home_index2') }}">Second Index</a> #}
+
+
 {% endblock %}
+
+
+

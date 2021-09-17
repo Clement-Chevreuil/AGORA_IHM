@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'public/layout.html.twig' %}
 
 {% block title %}Edit Article{% endblock %}
 
 {% block body %}
-    <h1>Edit Article</h1>
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <h1>Edit Article</h1>
 
-    {{ include('article/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('article/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('article_index') }}">back to list</a>
+        <a href="{{ path('article_index') }}">back to list</a>
 
-    {{ include('article/_delete_form.html.twig') }}
+        {{ include('article/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
