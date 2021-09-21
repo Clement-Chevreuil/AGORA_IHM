@@ -16,52 +16,29 @@
 
                 <div class="tourniquer">
 
-                {% set counta = 0 %}
                 {% for article in articles %}
-                    {% set counta = counta + 1 %}
 
-                    {% if counta == 1 %}
-                        <div id= {{ 'slide' ~ counta }} class="left-slide">
-                            <div class="div_post div_post_mini" name="post" id="post">
+                    {% if loop.first %}
+                        {% set slideclass = "left-slide" %}
+                    {% elseif loop.index == 2 %}
+                        {% set slideclass = "mid-slide" %}
+                    {% elseif loop.index == 3 %}
+                        {% set slideclass = "right-slide" %}
+                    {% else %}
+                        {% set slideclass = "vide" %}
+                    {% endif %}
+
+                        <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }}">
+                            <div class="div_post div_post_mini data-article" name="post" id="post" data-articleid="{{article.id}}">
                                 <h1> {{ article.name }} </h1>
                                 <p> {{ article.description }} </p>
                                 <p> {{ article.user.name }} </p>
-                                <button class="btn btn-primary">enregistrer</button>
+                                <button class="btn btn-primary like-article">enregistrer</button>
                     
                             </div>
                         </div>
 
-                    {% elseif counta == 2 %}
-                        <div id= {{ 'slide' ~ counta }} class="mid-slide">
-                                <div class="div_post div_post_mini" name="post" id="post">
-                                    <h1> {{ article.name }} </h1>
-                                    <p> {{ article.description }} </p>
-                                    <p> {{ article.user.name }} </p>
-                                    <button class="btn btn-primary">enregistrer</button>
-                                </div>
-                        </div>
-
-                    {% elseif counta == 3 %}
-                        <div id= {{ 'slide' ~ counta }} class="right-slide">
-                            <div class="div_post div_post_mini" name="post" id="post">
-                                <h1> {{ article.name }} </h1>
-                                <p> {{ article.description }} </p>
-                                <p> {{ article.user.name }} </p>
-                                <button class="btn btn-primary">enregistrer</button>
-                            </div>
-                        </div>
-
-                    {% else %}
-                        <div id = {{ 'slide' ~ counta }} class="vide">
-                            <div class="div_post div_post_mini" name="post" id="post">
-                                <h1> {{ article.name }} </h1>
-                                <p> {{ article.description }} </p>
-                                <p> {{ article.user.name }} </p>
-                                <button class="btn btn-primary">enregistrer</button>
-                            </div>
-                        </div>
-                    {% endif %}
-
+                      
 
                 {% else %}
                     <tr>

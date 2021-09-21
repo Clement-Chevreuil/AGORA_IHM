@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+//return new JsonRezsponse(["sucess" => true]);
 /**
  * @Route("/article")
  */
@@ -36,6 +38,8 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
@@ -60,6 +64,27 @@ class ArticleController extends AbstractController
             'article' => $article,
             'form' => $form,
         ]);
+    }
+
+    
+    /**
+     * @Route("/{id}/articleLike",options={"expose"=true}, name="article_like")
+     */
+    public function like(ArticleRepository $articleRepository, $id): Response
+    {
+
+        //message erreur "ne pas gratter de like"
+        
+        $article = new Article();
+        $article = $articleRepository->find(1);
+        $article->addSignet($this->getUser());
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+        
+        return new Response("sucess");
+        
     }
 
     /**

@@ -20,9 +20,23 @@ var variable = 3;
 var variable_second_function = variable - 1;
 
 var variable_fix = variable;
+// const routes = require('../../public/js/fos_js_routes.json');
+// import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
-$( "#target" ).click(function() {
-  alert( "Handler for .click() called." );
+// Routing.setRoutingData(routes);
+// Routing.generate('rep_log_list');
+
+
+$( ".data-article" ).on("click", function() {
+  var idArticle = $(".data-article").data();
+  $.ajax({
+
+    url: Routing.generate("article_like", {id: idArticle}),  //Cible du script coté serveur à appeler 
+    
+    success : function (output) {
+      console.log(output);
+    }
+  });
 });
 
 
@@ -31,8 +45,6 @@ function update_number_div(nb)
     variable = nb - 1;
     variable_fix = nb-1;
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", function () {

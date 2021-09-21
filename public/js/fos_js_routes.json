@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"article_like":{"tokens":[["variable","\/","[^\/]++","idArticle",true],["text","\/article\/articleLike"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":[],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http","locale":[]}

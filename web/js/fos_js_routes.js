@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"article_like":{"tokens":[["text","\/articleLike"],["variable","\/","[^\/]++","id",true],["text","\/article"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":[],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http","locale":[]});
