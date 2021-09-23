@@ -76,14 +76,27 @@ class ArticleController extends AbstractController
         //message erreur "ne pas gratter de like"
         
         $article = new Article();
-        $article = $articleRepository->find(1);
-        $article->addSignet($this->getUser());
+        $article = $articleRepository->find($id);
+
+        if($this->getUser()->getId() == $article->getUser()->getId()){
+            
+            return new Response("error_ego");
+        }
+        // if($article->getSignet()->contains($this->getUser()->getName()){
+
+        //     return new Response("error_delete_like");
+            
+        // }
+        else{
+            $article->addSignet($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return new Response("success");
+        }
         
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->flush();
         
-        return new Response("sucess");
+        return new Response("error");
         
     }
 

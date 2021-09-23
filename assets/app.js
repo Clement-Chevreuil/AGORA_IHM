@@ -28,13 +28,23 @@ var variable_fix = variable;
 
 
 $( ".data-article" ).on("click", function() {
-  var idArticle = $(".data-article").data();
+  var idArticle = $(this).attr('id');
+  
   $.ajax({
 
     url: Routing.generate("article_like", {id: idArticle}),  //Cible du script coté serveur à appeler 
     
     success : function (output) {
       console.log(output);
+      if(output == ""){
+        
+      }
+      if(output == "error_ego"){
+
+      }
+      if(output == "error_delete_like"){
+
+      }
     }
   });
 });

@@ -63,6 +63,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $user->setPassword('');
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
