@@ -8,38 +8,55 @@
 
         <tbody>
 
-
             <div style="box-sizing: border-box; display:block; position: relative; transform: translateY(35%);">
 
-                <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
-                <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
+                {% if articles|length > 3 %}
+                    <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
+                    <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
+                {% endif %}
 
                 <div class="tourniquer">
 
                 {% for article in articles %}
+                    {% if articles|length == 1 %}
 
-                    {% if loop.first %}
-                        {% set slideclass = "left-slide" %}
-                    {% elseif loop.index == 2 %}
-                        {% set slideclass = "mid-slide" %}
-                    {% elseif loop.index == 3 %}
-                        {% set slideclass = "right-slide" %}
+                        {% if loop.first %}
+                            {% set slideclass = "mid-slide" %}
+                        {% else %}
+                            {% set slideclass = "vide" %}
+                        {% endif %}
+
+                    {% elseif articles|length == 2 %}
+                       {% if loop.first %}
+                            {% set slideclass = "left-slide" %}
+                        {% elseif loop.index == 2 %}
+                            {% set slideclass = "right-slide" %}
+                        {% else %}
+                            {% set slideclass = "vide" %}
+                        {% endif %}
+
                     {% else %}
-                        {% set slideclass = "vide" %}
+                        {% if loop.first %}
+                            {% set slideclass = "left-slide" %}
+                        {% elseif loop.index == 2 %}
+                            {% set slideclass = "mid-slide" %}
+                        {% elseif loop.index == 3 %}
+                            {% set slideclass = "right-slide" %}
+                        {% else %}
+                            {% set slideclass = "vide" %}
+                        {% endif %}
                     {% endif %}
 
-                        <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }}">
-                            <div class="div_post div_post_mini data-article" id="{{article.id}}" data-articleid="{{article.id}}">
-                                <h1> {{ article.name }} </h1>
-                                <p> {{ article.description }} </p>
-                                <p> {{ article.user.name }} </p>
-                                <button class="btn btn-primary like-article">enregistrer</button>
                     
-                            </div>
+                    <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }}">
+                        <div class="div_post div_post_mini data-article" id="{{article.id}}" data-articleid="{{article.id}}">
+                            <h1> {{ article.name }} </h1>
+                            <p> {{ article.description }} </p>
+                            <p> {{ article.user.name }} </p>
+                            <button class="btn btn-primary like-article">enregistrer</button>
+                
                         </div>
-
-                      
-
+                    </div>
                 {% else %}
                     <tr>
                         <td colspan="3">no records found</td>
