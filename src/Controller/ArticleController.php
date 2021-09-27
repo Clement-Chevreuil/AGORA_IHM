@@ -82,11 +82,15 @@ class ArticleController extends AbstractController
             
             return new Response("error_ego");
         }
-        // if($article->getSignet()->contains($this->getUser()->getName()){
+        elseif($article->getSignet()->contains($this->getUser())){
 
-        //     return new Response("error_delete_like");
+            $article->removeSignet($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return new Response("error_delete_like");
             
-        // }
+        }
         else{
             $article->addSignet($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();

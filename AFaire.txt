@@ -10,7 +10,9 @@ gestion image sur un article
 attention de ne pas tout le temps mettre les meme fichier
 
 En cours : 
-Ajax pour enregistre la publication
+- Facade Admin
+- gestion erreur like
 
 
 
+Idee : theme du site la Fac

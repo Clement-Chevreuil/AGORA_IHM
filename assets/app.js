@@ -36,14 +36,14 @@ $( ".data-article" ).on("click", function() {
     
     success : function (output) {
       console.log(output);
-      if(output == ""){
-        
+      if(output == "success"){
+        alert("Vous avez liker la publication");
       }
       if(output == "error_ego"){
-
+        alert("Tu ne peux pas liker un article que tu as créé");
       }
       if(output == "error_delete_like"){
-
+        alert("Vous avez supprimer votre like de cette article");
       }
     }
   });
