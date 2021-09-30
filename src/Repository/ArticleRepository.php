@@ -50,6 +50,45 @@ class ArticleRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+            /**
+     * @return Article[]
+     */
+    public function findAllWithLike(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a, COUNT(b.liker)
+            FROM App\Entity\Article a, App\Entity\UserArticleInformations b
+            WHERE a = b.article 
+            GROUP BY a.id
+            ORDER BY COUNT(b.liker) DESC'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+             /**
+     * @return Article[]
+     */
+    public function findAllWithReport(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a, COUNT(b.report)
+            FROM App\Entity\Article a, App\Entity\UserArticleInformations b
+            WHERE a = b.article 
+            GROUP BY a.id
+            ORDER BY COUNT(b.report) DESC'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+
     
 
     /*

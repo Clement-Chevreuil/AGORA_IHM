@@ -6,24 +6,20 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/", name="user_index", methods={"GET"})
-     */
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
@@ -61,16 +57,29 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user->setPassword('');
+        dump($request);
+        $user2 = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+            if($user2->getPassword() == $user->getPassword()){
+                $user->setName($form->get('name')->getData());
+                $user->setEmail($form->get('email')->getData());
+                dd($user);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Article Created! Knowledge is power!');
+                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else{
+                $this->addFlash('success', 'NO');
+                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('user/edit.html.twig', [

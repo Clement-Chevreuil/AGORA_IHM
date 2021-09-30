@@ -67,42 +67,43 @@ class ArticleController extends AbstractController
     }
 
     
-    /**
-     * @Route("/{id}/articleLike",options={"expose"=true}, name="article_like")
-     */
-    public function like(ArticleRepository $articleRepository, $id): Response
-    {
+    // /**
+    //  * @Route("/{id}/articleLike",options={"expose"=true}, name="article_like")
+    //  */
+    // public function like(ArticleRepository $articleRepository, $id): Response
+    // {
 
-        //message erreur "ne pas gratter de like"
+    //     //message erreur "ne pas gratter de like"
         
-        $article = new Article();
-        $article = $articleRepository->find($id);
+    //     $article = new Article();
+    //     $article = $articleRepository->find($id);
 
-        if($this->getUser()->getId() == $article->getUser()->getId()){
+    //     if($this->getUser()->getId() == $article->getUser()->getId()){
             
-            return new Response("error_ego");
-        }
-        elseif($article->getSignet()->contains($this->getUser())){
+    //         return new Response("error_ego");
+    //     }
+        
+    //     elseif($article->getSignet()->contains($this->getUser())){
 
-            $article->removeSignet($this->getUser());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
-            return new Response("error_delete_like");
+    //         $article->removeSignet($this->getUser());
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($article);
+    //         $entityManager->flush();
+    //         return new Response("error_delete_like");
             
-        }
-        else{
-            $article->addSignet($this->getUser());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
-            return new Response("success");
-        }
+    //     }
+    //     else{
+    //         $article->addSignet($this->getUser());
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($article);
+    //         $entityManager->flush();
+    //         return new Response("success");
+    //     }
         
         
-        return new Response("error");
+    //     return new Response("error");
         
-    }
+    // }
 
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})

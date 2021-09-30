@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -34,9 +35,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * 
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * /**
+    
      */
+
     private $password;
 
     /**
@@ -44,20 +49,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $article;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="signet")
-     */
-    private $signet;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserArticleInformations::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userArticleInformations;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $blocked;
+
+
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
-        $this->signet = new ArrayCollection();
+        $this->userArticleInformations = new ArrayCollection();
     }
 
 
@@ -180,32 +193,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getSignet(): Collection
-    {
-        return $this->signet;
-    }
-
-    public function addSignet(Article $signet): self
-    {
-        if (!$this->signet->contains($signet)) {
-            $this->signet[] = $signet;
-            $signet->addSignet($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSignet(Article $signet): self
-    {
-        if ($this->signet->removeElement($signet)) {
-            $signet->removeSignet($this);
-        }
-
-        return $this;
-    }
 
     public function getName(): ?string
     {
@@ -218,4 +205,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|UserArticleInformations[]
+     */
+    public function getUserArticleInformations(): Collection
+    {
+        return $this->userArticleInformations;
+    }
+
+    public function addUserArticleInformation(UserArticleInformations $userArticleInformation): self
+    {
+        if (!$this->userArticleInformations->contains($userArticleInformation)) {
+            $this->userArticleInformations[] = $userArticleInformation;
+            $userArticleInformation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserArticleInformation(UserArticleInformations $userArticleInformation): self
+    {
+        if ($this->userArticleInformations->removeElement($userArticleInformation)) {
+            // set the owning side to null (unless already changed)
+            if ($userArticleInformation->getUser() === $this) {
+                $userArticleInformation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    public function setBlocked(bool $blocked): self
+    {
+        $this->blocked = $blocked;
+
+        return $this;
+    }
+
+
 }

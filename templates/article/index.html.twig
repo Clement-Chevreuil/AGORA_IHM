@@ -49,12 +49,34 @@
 
                     
                     <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }}">
-                        <div class="div_post div_post_mini data-article" id="{{article.id}}" data-articleid="{{article.id}}">
+                        <div class="div_post div_post_mini" >
                             <h1> {{ article.name }} </h1>
                             <p> {{ article.description }} </p>
                             <p> {{ article.user.name }} </p>
-                            <button class="btn btn-primary like-article">enregistrer</button>
-                
+                            
+                            {% set user  = app.user.id %}
+
+                            {% for infos in article.getUserArticleInformations() %}
+
+                                
+                                {% if infos.user.id == user and infos.liker == true %}
+                                    <button class="btn btn-secondary like-article data-article-like" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                {% else %}
+                                    <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                {% endif %}
+
+                                 {% if infos.user.id == user and infos.report == true %}
+                                    <button class="btn btn-secondary like-article data-article-report" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}} disabled">signaler</button>
+                                {% else %}
+                                    <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button>
+                                {% endif %}
+
+                            {% else %}
+                                <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button>
+                            {% endfor %}
+
+
                         </div>
                     </div>
                 {% else %}

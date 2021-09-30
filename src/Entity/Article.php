@@ -41,13 +41,15 @@ class Article
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="signet")
+     * @ORM\OneToMany(targetEntity=UserArticleInformations::class, mappedBy="article", orphanRemoval=true)
      */
-    private $signet;
+    private $userArticleInformations;
+
+
 
     public function __construct()
     {
-        $this->signet = new ArrayCollection();
+        $this->userArticleInformations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,26 +106,35 @@ class Article
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|UserArticleInformations[]
      */
-    public function getSignet(): Collection
+    public function getUserArticleInformations(): Collection
     {
-        return $this->signet;
+        return $this->userArticleInformations;
     }
 
-    public function addSignet(User $signet): self
+    public function addUserArticleInformation(UserArticleInformations $userArticleInformation): self
     {
-        if (!$this->signet->contains($signet)) {
-            $this->signet[] = $signet;
+        if (!$this->userArticleInformations->contains($userArticleInformation)) {
+            $this->userArticleInformations[] = $userArticleInformation;
+            $userArticleInformation->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removeSignet(User $signet): self
+    public function removeUserArticleInformation(UserArticleInformations $userArticleInformation): self
     {
-        $this->signet->removeElement($signet);
+        if ($this->userArticleInformations->removeElement($userArticleInformation)) {
+            // set the owning side to null (unless already changed)
+            if ($userArticleInformation->getArticle() === $this) {
+                $userArticleInformation->setArticle(null);
+            }
+        }
 
         return $this;
     }
+
+
+
 }

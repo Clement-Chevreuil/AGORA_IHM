@@ -19,10 +19,12 @@
             </tr>
         </thead>
         <tbody>
-        {% for signet in user.signet %}
+
+        {% for signet in user.userArticleInformations %}
+            
             <tr>
-                <td>{{ signet.name }}</td>
-                <td>{{ signet.description }}</td>
+                <td>{{ signet.article.name }}</td>
+                <td>{{ signet.article.description }}</td>
                 <td>
                     <a href="{{ path('article_show', {'id': signet.id}) }}">show</a>
                 </td>

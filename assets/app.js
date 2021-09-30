@@ -11,9 +11,16 @@ import'./styles/rotation.css';
 
 // start the Stimulus application
 import './bootstrap';
+import 'jquery-ui'; 
+
+import 'jquery-ui/themes/base/core.css';
+import 'jquery-ui/themes/base/theme.css';
+import 'jquery-ui/themes/base/selectable.css';
+import 'jquery-ui/ui/core';
+import 'jquery-ui/ui/widgets/selectable';
 
 var $ = require('jquery');
-
+require('jquery-ui');
 
 var variable = 3;
 
@@ -27,23 +34,62 @@ var variable_fix = variable;
 // Routing.generate('rep_log_list');
 
 
-$( ".data-article" ).on("click", function() {
+$( ".data-article-like" ).on("click", function() {
   var idArticle = $(this).attr('id');
-  
+  var bouton = this;
   $.ajax({
 
-    url: Routing.generate("article_like", {id: idArticle}),  //Cible du script coté serveur à appeler 
+    url: Routing.generate("create_like", {idArticle: idArticle}),  //Cible du script coté serveur à appeler 
     
     success : function (output) {
       console.log(output);
-      if(output == "success"){
+      if(output == "success_like"){
         alert("Vous avez liker la publication");
+        $(bouton).css(' transition-delay', '2s');
+        $(bouton).css('transition-duration', '4s');
+        $(bouton).css('backgroundColor', '#383838');
+        // $(bouton).animate({
+        //   color: "#000",
+        //   width: 500
+        // }, 1000 );
+      }
+      if(output == "success_delete"){
+        alert("Vous avez supprimer votre like de cette article");
+        $(bouton).css(' transition-delay', '2s');
+        $(bouton).css('transition-duration', '4s');
+        $(bouton).css('backgroundColor', '#8e8e8e');
+        // $(bouton).animate({
+        //   backgroundColor:  '#000',
+        //   color: "#000",
+        //   width: 500
+        // }, 1000 );
       }
       if(output == "error_ego"){
         alert("Tu ne peux pas liker un article que tu as créé");
       }
-      if(output == "error_delete_like"){
-        alert("Vous avez supprimer votre like de cette article");
+    }
+  });
+});
+
+$( ".data-article-report" ).on("click", function() {
+  var idArticle = $(this).attr('id');
+  var bouton = this
+  $.ajax({
+
+    url: Routing.generate("create_report", {idArticle: idArticle}),  //Cible du script coté serveur à appeler 
+    
+    success : function (output) {
+      console.log(output);
+      if(output == "success_report"){
+        alert("Vous avez report la publication");
+        $(bouton).prop("disabled", true)
+        $(bouton).css(' transition-delay', '2s');
+        $(bouton).css('transition-duration', '4s');
+        $(bouton).css('backgroundColor', '#383838');
+      }
+
+      if(output == "error_impossible"){
+        alert("Il n'est pas possible d'enlever son report une fois clicker");
       }
     }
   });
@@ -185,4 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
   });
+
+  
 

@@ -9,9 +9,13 @@ gestion image sur un article
 
 attention de ne pas tout le temps mettre les meme fichier
 
+- attention proteger les donne d'un utilisateur que personne puisse voir ces infos
+- ajouter signalement, pourquoi ce signalement (en nombre dans un premier temps un utilisateur peut faire un signalement pas plus sur un article)
+- ajouter bannissement/bloquer
+- article protection
+
 En cours : 
 - Facade Admin
-- gestion erreur like
 
 
 
