@@ -66,45 +66,6 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    
-    // /**
-    //  * @Route("/{id}/articleLike",options={"expose"=true}, name="article_like")
-    //  */
-    // public function like(ArticleRepository $articleRepository, $id): Response
-    // {
-
-    //     //message erreur "ne pas gratter de like"
-        
-    //     $article = new Article();
-    //     $article = $articleRepository->find($id);
-
-    //     if($this->getUser()->getId() == $article->getUser()->getId()){
-            
-    //         return new Response("error_ego");
-    //     }
-        
-    //     elseif($article->getSignet()->contains($this->getUser())){
-
-    //         $article->removeSignet($this->getUser());
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($article);
-    //         $entityManager->flush();
-    //         return new Response("error_delete_like");
-            
-    //     }
-    //     else{
-    //         $article->addSignet($this->getUser());
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($article);
-    //         $entityManager->flush();
-    //         return new Response("success");
-    //     }
-        
-        
-    //     return new Response("error");
-        
-    // }
-
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
@@ -120,19 +81,26 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article): Response
     {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if($this->getUser()->getId() == $article->getUser()->getId()){
+           $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
 
-            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('article/edit.html.twig', [
+                'article' => $article,
+                'form' => $form,
+            ]);
         }
-
-        return $this->renderForm('article/edit.html.twig', [
-            'article' => $article,
-            'form' => $form,
-        ]);
+        else{  
+            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
+            return $this->redirectToRoute('article_index');
+        }
     }
 
     /**

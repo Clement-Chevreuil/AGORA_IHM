@@ -9,13 +9,19 @@ gestion image sur un article
 
 attention de ne pas tout le temps mettre les meme fichier
 
-- attention proteger les donne d'un utilisateur que personne puisse voir ces infos
 - ajouter signalement, pourquoi ce signalement (en nombre dans un premier temps un utilisateur peut faire un signalement pas plus sur un article)
-- ajouter bannissement/bloquer
-- article protection
+- Ajout avertissement au bout de 3 ban def automatique
+- article prive
+- admin sup pour gerer les admins
+- top article (ensuite en fonction de la date nombre enregistrement etude pour les admin eviter user pour le systeme de nombre)
+- ajouter securite dans les fichier twig.html
+
 
 En cours : 
 - Facade Admin
+
+
+Page securise : 
 
 
 

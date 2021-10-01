@@ -49,9 +49,17 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
+
+        if($this->getUser()->getId() == $user->getId() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            return $this->render('user/show.html.twig', ['user' => $user,]);
+            
+        }
+
+        else{
+            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
+            return $this->redirectToRoute('article_index');
+        }
+        
     }
 
     /**
@@ -59,33 +67,41 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        dump($request);
-        $user2 = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        if($this->getUser()->getId() == $user->getId() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            $user2 = new User();
+            $form = $this->createForm(UserType::class, $user);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            if($user2->getPassword() == $user->getPassword()){
-                $user->setName($form->get('name')->getData());
-                $user->setEmail($form->get('email')->getData());
-                dd($user);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success', 'Article Created! Knowledge is power!');
-                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+                if($user2->getPassword() == $user->getPassword()){
+                    $user->setName($form->get('name')->getData());
+                    $user->setEmail($form->get('email')->getData());
+                    dd($user);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Article Created! Knowledge is power!');
+                    return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+                }
+                else{
+                    return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+                }
             }
-            else{
-                $this->addFlash('success', 'NO');
-                return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
-            }
+
+            return $this->renderForm('user/edit.html.twig', [
+                'user' => $user,
+                'form' => $form,
+            ]);
+            
         }
 
-        return $this->renderForm('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        else{
+            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
+            return $this->redirectToRoute('article_index');
+        }
+        
+        
     }
 
     /**

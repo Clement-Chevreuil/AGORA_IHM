@@ -4,6 +4,12 @@
 
 {% block body %}
 
+   {% for msg in app.session.flashBag.get('error_bad_redirection_user') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
     <table class="table">
 
         <tbody>
