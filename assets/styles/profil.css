@@ -1,4 +1,4 @@
-
+/* @import '~@fortawesome/fontawesome-free/css/all.css'; */
 @import "~bootstrap";
 
 html, body{
@@ -8,9 +8,13 @@ html, body{
   font-size:15px;
   font-family:century gothic;
 }
+
 div, p, h1, h2, h3, h4, h5, ul, li, a, span{
   margin:0px;
   padding:0px;
+}
+a.navlink1 {
+  font-weight:200px !important;
 }
 .clear{
   clear:both;

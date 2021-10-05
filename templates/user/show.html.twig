@@ -1,22 +1,49 @@
-{% extends 'public/layout.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+       
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('profil') }}
+        {% endblock %}
 
-{% block title %}User{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('profil') }}
+        {% endblock %}
+
+    </head>
+
+{% block title %} Profil {% endblock %}
 
 {% block body %}
 
+{% block nav %}
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light p-3 mb-3">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <a class="navbar-brand" href="#">Agora</a>
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('article_index') }}">Accueil</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('article_user') }}">Voir/Ajouter un article</a>
+                            </li>
+                              <li class="nav-item">
+                                  <a class="nav-link1" href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+
+{% endblock %}
     <div id="conteneur-id">
-      <div id="conteneur-menu">
-        <div class="menu">
-          <ul>
-            <li><a href="#conteneur-home">HOME</a></li>
-            <li><a href="#conteneur-about">ABOUT</a></li>
-            <li><a href="#conteneur-skills">SKILLS</a></li>
-            <li><a href="#conteneur-qualification">Qualification</a></li>
-            <li><a href="#conteneur-portfolio">PORTFOLIO</a></li>
-            <li><a href="#conteneur-contact">CONTACT</a></li>
-          </ul>
-       </div>
-      </div>
       <div id="conteneur-home">
         <div class="home">
           <h1>Your Name</h1>
@@ -162,3 +189,5 @@
       </div>
     </div>
 {% endblock %}
+
+</html>

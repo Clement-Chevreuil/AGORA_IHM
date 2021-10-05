@@ -6,8 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
-import './styles/rotation.css';
+import './styles/profil.css';
 
 // start the Stimulus application
 import './bootstrap';
