@@ -8,10 +8,15 @@
 
         {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
         
+        {# Attention le super admin ne peut pas modifier son compte #}
+        {# Un administrateur peut il supprimer son compte #}
+        
+
         {% if is_granted('ROLE_ADMIN') %}
-            {% if 'ROLE_ADMIN' in_array(user->getRoles()) or 'ROLE_SUPER_ADMIN' in_array(user->getRoles()) %}
+            {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
                 {{ include('user/_delete_form.html.twig') }}
             {% endif %}
+
         {% endif %}
     </div>
 {% endblock %}

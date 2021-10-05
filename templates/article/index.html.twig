@@ -2,6 +2,7 @@
 
 {% block title %}Article index{% endblock %}
 
+
 {% block body %}
 
    {% for msg in app.session.flashBag.get('error_bad_redirection_user') %}
@@ -9,6 +10,12 @@
             {{ msg }}
         </div>
     {% endfor %}
+
+    {# passer des infos pour le systeme de rotation #}
+    <div class="js-user-rating" data-is-authenticated="{{ articles|length - 1}}">
+        <!-- ... -->
+    </div>
+    
 
     <table class="table">
 
@@ -59,22 +66,29 @@
                             <h1> {{ article.name }} </h1>
                             <p> {{ article.description }} </p>
                             <p> {{ article.user.name }} </p>
+
+                            {% if article.picture %}
+                                <img src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
+                            {% endif %}
                             
                             {% set user  = app.user.id %}
+ 
 
-                            {% for infos in article.getUserArticleInformations() %}
 
+                            {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
+                                {% if infos.getUser() == app.user%}
+                                    {% if infos.user.id == user and infos.liker == true %}
+                                        <button class="btn btn-secondary like-article data-article-like" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                    {% else %}
+                                        <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                    {% endif %}
+
+                                    {% if infos.user.id == user and infos.report == true %}
+                                        <button class="btn btn-secondary like-article data-article-report" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}" disabled>signaler</button>
+                                    {% else %}
+                                        <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button>
+                                    {% endif %}
                                 
-                                {% if infos.user.id == user and infos.liker == true %}
-                                    <button class="btn btn-secondary like-article data-article-like" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
-                                {% else %}
-                                    <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
-                                {% endif %}
-
-                                 {% if infos.user.id == user and infos.report == true %}
-                                    <button class="btn btn-secondary like-article data-article-report" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}" disabled>signaler</button>
-                                {% else %}
-                                    <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button>
                                 {% endif %}
 
                             {% else %}

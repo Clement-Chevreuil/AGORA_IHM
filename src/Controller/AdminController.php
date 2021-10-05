@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * @Route("/admin")
  */
@@ -34,6 +35,7 @@ class AdminController extends AbstractController
      */
     public function gestion_user_role(Request $request, User $user): Response
     {
+
         $form = $this->createForm(UserRoleAdminType::class, $user);
         $form->handleRequest($request);
 

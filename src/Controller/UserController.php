@@ -67,26 +67,22 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        if($this->getUser()->getId() == $user->getId() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
-            $user2 = new User();
+        if($this->getUser()->getId() == $user->getId()){
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-                if($user2->getPassword() == $user->getPassword()){
+                
                     $user->setName($form->get('name')->getData());
                     $user->setEmail($form->get('email')->getData());
-                    dd($user);
+
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
                     $this->addFlash('success', 'Article Created! Knowledge is power!');
                     return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
-                }
-                else{
-                    return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
-                }
+                
             }
 
             return $this->renderForm('user/edit.html.twig', [

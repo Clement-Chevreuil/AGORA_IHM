@@ -69,6 +69,23 @@ class ArticleRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+                /**
+     * @return Article[]
+     */
+    public function findAllWithActualUser(int $idUser): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Article a, App\Entity\UserArticleInformations b
+            WHERE a = b.article 
+            AND b.user = :idUser')->setParameter('idUser', $idUser);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
              /**
      * @return Article[]
      */

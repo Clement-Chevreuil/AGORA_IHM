@@ -105,6 +105,8 @@ class Article
         return $this;
     }
 
+
+
     /**
      * @return Collection|UserArticleInformations[]
      */
@@ -134,7 +136,5 @@ class Article
 
         return $this;
     }
-
-
 
 }

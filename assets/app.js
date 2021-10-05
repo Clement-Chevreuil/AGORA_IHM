@@ -22,11 +22,148 @@ import 'jquery-ui/ui/widgets/selectable';
 var $ = require('jquery');
 require('jquery-ui');
 
-var variable = 3;
+var userRating = document.querySelector('.js-user-rating');
+var isAuthenticated = userRating.dataset.isAuthenticated;
 
+
+var variable = parseInt(isAuthenticated) ;
 var variable_second_function = variable - 1;
-
 var variable_fix = variable;
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  
+  var button = document.querySelector("button.left");
+  button.addEventListener("click", function (event) {
+      variable = variable + 1;
+
+for (let i = variable_fix + 2 ; i < variable_fix + variable_fix + 2; i++) // cette boucle permet de gerer le fais d'aller à droite si on allez a gauche precedement, permet la gestion de variable à travers les deux  fonctions
+{
+
+    if(variable == i)
+    {
+      variable = i - variable_fix-1;
+    }
+  
+}
+//boucle pour aller vers la droite
+for (let i = 1 ; i < variable_fix + 2 ; i++) 
+{
+  
+  if (i == 1)
+  {
+    document.getElementById('slide'+variable).className = "left-slide";
+    variable = variable + 1;
+
+    if(variable > variable_fix+1)
+    {
+      variable = 1;
+    }
+  }
+ 
+  else if (i == 2)
+  {
+    document.getElementById('slide'+variable).className = "mid-slide";
+    variable = variable + 1;
+    if(variable > variable_fix+1)
+    {
+      variable = 1;
+    }
+  }
+  else if(i == 3)
+  {
+    document.getElementById('slide'+variable).className = "right-slide";
+    variable = variable + 1;
+    if(variable > variable_fix+1)
+    {
+      variable = 1;
+    }
+  }
+  else if(i == variable_fix +1 )
+  {
+    document.getElementById('slide'+variable).className = "vide";
+    variable = variable - 1;
+  }
+  else
+  {
+    document.getElementById('slide'+variable).className = "vide";
+    variable = variable + 1;
+    if(variable > variable_fix+1)
+    {
+      variable = 1;
+    }
+  }
+}
+  });
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+ 
+  var button = document.querySelector("button.right");
+  button.addEventListener("click", function (event) {
+    
+      variable = variable - variable_second_function;
+
+      var variable_boucle = variable_fix + 2;
+    
+      for (let i = 0 ; i > -variable_fix; i--) // cette boucle permet de gerer le fais d'aller à gauche si on allez a droite precedement permet la gestion de variable à travers les deux  fonctions
+      {     
+          variable_boucle = variable_boucle - 1;
+          if(variable == i)
+          {
+       
+            variable = variable_boucle;
+          }  
+      }
+    
+      for (let i = 1 ; i < variable_fix + 2 ; i++) 
+      {
+        if (i == variable_fix+1)
+        {
+          document.getElementById('slide'+variable).className = "left-slide";
+          variable = variable + variable_second_function;
+        }
+       
+        else if (i == variable_fix)
+        {
+          document.getElementById('slide'+variable).className = "mid-slide";
+          variable = variable - 1;
+          if(variable < 1)
+          {
+            variable = variable_second_function + 2;
+          }
+        }
+        else if(i == variable_fix - 1)
+        {
+          document.getElementById('slide'+variable).className = "right-slide";
+          variable = variable - 1 ;
+          if(variable < 1)
+          {
+            variable = variable_second_function + 2;
+          }
+        }
+        else
+        {
+          document.getElementById('slide'+variable).className = "vide";
+          variable = variable - 1 ;
+          if(variable < 1)
+          {
+            variable = variable_second_function + 2;
+          }
+        }
+      }
+  });
+});
+
+
+
+
 // const routes = require('../../public/js/fos_js_routes.json');
 // import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
@@ -103,134 +240,7 @@ function update_number_div(nb)
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    "use strict";
-   
-    var button = document.querySelector("button.left");
-    button.addEventListener("click", function (event) {
-        variable = variable + 1;
 
-  for (let i = variable_fix + 2 ; i < variable_fix + variable_fix + 2; i++) // cette boucle permet de gerer le fais d'aller à droite si on allez a gauche precedement, permet la gestion de variable à travers les deux  fonctions
-  {
-
-      if(variable == i)
-      {
-        variable = i - variable_fix-1;
-      }
-    
-  }
-  //boucle pour aller vers la droite
-  for (let i = 1 ; i < variable_fix + 2 ; i++) 
-  {
-    
-    if (i == 1)
-    {
-      document.getElementById('slide'+variable).className = "left-slide";
-      variable = variable + 1;
-
-      if(variable > variable_fix+1)
-      {
-        variable = 1;
-      }
-    }
-   
-    else if (i == 2)
-    {
-      document.getElementById('slide'+variable).className = "mid-slide";
-      variable = variable + 1;
-      if(variable > variable_fix+1)
-      {
-        variable = 1;
-      }
-    }
-    else if(i == 3)
-    {
-      document.getElementById('slide'+variable).className = "right-slide";
-      variable = variable + 1;
-      if(variable > variable_fix+1)
-      {
-        variable = 1;
-      }
-    }
-    else if(i == variable_fix +1 )
-    {
-      document.getElementById('slide'+variable).className = "vide";
-      variable = variable - 1;
-    }
-    else
-    {
-      document.getElementById('slide'+variable).className = "vide";
-      variable = variable + 1;
-      if(variable > variable_fix+1)
-      {
-        variable = 1;
-      }
-    }
-  }
-    });
-  });
-
-
-  
-
-
-  document.addEventListener("DOMContentLoaded", function () {
-    "use strict";
-   
-    var button = document.querySelector("button.right");
-    button.addEventListener("click", function (event) {
-        variable = variable - variable_second_function;
-
-        var variable_boucle = variable_fix + 2;
-      
-        for (let i = 0 ; i > -variable_fix; i--) // cette boucle permet de gerer le fais d'aller à gauche si on allez a droite precedement permet la gestion de variable à travers les deux  fonctions
-        {     
-            variable_boucle = variable_boucle - 1;
-            if(variable == i)
-            {
-         
-              variable = variable_boucle;
-            }  
-        }
-      
-        for (let i = 1 ; i < variable_fix + 2 ; i++) 
-        {
-          if (i == variable_fix+1)
-          {
-            document.getElementById('slide'+variable).className = "left-slide";
-            variable = variable + variable_second_function;
-          }
-         
-          else if (i == variable_fix)
-          {
-            document.getElementById('slide'+variable).className = "mid-slide";
-            variable = variable - 1;
-            if(variable < 1)
-            {
-              variable = variable_second_function + 2;
-            }
-          }
-          else if(i == variable_fix - 1)
-          {
-            document.getElementById('slide'+variable).className = "right-slide";
-            variable = variable - 1 ;
-            if(variable < 1)
-            {
-              variable = variable_second_function + 2;
-            }
-          }
-          else
-          {
-            document.getElementById('slide'+variable).className = "vide";
-            variable = variable - 1 ;
-            if(variable < 1)
-            {
-              variable = variable_second_function + 2;
-            }
-          }
-        }
-    });
-  });
 
   
 
