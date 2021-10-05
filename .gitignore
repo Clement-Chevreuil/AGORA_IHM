@@ -27,5 +27,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 .env
 ### rajout manuel
-.composer.lock
-.composer.json
+composer.lock
