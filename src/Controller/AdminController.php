@@ -46,6 +46,7 @@ class AdminController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Vos modifications ont bien été pris en compte');
             return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
         }
 

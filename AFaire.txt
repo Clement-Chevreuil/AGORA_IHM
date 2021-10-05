@@ -14,10 +14,15 @@ attention de ne pas tout le temps mettre les meme fichier
 - article prive
 - top article (ensuite en fonction de la date nombre enregistrement etude pour les admin eviter user pour le systeme de nombre)
 - Ajouter date d'ajout et update pour chaque table
-
+- Archive
 
 Page securise : 
 
 
 
+Option : Ne m'interesse pas 
+agrandissement article avec croix de retour a la navigation
+
+bouton picture a revoir
+suprresion multiple ...
 Idee : theme du site la Fac

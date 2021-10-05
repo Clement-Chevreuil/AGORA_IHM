@@ -16,7 +16,6 @@
             {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
                 {{ include('user/_delete_form.html.twig') }}
             {% endif %}
-
         {% endif %}
     </div>
 {% endblock %}

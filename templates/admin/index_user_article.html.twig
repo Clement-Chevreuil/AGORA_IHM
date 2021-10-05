@@ -4,6 +4,11 @@
 
 {% block body %}
 
+{% for msg in app.session.flashBag.get('success') %}
+    <div class="alert alert-success">
+        {{ msg }}
+    </div>
+{% endfor %}
 
 
 <div class="container position-absolute top-50 start-50 translate-middle">
@@ -26,7 +31,10 @@
                     <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                     <td>
                         <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                        <a href="{{ path('user_role', {'id': user.id}) }}">edit</a>
+                        {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
+                            <a href="{{ path('user_role', {'id': user.id}) }}">edit</a>
+                        {% endif %}
+
                     </td>
                 </tr>
             {% else %}

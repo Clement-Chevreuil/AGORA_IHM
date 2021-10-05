@@ -11,6 +11,12 @@
         </div>
     {% endfor %}
 
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
     {# passer des infos pour le systeme de rotation #}
     <div class="js-user-rating" data-is-authenticated="{{ articles|length - 1}}">
         <!-- ... -->

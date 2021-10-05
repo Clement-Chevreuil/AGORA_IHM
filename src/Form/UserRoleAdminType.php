@@ -19,15 +19,19 @@ class UserRoleAdminType extends AbstractType
     {
         $user  = $this->token->getToken()->getUser();
 
-        $builder->add('roles', ChoiceType::class, [
-            'choices'  => [
-                // 'ROLE_USER' => 'ROLE_USER',
-                'ROLE_ADMIN' => 'ROLE_ADMIN',
-            ],
-            'expanded' => true,
-            'multiple' => true
-        ]);
+        if((in_array("ROLE_ADMIN", $user->getRoles()) && !in_array("ROLE_ADMIN", $options['data']->getRoles())) || (in_array("ROLE_SUPER_ADMIN", $user->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$options['data']->getRoles())) )
+        {
+            $builder->add('roles', ChoiceType::class, [
+                'choices'  => [
+                    // 'ROLE_USER' => 'ROLE_USER',
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                ],
+                'expanded' => true,
+                'multiple' => true
+            ]);
+        }
  
+
         if((in_array("ROLE_ADMIN", $user->getRoles()) && !in_array("ROLE_ADMIN", $options['data']->getRoles())) || (in_array("ROLE_SUPER_ADMIN", $user->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$options['data']->getRoles())) )
         {
              $builder->add('blocked', CheckboxType::class, [

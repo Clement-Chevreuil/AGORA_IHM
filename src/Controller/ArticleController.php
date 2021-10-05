@@ -80,6 +80,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre article a bien été créé');
             return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -112,9 +113,11 @@ class ArticleController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
 
+                $this->addFlash('success', 'Votre article a bien été édité');
                 return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
             }
 
+            //pas besoin de message 
             return $this->renderForm('article/edit.html.twig', [
                 'article' => $article,
                 'form' => $form,
@@ -137,6 +140,7 @@ class ArticleController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', 'Votre article a bien été supprimé');
         return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
     }
 }
