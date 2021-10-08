@@ -1,11 +1,22 @@
 {% extends 'public/layout.html.twig' %}
 
 {% block title %}User index{% endblock %}
+{% block javascripts %} 
+    {{ encore_entry_script_tags('admin_control') }} 
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock %}
 
 {% block body %}
 
 {% for msg in app.session.flashBag.get('success') %}
     <div class="alert alert-success">
+        {{ msg }}
+    </div>
+{% endfor %}
+
+{% for msg in app.session.flashBag.get('error') %}
+    <div class="alert alert-error">
         {{ msg }}
     </div>
 {% endfor %}
@@ -19,8 +30,10 @@
                 <tr>
                     <th>Id</th>
                     <th>Email</th>
-                    <th>Roles</th>
-                    <th>actions</th>
+                    <th>Roles Admin</th>
+                    <th>Blocked</th>
+                    <th>Supprimer</th>
+                    {# <th>actions</th> #}
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +41,42 @@
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                     <td>
-                        <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                        {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
-                            <a href="{{ path('user_role', {'id': user.id}) }}">edit</a>
+                        {# <a href="{{ path('user_show', {'id': user.id}) }}">show</a> #}
+
+                        {% if 'ROLE_ADMIN' in user.getRoles() %}
+                            {% set admin = "checked" %}
+                        {% else %}
+                            {% set admin = "" %}
                         {% endif %}
 
+                        {% if user.getBlocked == true %}
+                            {% set blocked = "checked" %}
+                        {% else %}
+                            {% set blocked = "" %}
+                        {% endif %}
+
+                        {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
+                            <input class="form-check-input set_admin" id="{{user.id}}" type="checkbox" value="" id="flexCheckDefault" {{admin}}>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" {{admin}} disabled>
+                        {% endif %}
                     </td>
+                
+                    <td>
+                        {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
+                            <input class="form-check-input set_blocked" id="{{user.id}}" type="checkbox" value="" id="flexCheckDefault" {{blocked}}>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" {{blocked}} disabled>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if ('ROLE_SUPER_ADMIN' in app.user.getRoles() and 'ROLE_SUPER_ADMIN' not in user.getRoles()) or ('ROLE_ADMIN' in app.user.getRoles() and 'ROLE_ADMIN' not in user.getRoles and 'ROLE_SUPER_ADMIN' not in user.getRoles()) %}
+                            {{ include('admin/_delete_form_user.html.twig') }}
+                        {% endif %}
+                    </td>
+
                 </tr>
             {% else %}
                 <tr>
@@ -53,7 +94,8 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Signalement</th>
-                    <th>actions</th>
+                    <th>Articles</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +105,10 @@
                     <td>{{ article[0].description }}</td> 
                     <td>{{ article[1] }} </td>
                     <td>
-                        <a href="{{ path('article_show', {'id': article[0].id}) }}">Verifier article en details</a>
+                        <a href="{{ path('article_show', {'id': article[0].id}) }}">Article</a>
+                    </td>
+                    <td>
+                        {{ include('admin/_delete_form_article.html.twig') }}
                     </td>
                 </tr>
             {% else %}

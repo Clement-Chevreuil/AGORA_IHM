@@ -2,6 +2,14 @@
 
 {% block title %}Article index{% endblock %}
 
+{% block stylesheets %} 
+    {{ encore_entry_link_tags('rotation') }}
+{% endblock %}
+
+{% block javascripts %} 
+    {{ encore_entry_script_tags('rotation') }}
+{% endblock %}
+
 
 {% block body %}
 
@@ -18,27 +26,25 @@
     {% endfor %}
 
     {# passer des infos pour le systeme de rotation #}
+
     <div class="js-user-rating" data-is-authenticated="{{ articles|length - 1}}">
         <!-- ... -->
     </div>
     
 
-    <table class="table">
 
         <tbody>
-
-            <div style="box-sizing: border-box; display:block; position: relative; transform: translateY(35%);">
+            <div class="d-flex justify-content-center">
 
                 {% if articles|length > 3 %}
                     <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
                     <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
                 {% endif %}
 
-                <div class="tourniquer">
+                <div class="tourniquer position-fixed">
 
                 {% for article in articles %}
                     {% if articles|length == 1 %}
-
                         {% if loop.first %}
                             {% set slideclass = "mid-slide" %}
                         {% else %}
@@ -67,8 +73,8 @@
                     {% endif %}
 
                     
-                    <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }}">
-                        <div class="div_post div_post_mini" >
+                    <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }} container-sm container-md container-lg container-xl container-xxl">
+                        <div class="div_post container-sm container-md container-lg container-xl container-xxl" >
                             <h1> {{ article.name }} </h1>
                             <p> {{ article.description }} </p>
                             <p> {{ article.user.name }} </p>
@@ -113,7 +119,7 @@
                 </div>
             </div>
         </tbody>
-    </table>
+    
 
     {# <br>
     <br>

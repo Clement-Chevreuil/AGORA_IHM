@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route("/user")
@@ -42,15 +43,39 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils ): Response
     {
         if($this->getUser()->getId() == $user->getId()){
+
+
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
+            
             if ($form->isSubmitted() && $form->isValid()) {
 
+                $pass = $form->get('plainPassword')->getData();
+
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity); //get encoder for hashing pwd later
+                $tempPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt()); 
                 
+                $hashedPassword = $pass->hashPassword($user, $pass);
+
+                dump($hashedPassword);
+                dd($request);
+
+                    dump($this->getUser()->getPassword());
+                    dump($request);
+
+                    $encodedPassword = $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    );
+
+                    
+                    dd($encodedPassword); 
+
+
                     $user->setName($form->get('name')->getData());
                     $user->setEmail($form->get('email')->getData());
 
@@ -89,6 +114,7 @@ class UserController extends AbstractController
         }
 
         $this->addFlash('success', 'Utilisateur supprimé');
-        return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
     }
+   
 }

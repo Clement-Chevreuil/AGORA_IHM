@@ -31,29 +31,128 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/user/role", name="user_role", methods={"GET","POST"})
+     * @Route("/{idUser}/change/role", name="user_change_role", options={"expose"=true}, methods={"GET","POST"})
      */
-    public function gestion_user_role(Request $request, User $user): Response
+    public function changeAdmin(UserRepository $userRepository, $idUser): Response
     {
-
-        $form = $this->createForm(UserRoleAdminType::class, $user);
-        $form->handleRequest($request);
-
+        $user = new User();
+        $user = $userRepository->find($idUser);
+        //ajouter verification admin stp
+        if((in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !in_array("ROLE_ADMIN", $user->getRoles())) || (in_array("ROLE_SUPER_ADMIN",  $this->getUser()->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$user->getRoles())) )
+        {
+            
         
-        if ($form->isSubmitted() && $form->isValid()) {
+            if(in_array('ROLE_ADMIN', $user->getRoles())){
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+                
+                $tab = $user->getRoles();
+                if (($key = array_search('ROLE_ADMIN',  $user->getRoles())) !== false) {unset($tab[$key]);}
+                $user->setRoles(array_values($tab));
 
-            $this->addFlash('success', 'Vos modifications ont bien été pris en compte');
-            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return new Response("success_uncheck");
+            }
+            else{
+
+                $tab = $user->getRoles();
+                array_push($tab, "ROLE_ADMIN");
+                $user->setRoles(array_values($tab));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return new Response("success_check");
+            }
         }
 
-        return $this->renderForm('admin/role_user.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        else
+        {
+            return new Response("action_interdite");
+        }
+    }
+
+    /**
+     * @Route("/{idUser}/change/blocked", name="user_change_blocked", options={"expose"=true}, methods={"GET","POST"})
+     */
+    public function changeBlocked(UserRepository $userRepository, $idUser): Response
+    {
+        
+
+        $user = new User();
+        $user = $userRepository->find($idUser);
+        if((in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !in_array("ROLE_ADMIN", $user->getRoles())) || (in_array("ROLE_SUPER_ADMIN",  $this->getUser()->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$user->getRoles())) )
+        {
+            if($user->getBlocked() == false){
+
+                $user->setBlocked(true);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                //dd($user);
+                return new Response("success_blocked");
+
+            }
+            else{
+
+                $user->setBlocked(false);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                //dd($user);
+                return new Response("success_unblocked");
+            }
+        }
+        else
+        {
+            return new Response("action_interdite");
+        }
+    }
+
+    /**
+     * @Route("/{id}/delete/user", name="user_delete_admin", methods={"POST"})
+     */
+    public function deleteUser(Request $request, User $user): Response
+    {
+        if((in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !in_array("ROLE_ADMIN", $user->getRoles())) || (in_array("ROLE_SUPER_ADMIN",  $this->getUser()->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$user->getRoles())) )
+        {
+            if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($user);
+                $entityManager->flush();
+            }
+
+            $this->addFlash('success', 'Utilisateur supprimé');
+            return $this->redirectToRoute('admin_gestion_user_article', [], Response::HTTP_SEE_OTHER);
+        }
+        else{
+            $this->addFlash('error', 'Action interdite');
+            return $this->redirectToRoute('admin_gestion_user_article', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+
+       /**
+     * @Route("/{id}/delete/article", name="article_delete_admin", methods={"POST"})
+     */
+    public function deleteArticle(Request $request, Article $article): Response
+    {
+        if((in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !in_array("ROLE_ADMIN", $user->getRoles())) || (in_array("ROLE_SUPER_ADMIN",  $this->getUser()->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$user->getRoles())) )
+        {
+            if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($article);
+                $entityManager->flush();
+            }
+
+            $this->addFlash('success', 'Votre article a bien été supprimé');
+            return $this->redirectToRoute('admin_gestion_user_article', [], Response::HTTP_SEE_OTHER);
+        }
+        else{
+            
+            $this->addFlash('error', 'Action interdite');
+            return $this->redirectToRoute('admin_gestion_user_article', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
 }

@@ -134,13 +134,21 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($article);
-            $entityManager->flush();
-        }
+        if($this->getUser() == $article->getUser())
+        {
+            if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($article);
+                $entityManager->flush();
+            }
 
-        $this->addFlash('success', 'Votre article a bien été supprimé');
-        return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Votre article a bien été supprimé');
+            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+        }
+        else{
+            $this->addFlash('error', 'Vous ne pouvez supprimer que vos articles');
+            return $this->redirectToRoute('article_user', [], Response::HTTP_SEE_OTHER);
+        }
+        
     }
 }

@@ -4,6 +4,11 @@
 
 {% block body %}
 
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
     
     <div class="p-2">
         <h1> Article Liker : </h1>
@@ -15,18 +20,22 @@
             <tr>
                 <th>Nom</th>
                 <th>Description</th>
-                <th>Actions</th>
+                <th>Article</th>
+                <th>Enlever</th>
             </tr>
         </thead>
         <tbody>
 
-        {% for signet in user.userArticleInformations %}
+        {% for signet in user.userArticleInformations|filter(signet => signet.liker == true) %}
             
             <tr>
                 <td>{{ signet.article.name }}</td>
                 <td>{{ signet.article.description }}</td>
                 <td>
                     <a href="{{ path('article_show', {'id': signet.article.id}) }}">show</a>
+                </td>
+                <td>
+                    {{ include('user/_delete_form_like.html.twig') }} 
                 </td>
             </tr>
              

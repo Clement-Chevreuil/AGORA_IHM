@@ -69,6 +69,41 @@ class UserArticleInformationsController extends AbstractController
     }
 
     /**
+     * @Route("/user/article/{idArticle}/lost/like", name="lost_like", methods={"POST"})
+     */
+    public function remove_liker(UserArticleInformationsRepository $informationsRep, ArticleRepository $articleRepository, $idArticle): Response
+    {
+
+        $article = new Article();
+        $article = $articleRepository->find($idArticle);
+
+        dump($article);
+
+        $infos = $informationsRep->findUserArticleInformations($this->getUser()->getId(), $article->getId());
+        dump($infos);
+
+        if($infos[0]->getReport() == false){
+            // dd("hey");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($infos[0]);
+            $entityManager->flush();
+            
+        }
+        else{
+            dump("hey1");
+            $infos[0]->setLiker(false); 
+            // dd($infos[0]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($infos[0]);
+            $entityManager->flush();    
+        }       
+
+        $this->addFlash('success', 'Article enlever de vos favoris');
+        return $this->render('user/show.html.twig', ['user' => $this->getUser(),]);
+        
+    }
+
+    /**
      * @Route("/user/article/informations/{idArticle}/report",options={"expose"=true}, name="create_report")
      */
     public function report(UserArticleInformationsRepository $informationsRep, ArticleRepository $articleRepository, $idArticle): Response
