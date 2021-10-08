@@ -56,12 +56,10 @@ class UserController extends AbstractController
 
                 $pass = $form->get('plainPassword')->getData();
 
-                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity); //get encoder for hashing pwd later
-                $tempPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt()); 
-                
-                $hashedPassword = $pass->hashPassword($user, $pass);
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user); //get encoder for hashing pwd later
+                $tempPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt()); 
 
-                dump($hashedPassword);
+                dump($encoder);
                 dd($request);
 
                     dump($this->getUser()->getPassword());
