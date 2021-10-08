@@ -27,7 +27,7 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        //hey
+        //hey2
         if($this->getUser()->getId() == $user->getId() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
             return $this->render('user/show.html.twig', ['user' => $user,]);
             
