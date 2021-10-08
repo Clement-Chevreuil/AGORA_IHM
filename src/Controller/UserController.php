@@ -46,7 +46,7 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils ): Response
     {
         if($this->getUser()->getId() == $user->getId()){
-
+            //hello
 
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
