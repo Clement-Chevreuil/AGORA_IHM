@@ -34,12 +34,19 @@
 
 
         <tbody>
-            <div class="d-flex justify-content-center">
+
+            
+
+
+            <div class="d-flex justify-content-center mt-5">
 
                 {% if articles|length > 3 %}
-                    <button class="btn btn-primary left arrow arrow-left" id="left" >Left</button>
-                    <button class="btn btn-primary right arrow arrow-right" id="right">Right</button>
+                    <button class="btn btn-primary left-fast arrow-left-fast" id="left" ><i class="fas fa-fast-backward fa-2x"></i></button>
+                    <button class="btn btn-primary left arrow-left" id="left" ><i class="fas fa-step-backward fa-2x"></i></button>
+                    <button class="btn btn-primary right arrow-right" id="right"><i class="fas fa-step-forward fa-2x"></i></button>
+                    <button class="btn btn-primary right-fast arrow-right-fast" id="right"><i class="fas fa-fast-forward fa-2x"></i></button>
                 {% endif %}
+
 
                 <div class="tourniquer position-fixed">
 
@@ -104,8 +111,8 @@
                                 {% endif %}
 
                             {% else %}
-                                <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
-                                <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button>
+                            <center>  <button class="btn btn-secondary like-article data-article-like" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">enregistrer</button>
+                                <button class="btn btn-secondary like-article data-article-report" style="background-color: #8e8e8e" id="{{article.id}}" data-articleid="{{article.id}}">signaler</button> </center>
                             {% endfor %}
 
 

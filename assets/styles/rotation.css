@@ -1,6 +1,8 @@
 @import "~bootstrap";
 
-
+.agora-nav{
+    font-size: 30px;
+}
 
 
 .div_post {
@@ -54,18 +56,55 @@
 }
 
 
+
 .ensembleTourniquer
 {
     box-sizing: border-box;
 }
 
+.arrow-system
+{
+    /* system sur le cote
+    margin-top: 240px; */
+}
+
+.arrow-right
+{
+    width: 100px;
+    height: 50px;
+
+
+}
+.arrow-right-fast
+{
+    width: 100px;
+    height: 50px;
+
+
+}
+
+.arrow-left
+{
+    width: 100px;
+    height: 50px;
+
+   
+
+}
+
+.arrow-left-fast
+{
+    width: 100px;
+    height: 50px;
+
+}
+
+
 .tourniquer
 {
-    margin-top: 500px;
+    margin-top: 340px;
     height: auto;
     width: auto;
-    margin-right: 140px;
-    margin-left: 20px;
 }
 
 .left-slide
@@ -153,47 +192,6 @@
     opacity: 0;
 }
 
-/* .arrow
-{
-    transform: scale(0.1);
-    display: block;
-    transition: 0.2s;
-} */
-
-.arrow-left
-{
-    position: absolute; left: 2em;
-}
-
-/* .arrow-left:hover
-{
-    transform: scale(0.12) translateX(-100px);
-}
-
-.arrow-left:active
-{
-    transform: scale(0.15) translateX(-150px);
-} */
-
-.arrow-right
-{
-    position: absolute; right: 2em;
-}
-
-/* .arrow-right:hover
-{
-    transform: scale(0.12) translateX(100px);
-}
-
-.arrow-right:active
-{
-    transform: scale(0.15) translateX(150px);
-} */
-
-
-
-
-
 
 textarea {
     resize: none;
@@ -205,5 +203,3 @@ textarea {
     background-color: #3f3f3f;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
-/* @import '~@fortawesome/fontawesome-free/css/all.css'; */

@@ -1,5 +1,8 @@
 @import "~bootstrap";
 
+.agora-nav{
+  font-size: 30px;
+}
 
 .div_post {
     color: white;

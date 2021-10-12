@@ -26,80 +26,118 @@ var variable_fix = variable;
 
 
 var winSize = '';
+
+//test pour les changements de taille ecran
 $(window).resize(function() {
   
   if ($(this).width() >= 1200) {
     $(".div_post").css('width', '700px');
+    $(".tourniquer").css('margin-right', '90px');
+    $(".arrow-right").css('display', 'block');
+    $(".arrow-right-fast").css('display', 'block');
+    $(".arrow-left").css('display', 'block');
+    $(".arrow-left-fast").css('display', 'block');
   } 
   else if ($(this).width() >= 992) {
-    $(".div_post").css('width', '600px');
+    $(".div_post").css('width', '500px');
+    $(".tourniquer").css('margin-right', '130px');
+    $(".arrow-right").css('display', 'block');
+    $(".arrow-right-fast").css('display', 'block');
+    $(".arrow-left").css('display', 'block');
+    $(".arrow-left-fast").css('display', 'block');
+  
   } 
   else if ($(this).width() >= 768) {
-    $(".div_post").css('width', '500px');
+    $(".div_post").css('width', '400px');
+    $(".tourniquer").css('margin-right', '180px');
+
+    $(".arrow-right").css('display', 'none');
+    $(".arrow-right-fast").css('display', 'none');
+    $(".arrow-left").css('display', 'none');
+    $(".arrow-left-fast").css('display', 'none');
   }
   else if($(this).width() >= 576){
-    $(".div_post").css('width', '400px');
+    $(".div_post").css('width', '300px');
+    $(".tourniquer").css('margin-right', '300px');
+    $(".arrow-right").css('display', 'none');
+    $(".arrow-right-fast").css('display', 'none');
+    $(".arrow-left").css('display', 'none');
+    $(".arrow-left-fast").css('display', 'none');
   }
 });
 
-// $( ".div_post" ).hover(function() {
-//   if($(this).parent().hasClass( "left-slide" ))
-//   {
-//     left().delay(3000);
-//   }
-//   if($(this).parent().hasClass( "right-slide" ))
-//   {
-//     right();
-//   }
-//   else{
-//     console.log("erreur");
-//   }
+//click sur les post left et right
+$( ".div_post" ).on("click", function() {
 
-//   // left();
-//   }
-// );
-
-
-
-
-// let interval;
-// $( ".div_post" )
-//   .mouseenter(function() {
-//     if($(".div_post").parent().hasClass( "left-slide" ))
-//     {
-//           left();
-//           console.log(this);
-//     }
-//   })
-//   .mouseleave(function() {
-//     clearInterval(interval);
-//     interval = null; 
-//   });
+  if($(this).parent().hasClass( "left-slide" ))
+      {
+        left();
+      }
+      if($(this).parent().hasClass( "right-slide" ))
+      {
+        right();
+      }
+      else{
+        console.log("erreur");
+      }
+});
 
 
 
 
 
 
+var interval;
+//gestion des fleches gauche - droite ... 
 document.addEventListener("DOMContentLoaded", function () {
   "use strict";
   
   var button = document.querySelector("button.left");
-  button.addEventListener("click", function (event) {
+  button.addEventListener("mouseenter", function (event) {
     left();
+    interval = setInterval(function() {left();}, 1000);
+  });
+  button.addEventListener("mouseleave", function (event) {
+    clearInterval(interval);
   });
 });
 
-
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var button = document.querySelector("button.left-fast");  
+  button.addEventListener("mouseenter", function (event) {
+    left();
+    interval = setInterval(function() {left();}, 500);
+  });
+  button.addEventListener("mouseleave", function (event) {
+    clearInterval(interval);
+  });
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
   "use strict";
  
   var button = document.querySelector("button.right");
-  button.addEventListener("click", function (event) {
+  button.addEventListener("mouseenter", function (event) {
     right();
-      
+    interval = setInterval(function() {right();}, 1000);
+  });
+  button.addEventListener("mouseleave", function (event) {
+    clearInterval(interval);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+ 
+  var button = document.querySelector("button.right-fast");
+  button.addEventListener("mouseenter", function (event) {
+    right();
+    interval = setInterval(function() {right();}, 500);
+  });
+  button.addEventListener("mouseleave", function (event) {
+    clearInterval(interval);
   });
 });
 
@@ -121,21 +159,12 @@ $( ".data-article-like" ).on("click", function() {
           $(bouton).css(' transition-delay', '2s');
           $(bouton).css('transition-duration', '4s');
           $(bouton).css('backgroundColor', '#383838');
-          // $(bouton).animate({
-          //   color: "#000",
-          //   width: 500
-          // }, 1000 );
         }
         if(output == "success_delete"){
           alert("Vous avez supprimer votre like de cette article");
           $(bouton).css(' transition-delay', '2s');
           $(bouton).css('transition-duration', '4s');
           $(bouton).css('backgroundColor', '#8e8e8e');
-          // $(bouton).animate({
-          //   backgroundColor:  '#000',
-          //   color: "#000",
-          //   width: 500
-          // }, 1000 );
         }
         if(output == "error_ego"){
           alert("Tu ne peux pas liker un article que tu as créé");
