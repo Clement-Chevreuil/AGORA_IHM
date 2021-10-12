@@ -38,15 +38,36 @@
             
 
 
-            <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex justify-content-center">
 
                 {% if articles|length > 3 %}
-                    <button class="btn btn-primary left-fast arrow-left-fast" id="left" ><i class="fas fa-fast-backward fa-2x"></i></button>
-                    <button class="btn btn-primary left arrow-left" id="left" ><i class="fas fa-step-backward fa-2x"></i></button>
-                    <button class="btn btn-primary right arrow-right" id="right"><i class="fas fa-step-forward fa-2x"></i></button>
-                    <button class="btn btn-primary right-fast arrow-right-fast" id="right"><i class="fas fa-fast-forward fa-2x"></i></button>
+                    {# <button class="btn btn-secondary left-fast arrow-left-fast" id="left" ><i class="fas fa-fast-backward fa-2x"></i></button>
+                    <button class="btn btn-secondary left arrow-left" id="left" ><i class="fas fa-step-backward fa-2x"></i></button>
+                    <button class="btn btn-secondary right arrow-right" id="right"><i class="fas fa-step-forward fa-2x"></i></button>
+                    <button class="btn btn-secondary right-fast arrow-right-fast" id="right"><i class="fas fa-fast-forward fa-2x"></i></button> #}
+
+                    <div style="background-color: #8b8b8b94; height:800px; width: 300px; z-index: 2; ">
+                        <p>extreme gauche</p>
+                     </div>
+
+                    <div style="background-color: #3c3c3cb3; height:800px; width: 300px; z-index: 2; ">
+                        <p>gauche</p>
+                     </div>
+
+                     <div style="background-color: #8b8b8b94; height:800px; width: 300px; z-index: 2; ">
+                        <p>center</p>
+                     </div>
+
+                     <div style="background-color: #3c3c3cb3; height:800px; width: 300px; z-index: 2; ">
+                        <p>droite</p>
+                     </div>
+                     <div style="background-color: #8b8b8b94; height:800px; width: 300px; z-index: 2; ">
+                        <p>extreme droite</p>
+                     </div>
                 {% endif %}
 
+
+               
 
                 <div class="tourniquer position-fixed">
 
