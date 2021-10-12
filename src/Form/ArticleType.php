@@ -7,8 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
 {
@@ -16,7 +19,24 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
+            ->add('description', TextareaType::class,[
+                'row_attr' => [
+                    'class' => 'mt-3 mb-3',
+                    'row' =>'5',
+                    // 'style' => 'height: 200px;',
+                ],
+                
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a description',
+                    ]),
+                    new Length([
+                        'min' => 100,
+                        'minMessage' => 'Your description should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                    ]),
+                ],
+            ])
             ->add('picture', FileType::class, [
                 'label' => 'Picture',
 

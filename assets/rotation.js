@@ -83,65 +83,70 @@ $( ".div_post" ).on("click", function() {
 });
 
 
+$( ".rotation_center" ).on("click", function() {
+  var wa = $(".mid-slide").children()[0];
+  $(wa).css(' transition-delay', '1s');
+  $(wa).css('transition-duration', '2s');
+  $(wa).css("width", $(window).width() + "px");
+  $(".rotation_center").css('display', 'none');
+  $(".rotation_right").css('display', 'none');
+  $(".rotation_left").css('display', 'none');
+  $(".rotation_right_fast").css('display', 'none');
+  $(".rotation_left_fast").css('display', 'none');
+  $(".btn_close").css('display', 'block');
+});
 
 
+$( ".btn_close" ).on("click", function() {
+  var wa = $(".mid-slide").children()[0];
+  $(wa).css(' transition-delay', '1s');
+  $(wa).css('transition-duration', '2s');
+  $(wa).css("width", "900px");
+  $(".rotation_center").css('display', 'block');
+  $(".rotation_right").css('display', 'block');
+  $(".rotation_left").css('display', 'block');
+  $(".rotation_right_fast").css('display', 'block');
+  $(".rotation_left_fast").css('display', 'block');
+  $(".btn_close").css('display', 'none');
+});
 
 
 var interval;
-//gestion des fleches gauche - droite ... 
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
-  
-  var button = document.querySelector("button.left");
-  button.addEventListener("mouseenter", function (event) {
+$( ".rotation_left_fast" ).on("mouseenter", function() {
     left();
-    interval = setInterval(function() {left();}, 1000);
-  });
-  button.addEventListener("mouseleave", function (event) {
-    clearInterval(interval);
-  });
+    interval = setInterval(function() {left();}, 800);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
-  var button = document.querySelector("button.left-fast");  
-  button.addEventListener("mouseenter", function (event) {
-    left();
-    interval = setInterval(function() {left();}, 500);
-  });
-  button.addEventListener("mouseleave", function (event) {
-    clearInterval(interval);
-  });
+$( ".rotation_left_fast" ).on("mouseleave", function() {
+  clearInterval(interval);
 });
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
- 
-  var button = document.querySelector("button.right");
-  button.addEventListener("mouseenter", function (event) {
-    right();
-    interval = setInterval(function() {right();}, 1000);
-  });
-  button.addEventListener("mouseleave", function (event) {
-    clearInterval(interval);
-  });
+$( ".rotation_left" ).on("mouseenter", function() {
+  left();
+  interval = setInterval(function() {left();}, 1000);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
- 
-  var button = document.querySelector("button.right-fast");
-  button.addEventListener("mouseenter", function (event) {
-    right();
-    interval = setInterval(function() {right();}, 500);
-  });
-  button.addEventListener("mouseleave", function (event) {
-    clearInterval(interval);
-  });
+$( ".rotation_left" ).on("mouseleave", function() {
+clearInterval(interval);
 });
 
+$( ".rotation_right_fast" ).on("mouseenter", function() {
+  right();
+  interval = setInterval(function() {right();}, 800);
+});
 
+$( ".rotation_right_fast" ).on("mouseleave", function() {
+clearInterval(interval);
+});
+
+$( ".rotation_right" ).on("mouseenter", function() {
+  right();
+  interval = setInterval(function() {right();}, 1000);
+});
+
+$( ".rotation_right" ).on("mouseleave", function() {
+clearInterval(interval);
+});
 
 
 

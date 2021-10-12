@@ -4,6 +4,11 @@
     font-size: 30px;
 }
 
+.btn_close{
+    margin-top: 5px;
+    margin-right: 5px;
+    display: none;
+}
 
 .div_post {
     color: white;
@@ -15,7 +20,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-75%, -50%);
+    transform: translate(-50%, -50%);
+    border: 2px solid black;;
 }
 
 
@@ -68,41 +74,12 @@
     margin-top: 240px; */
 }
 
-.arrow-right
-{
-    width: 100px;
-    height: 50px;
-
-
-}
-.arrow-right-fast
-{
-    width: 100px;
-    height: 50px;
-
-
-}
-
-.arrow-left
-{
-    width: 100px;
-    height: 50px;   
-}
-
-.arrow-left-fast
-{
-    width: 100px;
-    height: 50px;
-
-}
-
 
 .tourniquer
 {
     margin-top: 340px;
     height: auto;
     width: auto;
-    margin-left: 55px;
 }
 
 .left-slide
@@ -112,7 +89,7 @@
     height: auto;
     position: absolute;
     top: 0;
-    left: 185px;
+   
     transition: all 0.3s;
     transform: translate3d(-237px, 0, 0) scale(0.87);
     opacity: 1;
@@ -134,7 +111,7 @@
     height: auto;
     position: absolute;
     top: 0;
-    left: 185px;
+    
     transition: all 0.3s;
     transform: translate3d(237px, 0, 0) scale(0.87);
     opacity: 1;
@@ -154,7 +131,7 @@
     opacity: 1;
     position: absolute;
     top: 0;
-    left: 185px;
+    
     transition: all 0.3s;
     transform: translate3d(0, 0, 0) scale(1);
     z-index: 2;
@@ -172,7 +149,7 @@
     height: auto;
     position: absolute;
     top: 0;
-    left: 185px;
+    
     transition: all 0.3s;
     transform: translate3d(-237px, 0, 0) scale(0.87);
     opacity: 0;
@@ -188,6 +165,51 @@
 .slide-vide
 {
     opacity: 0;
+}
+
+
+.rotation_left_fast{
+    margin-top: 70px; 
+    /* background-color: #04040433;  */
+    height:520px; 
+    width: 278px; 
+    z-index: 2;
+    cursor: url("../../assets/image/fast-backward-solid.png"), auto;
+
+    
+}
+.rotation_left{
+    margin-top: 70px; 
+    /* background-color: #3c3c3c2e;  */
+    height:520px; 
+    width: 250px; 
+    z-index: 2;
+    cursor: url("../../assets/image/step-backward-solid.png"), auto;
+}
+.rotation_center{
+    margin-top: 70px; 
+    /* background-color: #04040433;  */
+    height:520px; 
+    width: 400px; 
+    z-index: 2;
+    cursor: pointer;
+}
+
+.rotation_right{
+    margin-top: 70px; 
+    /* background-color: #3c3c3c2e;  */
+    height:520px; 
+    width: 250px; 
+    z-index: 2;
+    cursor: url("../../assets/image/step-forward-solid.png"), auto;
+}
+.rotation_right_fast{
+    margin-top: 70px; 
+    /* background-color: #04040433;  */
+    height:520px; 
+    width: 278px; 
+    z-index: 2;
+    cursor: url("../../assets/image/fast-forward-solid.png"), auto;
 }
 
 
