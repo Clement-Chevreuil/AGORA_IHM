@@ -77,10 +77,8 @@ class UserArticleInformationsController extends AbstractController
         $article = new Article();
         $article = $articleRepository->find($idArticle);
 
-        dump($article);
 
         $infos = $informationsRep->findUserArticleInformations($this->getUser()->getId(), $article->getId());
-        dump($infos);
 
         if($infos[0]->getReport() == false){
             // dd("hey");
@@ -90,7 +88,6 @@ class UserArticleInformationsController extends AbstractController
             
         }
         else{
-            dump("hey1");
             $infos[0]->setLiker(false); 
             // dd($infos[0]);
             $entityManager = $this->getDoctrine()->getManager();
@@ -99,7 +96,7 @@ class UserArticleInformationsController extends AbstractController
         }       
 
         $this->addFlash('success', 'Article enlever de vos favoris');
-        return $this->render('user/show.html.twig', ['user' => $this->getUser(),]);
+        return $this->render('user/signet.html.twig', ['user' => $this->getUser(),]);
         
     }
 

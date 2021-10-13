@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Monolog\DateTimeImmutable;
 
 
 //return new JsonRezsponse(["sucess" => true]);
@@ -73,8 +76,12 @@ class ArticleController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
                 $article->setPicture($newFilename);
+                
             }
-
+            
+            $date = new \DateTimeImmutable();
+            $article->setCreatedAt($date);
+            $article->setUpdatedAt($date);
             $article->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
@@ -111,7 +118,11 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->getDoctrine()->getManager()->flush();
+                $date = new \DateTimeImmutable();
+                $article->setUpdatedAt($date);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($article);
+                $entityManager->flush();
 
                 $this->addFlash('success', 'Votre article a bien été édité');
                 return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
@@ -143,7 +154,7 @@ class ArticleController extends AbstractController
             }
 
             $this->addFlash('success', 'Votre article a bien été supprimé');
-            return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('article_user', [], Response::HTTP_SEE_OTHER);
         }
         else{
             $this->addFlash('error', 'Vous ne pouvez supprimer que vos articles');
