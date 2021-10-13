@@ -65,12 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $blocked;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ArchiveArticle::class, mappedBy="id_user")
+     */
+    private $archiveArticles;
+
 
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
         $this->userArticleInformations = new ArrayCollection();
+        $this->archiveArticles = new ArrayCollection();
     }
 
 
@@ -244,6 +250,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBlocked(bool $blocked): self
     {
         $this->blocked = $blocked;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArchiveArticle[]
+     */
+    public function getArchiveArticles(): Collection
+    {
+        return $this->archiveArticles;
+    }
+
+    public function addArchiveArticle(ArchiveArticle $archiveArticle): self
+    {
+        if (!$this->archiveArticles->contains($archiveArticle)) {
+            $this->archiveArticles[] = $archiveArticle;
+            $archiveArticle->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchiveArticle(ArchiveArticle $archiveArticle): self
+    {
+        if ($this->archiveArticles->removeElement($archiveArticle)) {
+            // set the owning side to null (unless already changed)
+            if ($archiveArticle->getIdUser() === $this) {
+                $archiveArticle->setIdUser(null);
+            }
+        }
 
         return $this;
     }

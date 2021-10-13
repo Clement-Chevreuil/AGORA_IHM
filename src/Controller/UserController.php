@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ArchiveUser;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -10,7 +11,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Monolog\DateTimeImmutable;
 use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
@@ -80,8 +81,19 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
+            $date = new \DateTimeImmutable();
+            $archiveUser = new ArchiveUser();
+            $archiveUser->setEmail($user->getEmail());
+            $archiveUser->setRoles($user->getRoles());
+            $archiveUser->setPassword($user->getPassword());
+            $archiveUser->setName($user->getName());
+            $archiveUser->setBlocked($user->getBlocked());
+            $archiveUser->setSuppressedAt($date);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
+            $entityManager->persist($archiveUser);
             $entityManager->flush();
         }
 

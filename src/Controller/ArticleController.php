@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\ArchiveArticle;
 use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
@@ -56,7 +57,7 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // dd($form->get('picture')->getData());
+            
             $brochureFile = $form->get('picture')->getData();
             if ($brochureFile)
             {
@@ -78,7 +79,7 @@ class ArticleController extends AbstractController
                 $article->setPicture($newFilename);
                 
             }
-            
+
             $date = new \DateTimeImmutable();
             $article->setCreatedAt($date);
             $article->setUpdatedAt($date);
@@ -110,7 +111,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Article $article): Response
+    public function edit(Request $request, Article $article, SluggerInterface $slugger): Response
     {
 
         if($this->getUser()->getId() == $article->getUser()->getId()){
@@ -118,6 +119,29 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
+                $brochureFile = $form->get('picture')->getData();
+                if ($brochureFile)
+                {
+                    $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+
+                    try 
+                    {
+                        $brochureFile->move(
+                            $this->getParameter('brochures_directory'),
+                            $newFilename
+                        );
+                    } 
+                    catch (FileException $e) 
+                    {
+                        // ... handle exception if something happens during file upload
+                    }
+                    $article->setPicture($newFilename);
+                    
+                }
+
                 $date = new \DateTimeImmutable();
                 $article->setUpdatedAt($date);
                 $entityManager = $this->getDoctrine()->getManager();
@@ -147,9 +171,21 @@ class ArticleController extends AbstractController
     {
         if($this->getUser() == $article->getUser())
         {
+                
             if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+
+                $date = new \DateTimeImmutable();
+                $archiveArticle = new ArchiveArticle();
+                $archiveArticle->setName($article->getName());
+                $archiveArticle->setDescription($article->getDescription());
+                //$archiveArticle.setPicture($article->getName());
+                $archiveArticle->setUser($article->getUser());
+                $archiveArticle->setCreatedAt($article->getCreatedAt());
+                $archiveArticle->setUpdatedAt($article->getUpdatedAt());
+                $archiveArticle->setSuppressedAt($date);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($article);
+                $entityManager->persist($archiveArticle);
                 $entityManager->flush();
             }
 

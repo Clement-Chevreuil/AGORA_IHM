@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Monolog\DateTimeImmutable;
+use App\Entity\ArchiveUser;
 
 
 /**
@@ -118,8 +120,18 @@ class AdminController extends AbstractController
         if((in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && !in_array("ROLE_ADMIN", $user->getRoles())) || (in_array("ROLE_SUPER_ADMIN",  $this->getUser()->getRoles()) && !in_array("ROLE_SUPER_ADMIN",$user->getRoles())) )
         {
             if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+                $date = new \DateTimeImmutable();
+                $archiveUser = new ArchiveUser();
+                $archiveUser->setEmail($user->getEmail());
+                $archiveUser->setRoles($user->getRoles());
+                $archiveUser->setPassword($user->getPassword());
+                $archiveUser->setName($user->getName());
+                $archiveUser->setBlocked($user->getBlocked());
+                $archiveUser->setSuppressedAt($date);
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($user);
+                $entityManager->persist($archiveUser);
                 $entityManager->flush();
             }
 

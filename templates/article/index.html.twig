@@ -99,7 +99,7 @@
                             
 
                             {% if article.picture %}
-                                <img src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
+                                <img style="width : 200px; height: 100px;"src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
                             {% endif %}
                             
                             {% set user  = app.user.id %}
