@@ -4,6 +4,15 @@
   font-size: 30px;
 }
 
+.separator {
+  border-left: 6px solid rgb(109, 46, 46);
+  height: 500px;
+}
+
+.formulaire{
+  margin-top: 210px;
+}
+
 .div_post {
     color: white;
     position: absolute;

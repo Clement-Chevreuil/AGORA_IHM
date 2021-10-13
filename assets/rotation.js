@@ -32,37 +32,32 @@ $(window).resize(function() {
   
   if ($(this).width() >= 1200) {
     $(".div_post").css('width', '700px');
-    $(".tourniquer").css('margin-right', '90px');
-    $(".arrow-right").css('display', 'block');
-    $(".arrow-right-fast").css('display', 'block');
-    $(".arrow-left").css('display', 'block');
-    $(".arrow-left-fast").css('display', 'block');
+    $(".rotation_left_fast").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
+    
   } 
   else if ($(this).width() >= 992) {
     $(".div_post").css('width', '500px');
-    $(".tourniquer").css('margin-right', '130px');
-    $(".arrow-right").css('display', 'block');
-    $(".arrow-right-fast").css('display', 'block');
-    $(".arrow-left").css('display', 'block');
-    $(".arrow-left-fast").css('display', 'block');
-  
+    $(".rotation_left_fast").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
   } 
   else if ($(this).width() >= 768) {
     $(".div_post").css('width', '400px');
-    $(".tourniquer").css('margin-right', '180px');
-
-    $(".arrow-right").css('display', 'none');
-    $(".arrow-right-fast").css('display', 'none');
-    $(".arrow-left").css('display', 'none');
-    $(".arrow-left-fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
   }
   else if($(this).width() >= 576){
     $(".div_post").css('width', '300px');
-    $(".tourniquer").css('margin-right', '300px');
-    $(".arrow-right").css('display', 'none');
-    $(".arrow-right-fast").css('display', 'none');
-    $(".arrow-left").css('display', 'none');
-    $(".arrow-left-fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
   }
 });
 

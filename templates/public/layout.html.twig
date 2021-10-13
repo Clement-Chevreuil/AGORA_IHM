@@ -9,7 +9,7 @@
 
 {% block nav %}
 
-
+        
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand agora-nav" href="{{ path('article_index') }}">Agora</a>
@@ -20,12 +20,18 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('article_user') }}">
-                                <i class="far fa-newspaper fa-2x"></i> Article
+                                <i class="fas fa-newspaper fa-2x"></i> Article
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">
+                            <a class="nav-link" href="{{ path('user_signet') }}">
+                                <i class="fas fa-bookmark fa-2x"></i> Signet
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_edit') }}">
                                 <i class="fas fa-user fa-2x"></i> Profil
                             </a>
                         </li>

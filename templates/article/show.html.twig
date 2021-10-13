@@ -3,29 +3,30 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <div class="position-absolute top-50 start-50 translate-middle">
-        <h1>Article</h1>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-auto formulaire">
 
-
-
-        <div class="card text-center">
-            <div class="card-header">
-                <h3>{{ article.name }}</h3>
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>{{ article.name }}</h3>
+                </div>
+                <div class="card-body">
+                    {# <h5 class="card-title">Special title treatment</h5> #}
+                    <p class="card-text">{{ article.description }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <p class="card-text">{{ article.user.name }}</p>
+                </div>
             </div>
-            <div class="card-body">
-                {# <h5 class="card-title">Special title treatment</h5> #}
-                <p class="card-text">{{ article.description }}</p>
-            </div>
-            <div class="card-footer text-muted">
-                ...
-            </div>
-        </div>
 
-        {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
+            {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
 
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %} 
-            {{ include('article/_delete_form.html.twig') }}                      
-        {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %} 
+                {{ include('article/_delete_form.html.twig') }}                      
+            {% endif %}
         
+        </div>
     </div>
+</div>
 {% endblock %}

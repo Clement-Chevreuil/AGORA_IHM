@@ -23,31 +23,12 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function show(User $user): Response
+    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils ): Response
     {
-        //hey234
-        if($this->getUser()->getId() == $user->getId() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
-            return $this->render('user/show.html.twig', ['user' => $user,]);
-            
-        }
 
-        else{
-            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
-            return $this->redirectToRoute('article_index');
-        }
-        
-    }
-
-    /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils ): Response
-    {
-        if($this->getUser()->getId() == $user->getId()){
-
-
+            $user = $this->getUser();
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
@@ -91,15 +72,6 @@ class UserController extends AbstractController
                 'user' => $user,
                 'form' => $form,
             ]);
-            
-        }
-
-        else{
-            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
-            return $this->redirectToRoute('article_index');
-        }
-        
-        
     }
 
     /**
@@ -115,6 +87,23 @@ class UserController extends AbstractController
 
         $this->addFlash('success', 'Utilisateur supprimé');
         return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+        /**
+     * @Route("/signet", name="user_signet", methods={"GET"})
+     */
+    public function signet(): Response
+    {
+        $user = $this->getUser();
+        if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            return $this->render('user/signet.html.twig', ['user' => $user,]);
+        }
+
+        else{
+            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
+            return $this->redirectToRoute('article_index');
+        }
+        
     }
    
 }
