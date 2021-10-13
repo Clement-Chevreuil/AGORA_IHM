@@ -85,7 +85,15 @@ $( ".set_blocked" ).on("change", function() {
 
 
 
-
+$(window).resize(function() {
+  
+  if ($(this).width() >= 1400) {
+    $(".size_table_admin").css('max-height', '77vh');
+  } 
+  else if ($(this).width() < 1400) {
+    $(".size_table_admin").css('max-height', '38vh');
+  } 
+});
 
   
 

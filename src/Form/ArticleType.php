@@ -22,8 +22,7 @@ class ArticleType extends AbstractType
             ->add('description', TextareaType::class,[
                 'row_attr' => [
                     'class' => 'mt-3 mb-3',
-                    'row' =>'5',
-                    // 'style' => 'height: 200px;',
+                    'style' => 'height: 300px;',
                 ],
                 
                 'constraints' => [

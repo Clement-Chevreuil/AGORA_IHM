@@ -10,9 +10,9 @@
         </div>
     {% endfor %}
 
-<div class="container">
-    <div class="row justify-content-md-center align-items-start">
-        <div class="col-auto formulaire">
+<div class="container formulaire">
+    <div class="row justify-content-md-center">
+        <div class="col-sm-4 ">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -53,11 +53,8 @@
             </form>
         </div>
 
-        <div class="col-2 formulaire">
-            
-        </div>
 
-        <div class="col-auto formulaire">
+        <div class="col-sm-6">
             {{ include('registration/register.html.twig') }} 
         </div>
     </div>

@@ -4,11 +4,12 @@
 
 {% block body %}
 
+
 <div class="container">
     <div class="row justify-content-center mt-4 ">
-        <div class="col-auto">
-
-            <table class="table table-dark table-striped ">
+        <div class="col-auto size_table">
+            <a type="button" class="btn btn-secondary mb-1" href="{{ path('article_new') }}">Create new</a>
+            <table class="table table-dark table-striped">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -23,7 +24,7 @@
                 {% for article in articles %}
                     <tr>
                         <td>{{ article.name }}</td>
-                        <td>{{ article.description|length > 150 ? article.description|slice(0, 100) ~ '...' : article.description  }}</td>
+                        <td>{{ article.description|length > 50 ? article.description|slice(0, 50) ~ '...' : article.description  }}</td>
                         <td>{{ article.picture }}</td>
                         <td>
                             <a type="button" class="btn btn-secondary" href="{{ path('article_show', {'id': article.id}) }}">show</a>
@@ -44,7 +45,7 @@
             </table>
     
 
-            <a type="button" class="btn btn-secondary" href="{{ path('article_new') }}">Create new</a>
+           
         </div>
     </div>
 </div>

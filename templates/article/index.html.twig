@@ -93,7 +93,8 @@
                             
                             <div>
                                 {# <p class="mt-5"> {{ article.description }} </p> #}
-                                <p  class="mt-5" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|slice(0, 700) ~ '...' : article.description }} </p>
+                                <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|slice(0, 700) ~ '...' : article.description }} </p>
+                                <p  class="mt-5 descriptionMax d-none" style="font-size: 20px;"> {{ article.description }} </p>
                             </div>
                             
 
@@ -104,6 +105,7 @@
                             {% set user  = app.user.id %}
  
 
+                            <p class="h3 text-end p-2"> {{ article.user.name }} </p>
 
                             {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
                                 {% if infos.getUser() == app.user%}
@@ -128,7 +130,7 @@
                             </center>
                             {% endfor %}
 
-                            <p class="text-end fixed-bottom p-2"> {{ article.user.name }} </p>
+                            
                         </div>
                     </div>
                 {% else %}

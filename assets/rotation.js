@@ -24,6 +24,11 @@ var variable = parseInt(isAuthenticated) ;
 var variable_second_function = variable - 1;
 var variable_fix = variable;
 
+let tableauTexte;
+
+function tab(id, texte){
+  tableauTexte[id] = texte;
+}
 
 var winSize = '';
 
@@ -32,32 +37,42 @@ $(window).resize(function() {
   
   if ($(this).width() >= 1200) {
     $(".div_post").css('width', '700px');
-    $(".rotation_left_fast").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
+    $(".div_post").css('height', '500px');
+    $(".rotation_left_fast").css('height', '0');
+    $(".rotation_right_fast").css('height', '0');
+    $(".rotation_left").css('height', '0');
+    $(".rotation_right").css('height', '0');
+    $(".rotation_center").css('height', '0');
+    $(".tourniquer").css('margin-top', '340px');
     
   } 
   else if ($(this).width() >= 992) {
     $(".div_post").css('width', '500px');
-    $(".rotation_left_fast").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
+    $(".div_post").css('height', '400px');
+    $(".rotation_left_fast").css('height', '0');
+    $(".rotation_right_fast").css('height', '0');
+    $(".rotation_left").css('height', '0');
+    $(".rotation_right").css('height', '0');
+    $(".rotation_center").css('height', '0');
+    $(".tourniquer").css('margin-top', '220px');
   } 
   else if ($(this).width() >= 768) {
     $(".div_post").css('width', '400px');
-    $(".rotation_left_fast").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
+    $(".div_post").css('height', '300px');
+    $(".rotation_left_fast").css('height', '0');
+    $(".rotation_right_fast").css('height', '0');
+    $(".rotation_left").css('height', '0');
+    $(".rotation_right").css('height', '0');
+    $(".rotation_center").css('height', '0');
   }
   else if($(this).width() >= 576){
     $(".div_post").css('width', '300px');
-    $(".rotation_left_fast").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
+    $(".div_post").css('height', '200px');
+    $(".rotation_left_fast").css('height', '0');
+    $(".rotation_right_fast").css('height', '0');
+    $(".rotation_left").css('height', '0');
+    $(".rotation_right").css('height', '0');
+    $(".rotation_center").css('height', '0');
   }
 });
 
@@ -82,13 +97,20 @@ $( ".rotation_center" ).on("click", function() {
   var wa = $(".mid-slide").children()[0];
   $(wa).css(' transition-delay', '1s');
   $(wa).css('transition-duration', '2s');
-  $(wa).css("width", $(window).width() + "px");
+  $(wa).css("width", $(window).width()-10 + "px");
+  $(wa).css("height", $(window).height() - 80 + "px");
+  $(wa).css("margin-top","95px");
   $(".rotation_center").css('display', 'none');
   $(".rotation_right").css('display', 'none');
   $(".rotation_left").css('display', 'none');
   $(".rotation_right_fast").css('display', 'none');
   $(".rotation_left_fast").css('display', 'none');
   $(".btn_close").css('display', 'block');
+  $(".descriptionLess").css('display', 'none');
+  $(".descriptionMax").css('display', 'block');
+  $(".descriptionMax").removeClass("d-none");
+  $(".descriptionMax").addClass("d-block");
+  
 });
 
 
@@ -97,12 +119,17 @@ $( ".btn_close" ).on("click", function() {
   $(wa).css(' transition-delay', '1s');
   $(wa).css('transition-duration', '2s');
   $(wa).css("width", "900px");
+  $(wa).css("height", "500px");
+  $(wa).css("margin-top", "0px");
   $(".rotation_center").css('display', 'block');
   $(".rotation_right").css('display', 'block');
   $(".rotation_left").css('display', 'block');
   $(".rotation_right_fast").css('display', 'block');
   $(".rotation_left_fast").css('display', 'block');
   $(".btn_close").css('display', 'none');
+  $(".descriptionLess").css('display', 'block');
+  $(".descriptionMax").removeClass("d-block");
+  $(".descriptionMax").addClass("d-none");
 });
 
 
