@@ -185,13 +185,13 @@ $( ".data-article-like" ).on("click", function() {
           alert("Vous avez liker la publication");
           $(bouton).css(' transition-delay', '2s');
           $(bouton).css('transition-duration', '4s');
-          $(bouton).css('backgroundColor', '#383838');
+          $(bouton).css('backgroundColor', '#1c1c1c');
         }
         if(output == "success_delete"){
           alert("Vous avez supprimer votre like de cette article");
           $(bouton).css(' transition-delay', '2s');
           $(bouton).css('transition-duration', '4s');
-          $(bouton).css('backgroundColor', '#8e8e8e');
+          $(bouton).css('backgroundColor', '#2b2a2a');
         }
         if(output == "error_ego"){
           alert("Tu ne peux pas liker un article que tu as créé");
@@ -221,7 +221,7 @@ $( ".data-article-like" ).on("click", function() {
           $(bouton).prop("disabled", true)
           $(bouton).css(' transition-delay', '2s');
           $(bouton).css('transition-duration', '4s');
-          $(bouton).css('backgroundColor', '#383838');
+          $(bouton).css('backgroundColor', '#1c1c1c');
         }
   
         if(output == "error_impossible"){

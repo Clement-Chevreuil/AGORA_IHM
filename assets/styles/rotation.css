@@ -4,6 +4,11 @@
     font-size: 30px;
 }
 
+body {
+    background-color: #2b2a2a; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .btn_close{
     margin-top: 5px;
     margin-right: 5px;
@@ -11,18 +16,21 @@
 }
 
 .div_post {
-    color: white;
+    color: #17a2b8;
     position: absolute;
     /* background-color: #adadad; */
-    background-color: #2c3034;
+    /* background-color: #2c3034; */
+    background-color: #D0F4F5;
+    background: linear-gradient(#2b2a2a, #2b2a2a);
     border-radius: 10px;
     height:500px;
     width: 900px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 2px solid black;
+    border: 2px solid #17a2b8;
     overflow-y: scroll;
+    overflow-x: none;
 }
 
 .div_post::-webkit-scrollbar {
@@ -94,6 +102,25 @@
     margin-top: 240px; */
 }
 
+.bouton_options{
+    border: 2px solid #17a2b8;
+    background-color: #2b2a2a;
+}
+.color_bouton_options{
+    color: #17a2b8;
+}
+
+.bouton_option_close{
+    border: 2px solid #17a2b8;
+    background-color: #2b2a2a;
+}
+.bouton_option_close{
+    color: #17a2b8;
+}
+.bouton_option_close:hover{
+    background-color: #17a2b8;
+    color:white;
+}
 
 .tourniquer
 {
@@ -194,7 +221,7 @@
     height:520px; 
     width: 278px; 
     z-index: 2;
-    cursor: url("../../assets/image/fast-backward-solid.png"), auto;
+    cursor: url("../../assets/image/fast-backward-solid-blue.png"), auto;
 
     
 }
@@ -204,7 +231,7 @@
     height:520px; 
     width: 250px; 
     z-index: 2;
-    cursor: url("../../assets/image/step-backward-solid.png"), auto;
+    cursor: url("../../assets/image/step-backward-solid-blue.png"), auto;
 }
 .rotation_center{
     margin-top: 70px; 
@@ -221,7 +248,7 @@
     height:520px; 
     width: 250px; 
     z-index: 2;
-    cursor: url("../../assets/image/step-forward-solid.png"), auto;
+    cursor: url("../../assets/image/step-forward-solid-blue.png"), auto;
 }
 .rotation_right_fast{
     margin-top: 70px; 
@@ -229,7 +256,7 @@
     height:520px; 
     width: 278px; 
     z-index: 2;
-    cursor: url("../../assets/image/fast-forward-solid.png"), auto;
+    cursor: url("../../assets/image/fast-forward-solid-blue.png"), auto;
 }
 
 
@@ -239,7 +266,4 @@ textarea {
     width: 80%;
   }
 
-  body {
-    background-color: #3f3f3f;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
+
