@@ -10,7 +10,7 @@
 {% block nav %}
 
         
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
                 <div class="container-fluid">
                     <a class="navbar-brand agora-nav" href="{{ path('article_index') }}">Agora</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,12 @@
                             <a class="nav-link" href="{{ path('app_logout') }}">
                                 <i class="fas fa-sign-out-alt fa-2x"></i>Deconnexion
                             </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="theme" checked>
+                            </div>
                         </li>
 
                     </ul>

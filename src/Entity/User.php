@@ -70,6 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $archiveArticles;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $theme_sombre;
+
 
 
     public function __construct()
@@ -280,6 +285,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $archiveArticle->setIdUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getThemeSombre(): ?bool
+    {
+        return $this->theme_sombre;
+    }
+
+    public function setThemeSombre(bool $theme_sombre): self
+    {
+        $this->theme_sombre = $theme_sombre;
 
         return $this;
     }

@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block javascripts %} 
+    {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('rotation') }}
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -45,11 +46,11 @@
 
 
                 {% if articles|length > 3 %}
-                        <div class="rotation_left_fast"></div>
-                        <div class="rotation_left"></div>
+                        <div class="rotation_left_fast" id="fast_back"></div>
+                        <div class="rotation_left" id="step_back"></div>
                         <div class="rotation_center"></div>
-                        <div class="rotation_right"></div>
-                        <div class="rotation_right_fast"></div>
+                        <div class="rotation_right" id="step_for"></div>
+                        <div class="rotation_right_fast" id="fast_for"></div>
                 {% endif %}
 
 
@@ -89,9 +90,8 @@
                     
                     <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
                         <div class="div_post  text-center" >
-                            <button class="btn bouton_option_close position-absolute top-0 end-0 btn_close"><i class="far fa-times-circle fa-2x color_bouton_option_close"></i></button>
                             <div class="test1 p-3">
-                                
+                                <button class="btn bouton_option_close position-absolute top-0 end-0 btn_close"><i class="far fa-times-circle fa-2x color_bouton_option_close"></i></button>
                                 <h1> {{ article.name }} </h1>
                                 
                                 <div>
@@ -110,32 +110,32 @@
 
                                 <p class="h3 text-end p-2"> {{ article.user.name }} </p>
                             
+                               
+                            </div>
+
+                            <div class="test2 align-middle" style="z-index:0">
                                 {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
                                     {% if infos.getUser() == app.user%}
                                         {% if infos.user.id == user and infos.liker == true %}
-                                            <button class="btn bouton_options like-article data-article-like mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                            <button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
                                         {% else %}
-                                            <button class="btn bouton_options like-article data-article-like mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                            <button class="btn bouton_options like-article data-article-like mt-2 mb-2" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
                                         {% endif %}
 
                                         {% if infos.user.id == user and infos.report == true %}
-                                            <button class="btn bouton_options like-article data-article-report mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}" disabled><i class="far fa-flag fa-2x color_bouton_options"></i></button>
+                                            <button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="background-color: #383838" id="{{article.id}}" data-articleid="{{article.id}}" disabled><i class="far fa-flag fa-2x color_bouton_options"></i></button>
                                         {% else %}
-                                            <button class="btn bouton_options like-article data-article-report mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button>
+                                            <button class="btn bouton_options like-article data-article-report mt-2 mb-2" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button>
                                         {% endif %}
                                     
                                     {% endif %}
 
                                 {% else %}
                                 <center>  
-                                    <button class="btn bouton_options like-article data-article-like"  id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
-                                    <button class="btn bouton_options like-article data-article-report" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button> 
+                                    <button class="btn bouton_options like-article data-article-like mt-2 mb-2"  id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                    <button class="btn bouton_options like-article data-article-report mt-2 mb-2" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button> 
                                 </center>
                                 {% endfor %}
-                            </div>
-
-                            <div class="test2 align-middle" style="z-index:0">
-                                <button class="btn bouton_options color_bouton_options like-article data-article-like p-2 mt-2 mb-2">hello</button>
                             </div>
                         </div>
                         
