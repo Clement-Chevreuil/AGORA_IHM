@@ -1,5 +1,4 @@
-@import "~bootstrap";
-
+@import '~bootstrap/scss/bootstrap';
 .agora-nav{
     font-size: 30px;
 }
@@ -13,6 +12,7 @@ body {
     margin-top: 5px;
     margin-right: 5px;
     display: none;
+    z-index:4;
 }
 
 .div_post {
@@ -31,18 +31,14 @@ body {
     border: 2px solid #17a2b8;
     overflow-y: scroll;
 
+   
 }
 
 .test1{
     height:420px;
     overflow-y: scroll;
 }
-.test2{
-    position:absolute;
-    bottom:0;
-    background-color: #4d4d4d;
-    width: 100%;
-}
+
 
 .div_post::-webkit-scrollbar {
     width: 0px;
@@ -158,6 +154,42 @@ body {
     margin-top: 340px;
     height: auto;
     width: auto;
+    .mid-slide
+    {
+        box-sizing: border-box;
+        width: auto;
+        height: auto;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        
+        transition: all 0.3s;
+        transform: translate3d(0, 0, 0) scale(1);
+        z-index: 2;
+        transition: all 0.3s;
+        transition-property: all;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+
+        .test2{
+            position:absolute;
+            bottom:0;
+            background-color: #4d4d4d;
+            width: 100%;
+            z-index: 4;
+        }
+    }
+
+
+}
+
+.test2{
+    position:absolute;
+    bottom:0;
+    background-color: #4d4d4d;
+    width: 100%;
+    z-index: 4;
 }
 
 .left-slide
@@ -201,24 +233,7 @@ body {
     transition-delay: 0s;
     filter: brightness(.9);
 }
-.mid-slide
-{
-    box-sizing: border-box;
-    width: auto;
-    height: auto;
-    opacity: 1;
-    position: absolute;
-    top: 0;
-    
-    transition: all 0.3s;
-    transform: translate3d(0, 0, 0) scale(1);
-    z-index: 2;
-    transition: all 0.3s;
-    transition-property: all;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-}
+
 
 .vide
 {
@@ -269,7 +284,7 @@ body {
     /* background-color: #04040433;  */
     height:520px; 
     width: 400px; 
-    z-index: 2;
+    z-index: 0;
     cursor: pointer;
 }
 

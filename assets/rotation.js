@@ -1,18 +1,20 @@
 
-import './styles/rotation.css';
+import './styles/rotation.scss';
 
 var $ = require('jquery');
 require('jquery-ui');
 
-// start the Stimulus application
+import 'bootstrap';
 import './bootstrap';
 import 'jquery-ui'; 
-
 import 'jquery-ui/themes/base/core.css';
 import 'jquery-ui/themes/base/theme.css';
 import 'jquery-ui/themes/base/selectable.css';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/selectable';
+import bsCustomFileInput from 'bs-custom-file-input';
+bsCustomFileInput.init();
+
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
@@ -38,41 +40,25 @@ $(window).resize(function() {
   if ($(this).width() >= 1200) {
     $(".div_post").css('width', '700px');
     $(".div_post").css('height', '500px');
-    $(".rotation_left_fast").css('height', '0');
-    $(".rotation_right_fast").css('height', '0');
-    $(".rotation_left").css('height', '0');
-    $(".rotation_right").css('height', '0');
-    $(".rotation_center").css('height', '0');
     $(".tourniquer").css('margin-top', '340px');
+    $(".tourniquer").css('z-index', '1');
     
   } 
   else if ($(this).width() >= 992) {
     $(".div_post").css('width', '500px');
     $(".div_post").css('height', '400px');
-    $(".rotation_left_fast").css('height', '0');
-    $(".rotation_right_fast").css('height', '0');
-    $(".rotation_left").css('height', '0');
-    $(".rotation_right").css('height', '0');
-    $(".rotation_center").css('height', '0');
+    $(".tourniquer").css('z-index', '3');
     $(".tourniquer").css('margin-top', '220px');
   } 
   else if ($(this).width() >= 768) {
     $(".div_post").css('width', '400px');
     $(".div_post").css('height', '300px');
-    $(".rotation_left_fast").css('height', '0');
-    $(".rotation_right_fast").css('height', '0');
-    $(".rotation_left").css('height', '0');
-    $(".rotation_right").css('height', '0');
-    $(".rotation_center").css('height', '0');
+    $(".tourniquer").css('z-index', '3');
   }
   else if($(this).width() >= 576){
     $(".div_post").css('width', '300px');
     $(".div_post").css('height', '200px');
-    $(".rotation_left_fast").css('height', '0');
-    $(".rotation_right_fast").css('height', '0');
-    $(".rotation_left").css('height', '0');
-    $(".rotation_right").css('height', '0');
-    $(".rotation_center").css('height', '0');
+    $(".tourniquer").css('z-index', '3');
   }
 });
 
@@ -87,35 +73,11 @@ $( ".div_post" ).on("click", function() {
       {
         right();
       }
-      else{
-        console.log("erreur");
-      }
 });
-
-
-$( ".rotation_center" ).on("click", function() {
-  var wa = $(".mid-slide").children()[0];
-  $(wa).css(' transition-delay', '1s');
-  $(wa).css('transition-duration', '2s');
-  $(wa).css("width", $(window).width()-10 + "px");
-  $(wa).css("height", $(window).height() - 80 + "px");
-  $(wa).css("margin-top","95px");
-  $(".rotation_center").css('display', 'none');
-  $(".rotation_right").css('display', 'none');
-  $(".rotation_left").css('display', 'none');
-  $(".rotation_right_fast").css('display', 'none');
-  $(".rotation_left_fast").css('display', 'none');
-  $(".btn_close").css('display', 'block');
-  $(".descriptionLess").css('display', 'none');
-  $(".descriptionMax").css('display', 'block');
-  $(".descriptionMax").removeClass("d-none");
-  $(".descriptionMax").addClass("d-block");
-  
-});
-
 
 $( ".btn_close" ).on("click", function() {
-  var wa = $(".mid-slide").children()[0];
+  var wa = $(this).parent()[0];
+  console.log(wa);
   $(wa).css(' transition-delay', '1s');
   $(wa).css('transition-duration', '2s');
   $(wa).css("width", "900px");
@@ -131,6 +93,31 @@ $( ".btn_close" ).on("click", function() {
   $(".descriptionMax").removeClass("d-block");
   $(".descriptionMax").addClass("d-none");
 });
+
+
+
+$( ".div_post" ).on("click", function() {
+  var wa = this;
+  console.log("hello");
+  $(wa).css(' transition-delay', '1s');
+  $(wa).css('transition-duration', '2s');
+  $(wa).css("width", $(window).width()-10 + "px");
+  $(wa).css("height", $(window).height() - 130 + "px");
+  $(wa).css("margin-top","65px");
+  $(".rotation_right").css('display', 'none');
+  $(".rotation_left").css('display', 'none');
+  $(".rotation_right_fast").css('display', 'none');
+  $(".rotation_left_fast").css('display', 'none');
+  $(".btn_close").css('display', 'block');
+  $(".descriptionLess").css('display', 'none');
+  $(".descriptionMax").css('display', 'block');
+  $(".descriptionMax").removeClass("d-none");
+  $(".descriptionMax").addClass("d-block");
+  
+});
+
+
+
 
 
 var interval;

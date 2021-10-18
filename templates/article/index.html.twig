@@ -3,6 +3,7 @@
 {% block title %}Article index{% endblock %}
 
 {% block stylesheets %} 
+    {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('rotation') }}
 {% endblock %}
 
@@ -87,51 +88,57 @@
 
                     
                     <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
-                        <div class="div_post p-3 text-center" >
+                        <div class="div_post  text-center" >
                             <button class="btn bouton_option_close position-absolute top-0 end-0 btn_close"><i class="far fa-times-circle fa-2x color_bouton_option_close"></i></button>
-                            <h1> {{ article.name }} </h1>
-                            
-                            <div>
-                                {# <p class="mt-5"> {{ article.description }} </p> #}
-                                <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|slice(0, 700) ~ '...' : article.description }} </p>
-                                <p  class="mt-5 descriptionMax d-none" style="font-size: 20px;"> {{ article.description }} </p>
-                            </div>
-                            
-
-                            {% if article.picture %}
-                                <img style="width : 200px; height: 100px;"src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
-                            {% endif %}
-                            
-                            {% set user  = app.user.id %}
- 
-
-                            <p class="h3 text-end p-2"> {{ article.user.name }} </p>
-
-                            {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
-                                {% if infos.getUser() == app.user%}
-                                    {% if infos.user.id == user and infos.liker == true %}
-                                        <button class="btn bouton_options like-article data-article-like mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
-                                    {% else %}
-                                        <button class="btn bouton_options like-article data-article-like mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
-                                    {% endif %}
-
-                                    {% if infos.user.id == user and infos.report == true %}
-                                        <button class="btn bouton_options like-article data-article-report mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}" disabled><i class="far fa-flag fa-2x color_bouton_options"></i></button>
-                                    {% else %}
-                                        <button class="btn bouton_options like-article data-article-report mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button>
-                                    {% endif %}
+                            <div class="test1 p-3">
                                 
+                                <h1> {{ article.name }} </h1>
+                                
+                                <div>
+                                    {# <p class="mt-5"> {{ article.description }} </p> #}
+                                    <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|slice(0, 700) ~ '...' : article.description }} </p>
+                                    <p  class="mt-5 descriptionMax d-none" style="font-size: 20px;"> {{ article.description }} </p>
+                                </div>
+                                
+
+                                {% if article.picture %}
+                                    <img style="width : 200px; height: 100px;"src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
                                 {% endif %}
+                                
+                                {% set user  = app.user.id %}
+    
 
-                            {% else %}
-                            <center>  
-                                <button class="btn bouton_options like-article data-article-like"  id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
-                                <button class="btn bouton_options like-article data-article-report" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button> 
-                            </center>
-                            {% endfor %}
-
+                                <p class="h3 text-end p-2"> {{ article.user.name }} </p>
                             
+                                {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
+                                    {% if infos.getUser() == app.user%}
+                                        {% if infos.user.id == user and infos.liker == true %}
+                                            <button class="btn bouton_options like-article data-article-like mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                        {% else %}
+                                            <button class="btn bouton_options like-article data-article-like mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                        {% endif %}
+
+                                        {% if infos.user.id == user and infos.report == true %}
+                                            <button class="btn bouton_options like-article data-article-report mt-5" style="background-color: #1c1c1c" id="{{article.id}}" data-articleid="{{article.id}}" disabled><i class="far fa-flag fa-2x color_bouton_options"></i></button>
+                                        {% else %}
+                                            <button class="btn bouton_options like-article data-article-report mt-5" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button>
+                                        {% endif %}
+                                    
+                                    {% endif %}
+
+                                {% else %}
+                                <center>  
+                                    <button class="btn bouton_options like-article data-article-like"  id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options"></i></button>
+                                    <button class="btn bouton_options like-article data-article-report" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options"></i></button> 
+                                </center>
+                                {% endfor %}
+                            </div>
+
+                            <div class="test2 align-middle" style="z-index:0">
+                                <button class="btn bouton_options color_bouton_options like-article data-article-like p-2 mt-2 mb-2">hello</button>
+                            </div>
                         </div>
+                        
                     </div>
                 {% else %}
                     <tr>
