@@ -18,10 +18,16 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', null, [
+                'label' => 'Name',
+                'row_attr' => [
+                    'class' => 'input-group',
+                ],
+            ])
+            
             ->add('description', TextareaType::class,[
                 'row_attr' => [
-                    'class' => 'mt-3 mb-3',
+                    'class' => 'form-control mt-3 mb-3',
                     'style' => 'height: 300px;',
                 ],
                 
@@ -43,7 +49,7 @@ class ArticleType extends AbstractType
                 'mapped' => false,
 
                 'row_attr' => [
-                    'class' => 'mt-3 mb-3',
+                    'class' => 'input-group mt-3 mb-3',
                 ],
 
                 // make it optional so you don't have to re-upload the PDF file

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Support;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Repository\SupportRepository;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\SupportType;
 use App\Form\UserRoleAdminType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,10 +28,10 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_gestion_user_article")
      */
-    public function index_user_article(UserRepository $userRepository, ArticleRepository $articleRepository): Response
+    public function index_user_article(UserRepository $userRepository, ArticleRepository $articleRepository, SupportRepository $supportRepository): Response
     {
         return $this->render('admin/index_user_article.html.twig', [
-            'users' => $userRepository->findAll(), 'articles' => $articleRepository->findAllWithReport(),
+            'users' => $userRepository->findAll(), 'articles' => $articleRepository->findAllWithReport(), 'supports' => $supportRepository->findAll(),
         ]);
     }
 

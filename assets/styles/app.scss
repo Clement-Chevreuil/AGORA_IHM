@@ -78,7 +78,7 @@ textarea {
 }
 
 /* Handle on hover */
-.size_table_admin::-webkit-scrollbar-thumb:hover {
+.size_table::-webkit-scrollbar-thumb:hover {
   background: #3f3f3f; 
 }
 
@@ -98,7 +98,32 @@ textarea {
 }
  
 /* Handle */
-.size_table_admin::-webkit-scrollbar-thumb {
+.size_table_admin_left::-webkit-scrollbar-thumb {
+  background: rgb(75, 75, 75); 
+  border-radius: px;
+}
+
+/* Handle on hover */
+.size_table_admin_left::-webkit-scrollbar-thumb:hover {
+  background: #3f3f3f; 
+}
+
+.size_table_admin_left{
+  max-height: 35vh;
+  overflow-y: scroll;
+}
+
+.size_table_admin_left::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+.size_table_admin_left::-webkit-scrollbar-track {
+  display: none;
+}
+ 
+/* Handle */
+.size_table_admin_left::-webkit-scrollbar-thumb {
   background: rgb(75, 75, 75); 
   border-radius: px;
 }
@@ -131,7 +156,7 @@ li {
   display: block;
   color: white;
   text-align: center;
-  padding: 25px 22px;
+  padding: 10px 22px;
   text-decoration: none;
 
   transition-duration: 0.3s;
@@ -142,7 +167,7 @@ li {
   display: block;
   color: black;
   text-align: center;
-  padding: 25px 22px;
+  padding: 10px 22px;
   text-decoration: none;
 
   transition-duration: 0.3s;
@@ -151,7 +176,7 @@ li {
 
 /* Change the link color to #111 (black) on hover */
 .li_claire a:hover {
-  background-color: rgb(107, 107, 107);
+  background-color: rgb(175, 175, 175);
   color: black;
 
   transition-duration: 0.8s;
@@ -184,3 +209,120 @@ li {
 }
 
 /* @import '~@fortawesome/fontawesome-free/css/all.css'; */
+
+.size_table_user{
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
+.size_table_user::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+.size_table_user::-webkit-scrollbar-track {
+  display: none;
+}
+ 
+/* Handle */
+.size_table_user::-webkit-scrollbar-thumb {
+  background: rgb(75, 75, 75); 
+  border-radius: px;
+}
+
+.formu {
+  color: #17a2b8;
+
+  /* background-color: #adadad; */
+  /* background-color: #2c3034; */
+  background-color: #2b2a2a;
+  // background: linear-gradient(#2b2a2a, #2b2a2a);
+  border-radius: 10px;
+  height:auto;
+  width: auto;
+  border: 2px solid #17a2b8;
+  
+}
+
+.color_white{
+  color: white;
+}
+
+.color_black{
+  color: black;
+}
+
+.color_blue{
+  color: #17a2b8;
+}
+
+.profil_picture{
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 100px;
+  background-position: center;
+  background-size: 450px;
+  background-repeat: no-repeat;
+  border: 3px solid;
+  border-color: #303030;
+}
+
+.block_informations_clair{
+  width: 130px;
+  height: 130px;
+  background-color: #dfdfdf;
+  border-radius: 20px;
+  justify-content: center;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:black;
+  
+}
+
+.block_informations_sombre{
+  width: 130px;
+  height: 130px;
+  background-color: #303030;
+  border-radius: 20px;
+  justify-content: center;
+  border: 2px solid #17a2b8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #17a2b8;
+  
+}
+
+.limit_block_user{
+    max-height: 69vh;
+    max-width: 60vh;
+    overflow-y: scroll;
+    overflow-x: none;
+}
+
+.limit_block_user::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+.limit_block_user::-webkit-scrollbar-track {
+  display: none;
+}
+ 
+/* Handle */
+.limit_block_user::-webkit-scrollbar-thumb {
+  background: rgb(27, 27, 27); 
+  border-radius: px;
+}
+
+.bar_separate
+{
+  height: 80vh;
+  width: 1px;
+  border-left: 1px solid black;
+}
+

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Support index{% endblock %}
+
+{% block body %}
+    <h1>Support index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Information</th>
+                <th>Vu</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for support in supports %}
+            <tr>
+                <td>{{ support.id }}</td>
+                <td>{{ support.title }}</td>
+                <td>{{ support.information }}</td>
+                <td>{{ support.vu ? 'Yes' : 'No' }}</td>
+                <td>{{ support.status }}</td>
+                <td>
+                    <a href="{{ path('support_show', {'id': support.id}) }}">show</a>
+                    <a href="{{ path('support_edit', {'id': support.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('support_new') }}">Create new</a>
+{% endblock %}

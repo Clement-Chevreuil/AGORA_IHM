@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/user")
@@ -26,7 +27,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils ): Response
+    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils, SluggerInterface $slugger ): Response
     {
 
             $user = $this->getUser();
@@ -37,26 +38,31 @@ class UserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $pass = $form->get('plainPassword')->getData();
-
-                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity); //get encoder for hashing pwd later
-                $tempPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt()); 
+                $this->passwordEncoder = $passwordEncoder;
                 
-                $hashedPassword = $pass->hashPassword($user, $pass);
+                if($this->passwordEncoder->isPasswordValid($user, $pass)){
 
-                dump($hashedPassword);
-                dd($request);
+                    $brochureFile = $form->get('picture')->getData();
+                    if ($brochureFile)
+                    {
+                        $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
 
-                    dump($this->getUser()->getPassword());
-                    dump($request);
-
-                    $encodedPassword = $passwordEncoder->encodePassword(
-                        $user,
-                        $form->get('plainPassword')->getData()
-                    );
-
-                    
-                    dd($encodedPassword); 
-
+                        try 
+                        {
+                            $brochureFile->move(
+                                $this->getParameter('brochures_directory'),
+                                $newFilename
+                            );
+                        } 
+                        catch (FileException $e) 
+                        {
+                            // ... handle exception if something happens during file upload
+                        }
+                        $user->setPicture($newFilename);
+                        
+                    }
 
                     $user->setName($form->get('name')->getData());
                     $user->setEmail($form->get('email')->getData());
@@ -65,14 +71,42 @@ class UserController extends AbstractController
                     $entityManager->persist($user);
                     $entityManager->flush();
                     $this->addFlash('success', 'Modification effectuée avec succès');
-                    return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
-                
+                    return $this->render('user/show.html.twig', ['user' => $this->getUser()]);
+                }
+                else{
+                    $this->addFlash('error', 'Le mot de passe est incorect');
+                    return $this->renderForm('user/edit.html.twig', [
+                        'user' => $user,
+                        'form' => $form,
+                    ]);
+                }
+                    
             }
 
             return $this->renderForm('user/edit.html.twig', [
                 'user' => $user,
                 'form' => $form,
             ]);
+    }
+
+    /**
+     * @Route("/show/{id}", name="user_show", methods={"GET"})
+     */
+    public function show(User $user): Response
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/profil", name="user_profil", methods={"GET"})
+     */
+    public function profil(): Response
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $this->getUser(),
+        ]);
     }
 
     /**

@@ -10,37 +10,42 @@
 {% block nav %}
 
 
-            {% if app.user.getThemeSombre() == true %}
-                {% set check = "checked" %}
-                {% set ul = "ul_sombre" %}
-                {% set li = "li_sombre"%}
-                {% set color = "#ffffff8c" %}
-            {% else %}
-                {% set check = "" %}
-                {% set ul = "ul_claire" %}
-                {% set li = "li_claire"%}
-            {% endif %}
+        {% if app.user.getThemeSombre() == true %}
+            {% set check = "checked" %}
+            {% set ul = "ul_sombre" %}
+            {% set li = "li_sombre"%}
+            {% set color = "#ffffff8c" %}
+        {% else %}
+            {% set check = "" %}
+            {% set ul = "ul_claire" %}
+            {% set li = "li_claire"%}
+        {% endif %}
 
 
         <ul class="nav_ulu {{ul}}">
             <li class="nav_lil d-inline {{li}}">
                 <a href="{{ path('article_index') }}">
-                    <i class="fas fa-home fa-2x"></i>Agora
+                    <i class="fas fa-home fa-2x"></i><br>Agora
                 </a>
             </li>
             <li class="nav_lil d-inline {{li}}">
                 <a href="{{ path('article_user') }}">
-                    <i class="fas fa-newspaper fa-2x"></i> Article
+                    <i class="fas fa-newspaper fa-2x"></i><br>Article
                 </a>
             </li>
             <li class="nav_lil d-inline {{li}}">
                 <a href="{{ path('user_signet') }}">
-                    <i class="fas fa-bookmark fa-2x"></i> Signet
+                    <i class="fas fa-bookmark fa-2x"></i><br>Signet
                 </a>
             </li>
             <li class="nav_lil d-inline {{li}}">
-                <a href="{{ path('user_edit') }}">
-                    <i class="fas fa-user fa-2x"></i> Profil
+                <a href="{{ path('support_new') }}">
+                    <i class="fas fa-question-circle fa-2x"></i><br>Support
+                </a>
+            </li>
+            <li class="nav_lil d-inline {{li}}">
+                <a href="{{ path('user_profil') }}">
+                    <i class="fas fa-user fa-2x"></i><br>Profil
                 </a>
             </li>
             <li class="nav_lil d-inline {{li}} ">
@@ -51,14 +56,14 @@
             <li class="nav_lil d-inline {{li}}" style="float:right">
                 {% if is_granted('ROLE_ADMIN') %} 
                     <a href="{{ path('admin_gestion_user_article') }}">
-                        <i class="fas fa-tools fa-2x"></i>Admin
+                        <i class="fas fa-tools fa-2x"></i><br>Admin
                     </a>
                 {% endif %}
             </li>
 
             <li  class=" nav_lil d-inline {{li}}" style="float:right">
                 <a href="{{ path('app_logout') }}">
-                    <i class="fas fa-sign-out-alt fa-2x"></i>Deconnexion
+                    <i class="fas fa-sign-out-alt fa-2x"></i><br>logout
                 </a>
             </li>
 

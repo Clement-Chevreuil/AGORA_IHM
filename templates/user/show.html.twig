@@ -1,0 +1,49 @@
+{% extends 'public/layout.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+    {% for msg in app.session.flashBag.get('error') %}
+        <div class="alert alert-warning">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-md-center">
+            <div class="col-6 d-flex align-content-center justify-content-center flex-wrap">
+                <div class="row justify-content-md-center">
+                    <div class="col-6">
+                        <img class="profil_picture" src="{{ asset('uploads/brochures/' ~ user.picture) }}">
+                        <a href="{{ path('user_edit') }}" type="button" class="btn btn-secondary mt-2"> Profil Parameters </a>
+                    </div>
+                    <div class="col-3 mt-4 color_user_profil {{colorUserProfil}}">
+                        <p>{{user.name}}</p>
+                        <p>{{user.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-4 d-flex align-content-center justify-content-center">
+                <div class="row limit_block_user">
+                        {% for article in user.article %}
+                            <div class="col d-flex justify-content-center">
+                                <div class="{{userCreateBlock}} user_block_article mb-3">
+                                    <h5 class="p-3">{{article.name}}</h5>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>Rien en base</p>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

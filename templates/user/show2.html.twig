@@ -1,0 +1,74 @@
+{% extends 'public/layout.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-auto mt-4">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>{{ user.name }}</h3>
+                </div>
+                <div class="card-body overflow-auto" style="max-height:500px">
+                    {# <h5 class="card-title">Special title treatment</h5> #}
+                    <p class="card-text">{{ user.email }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <p class="card-text">Future Info</p>
+                </div>
+            </div>
+
+            <div class="size_table_user mt-2">
+                <table class="table {{table}} table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Picture</th>
+                            <th>Create/Update</th>
+                            <th>Article</th>
+                            <th>Editer</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for article in user.article %}
+
+                        <tr>
+                            <td>{{ article.name }}</td>
+                            <td>{{ article.description|length > 50 ? article.description|slice(0, 50) ~ '...' : article.description  }}</td>
+                            <td>{{ article.picture }}</td>
+                            <td>{{ article.getUpdatedAt()|date('d-m-Y') }}</td>
+                            <td>
+                                <a type="button" class="btn btn-secondary" href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                            </td>
+                            <td>
+                                <a type="button" class="btn btn-secondary" href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                            </td>
+                            <td>
+                                {{ include('article/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {# <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a> #}
+
+            {# {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %} 
+                <div class="mt-2">
+                    {{ include('article/_delete_form.html.twig') }}       
+                </div>               
+            {% endif %} #}
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

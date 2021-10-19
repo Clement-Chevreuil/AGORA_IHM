@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 
+{% if app.user != null %}
     {% if app.user.getThemeSombre() == true %}
         {% set body = "background-color: #2b2a2a" %}
         {% set table = "table-dark" %}
-
+        {% set titleColor = "color_white"%}
+        {% set userCreateBlock = "block_informations_sombre"%}
+        {% set colorUserProfil = "color_blue"%}
     {% else %}
         {% set body = "background-color: #bfbfbf" %}
         {% set table = "table-light" %}
+        {% set titleColor = "color_black"%}
+        {% set userCreateBlock = "block_informations_clair"%}
+        {% set colorUserProfil = "color_black"%}
     {% endif %}
+{% else %}
+        {% set body = "background-color: #2b2a2a" %}
+        {% set table = "" %}
+        {% set titleColor = ""%}
+        {% set userCreateBlock = ""%}
+        {% set colorUserProfil = ""%}
+{% endif %}
 
     <head>
         <meta charset="UTF-8">

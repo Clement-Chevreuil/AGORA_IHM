@@ -46,9 +46,16 @@ $.ajax({
   
       $(".nav_ulu").removeClass("ul_sombre");
       $(".nav_ulu").addClass("ul_claire");
-    
+
+      $(".text_color").removeClass("color_white");
+      $(".text_color").addClass("color_black");
+
+
+      $(".user_block_article").removeClass("block_informations_sombre");
+      $(".user_block_article").addClass("block_informations_clair");
   
-    
+      $(".color_user_profil").removeClass("color_blue");
+      $(".color_user_profil").addClass("color_black");
 
     }
 
@@ -74,6 +81,15 @@ $.ajax({
 
       $(".nav_ulu").removeClass("ul_claire");
       $(".nav_ulu").addClass("ul_sombre");
+
+      $(".text_color").removeClass("color_black");
+      $(".text_color").addClass("color_white");
+
+      $(".user_block_article").removeClass("block_informations_clair");
+      $(".user_block_article").addClass("block_informations_sombre");
+
+      $(".color_user_profil").removeClass("color_black");
+      $(".color_user_profil").addClass("color_blue");
 
     }
   }

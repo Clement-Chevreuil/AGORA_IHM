@@ -133,7 +133,7 @@
                                 {% set user  = app.user.id %}
     
 
-                                <p class="h3 text-end p-2"> {{ article.user.name }} </p>
+                                <a href="{{ path('user_show', {'id': article.user.id}) }}" class="h3 text-end p-2"> {{ article.user.name }} </a>
                             
                             
                             </div>
@@ -160,7 +160,9 @@
                                     <button class="btn bouton_options like-article data-article-like mt-2 mb-2"  style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
                                     <button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i></button> 
                                 </center>
+                                
                                 {% endfor %}
+                                <button class="btn bouton_options mt-2 mb-2 shared" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="fas fa-share fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
                             </div>
                         </div>
                         

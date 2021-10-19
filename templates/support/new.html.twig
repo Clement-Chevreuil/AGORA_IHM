@@ -1,0 +1,18 @@
+{% extends 'public/layout.html.twig' %}
+
+{% block title %}New Support{% endblock %}
+
+{% block body %}
+    
+
+    <div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-9 mt-5 form-group">
+            <h1 class="text_color {{titleColor}}">Create new Support</h1>
+
+            {{ include('support/_form.html.twig') }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

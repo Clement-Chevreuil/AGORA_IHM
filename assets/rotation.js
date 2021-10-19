@@ -83,7 +83,14 @@ $(window).resize(function() {
 });
 
 
+$( ".shared" ).on("click", function(event) {
 
+  var idArticle = $(this).attr('id');
+  var copied = "http://127.0.0.1:8000/article/" + idArticle
+  navigator.clipboard.writeText(copied);
+  alert("URL COPIED");
+  event.stopPropagation();
+});
 
 $( ".div_post" ).on("click", function() {
 

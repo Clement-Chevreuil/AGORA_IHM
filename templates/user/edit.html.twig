@@ -10,10 +10,23 @@
 {% endblock %}
 
 {% block body %}
+
+      {% for msg in app.session.flashBag.get('error') %}
+            <div class="alert alert-warning">
+                {{ msg }}
+            </div>
+        {% endfor %}
+
+        {% for msg in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-sm-6 formulaire">
-            <h1>Edit User</h1>
+            <h1 class="text_color {{titleColor}}">Edit User</h1>
 
             {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 

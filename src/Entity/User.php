@@ -75,6 +75,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $theme_sombre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Support::class, mappedBy="user")
+     */
+    private $supports;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
+
 
 
     public function __construct()
@@ -82,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->article = new ArrayCollection();
         $this->userArticleInformations = new ArrayCollection();
         $this->archiveArticles = new ArrayCollection();
+        $this->supports = new ArrayCollection();
     }
 
 
@@ -297,6 +308,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setThemeSombre(bool $theme_sombre): self
     {
         $this->theme_sombre = $theme_sombre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Support[]
+     */
+    public function getSupports(): Collection
+    {
+        return $this->supports;
+    }
+
+    public function addSupport(Support $support): self
+    {
+        if (!$this->supports->contains($support)) {
+            $this->supports[] = $support;
+            $support->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupport(Support $support): self
+    {
+        if ($this->supports->removeElement($support)) {
+            // set the owning side to null (unless already changed)
+            if ($support->getUser() === $this) {
+                $support->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
