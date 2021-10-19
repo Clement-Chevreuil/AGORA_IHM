@@ -117,5 +117,35 @@ class UserController extends AbstractController
         }
         
     }
+
+    /**
+     * @Route("/change/theme", name="user_change_theme", options={"expose"=true}, methods={"GET","POST"})
+     */
+    public function changeTheme(UserRepository $userRepository): Response
+    {
+        $user = $this->getUser();
+
+        if($user->getThemeSombre() == false){
+
+            $user->setThemeSombre(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        
+            //dd($user);
+            return new Response("success_theme_sombre");
+
+        }
+        else{
+
+            $user->setThemeSombre(false);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            //dd($user);
+            return new Response("success_theme_claire");
+        }
+
+    }
    
 }

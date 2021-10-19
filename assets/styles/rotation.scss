@@ -8,12 +8,6 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.btn_close{
-    margin-top: 5px;
-    margin-right: 5px;
-    display: none;
-}
-
 .div_post {
     color: #17a2b8;
     position: absolute;
@@ -136,17 +130,7 @@ body {
     color: #17a2b8;
 }
 
-.bouton_option_close{
-    border: 2px solid #17a2b8;
-    background-color: #2b2a2a;
-}
-.bouton_option_close{
-    color: #17a2b8;
-}
-.bouton_option_close:hover{
-    background-color: #17a2b8;
-    color:white;
-}
+
 
 .tourniquer
 {
@@ -350,3 +334,58 @@ textarea {
   }
 
 
+
+
+
+.btn_close{
+    margin-top: 5px;
+    margin-right: 5px;
+    display: none;
+}
+
+.bouton_close_sombre{
+    border: 2px solid #17a2b8;
+    background-color: none;
+    color: #17a2b8;
+}
+
+.bouton_close_sombre:hover{
+    background-color: #17a2b8;
+    color:white;
+}
+
+.bouton_close_claire{
+    border: 2px solid #000;
+    background-color: none;
+    color: black;
+}
+
+.bouton_close_claire:hover{
+    background-color: black;
+    color:white;
+}
+
+li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 25px 22px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #111;
+    color: white;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #212529;
+  }

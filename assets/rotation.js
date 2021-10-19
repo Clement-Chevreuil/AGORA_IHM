@@ -42,6 +42,11 @@ $(window).resize(function() {
     $(".div_post").css('height', '500px');
     $(".tourniquer").css('margin-top', '340px');
     $(".tourniquer").css('z-index', '1');
+    $(".rotation_center").css('display', 'block');
+    $(".rotation_right").css('display', 'block');
+    $(".rotation_left").css('display', 'block');
+    $(".rotation_right_fast").css('display', 'block');
+    $(".rotation_left_fast").css('display', 'block');
     
   } 
   else if ($(this).width() >= 992) {
@@ -49,16 +54,31 @@ $(window).resize(function() {
     $(".div_post").css('height', '400px');
     $(".tourniquer").css('z-index', '3');
     $(".tourniquer").css('margin-top', '220px');
+    $(".rotation_center").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
   } 
   else if ($(this).width() >= 768) {
     $(".div_post").css('width', '400px');
     $(".div_post").css('height', '300px');
     $(".tourniquer").css('z-index', '3');
+    $(".rotation_center").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
   }
   else if($(this).width() >= 576){
     $(".div_post").css('width', '300px');
     $(".div_post").css('height', '200px');
     $(".tourniquer").css('z-index', '3');
+    $(".rotation_center").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
   }
 });
 
@@ -79,18 +99,18 @@ $( ".div_post" ).on("click", function() {
     event.stopPropagation();
   }
   else{
-    console.log("hello");
+    $(".rotation_center").css('display', 'none');
+    $(".rotation_right").css('display', 'none');
+    $(".rotation_left").css('display', 'none');
+    $(".rotation_right_fast").css('display', 'none');
+    $(".rotation_left_fast").css('display', 'none');
     var wa = this;
     $(wa).css(' transition-delay', '1s');
     $(wa).css('transition-duration', '2s');
     $(wa).css("width", $(window).width()-10 + "px");
     $(wa).css("height", $(window).height() - 130 + "px");
     $(wa).css("margin-top","65px");
-    $(".rotation_center").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left_fast").css('display', 'none');
+
     $(".btn_close").css('display', 'block');
     $(".descriptionLess").css('display', 'none');
     $(".descriptionMax").css('display', 'block');
@@ -231,59 +251,83 @@ $( ".data-article-like" ).on("click", function(event) {
 
   $('#theme').on('change', function() { 
         // From the other examples
-      if (!this.checked) {
-          $("body").css("background-color", "#bfbfbf");
-          $(".footer").css("background-color", "white");
-          $(".footer").css("color", "black");
+      $.ajax({
 
-          $("#nav").removeClass("navbar-dark bg-dark");
-          $("#nav").addClass("navbar-light bg-light");
+        url: Routing.generate("user_change_theme"),  //Cible du script coté serveur à appeler 
+        
+        success : function (output) {
+          console.log(output);
+          if(output == "success_theme_claire"){
 
-          $(".div_post").css("background-color", "#dbdbdb");
-          $(".div_post").css("border", "2px solid #474747");
-          $(".div_post").css("color", "black");
+            alert("sucess change theme");
+            $("body").css("background-color", "#bfbfbf");
+            $(".footer").css("background-color", "white");
+            $(".footer").css("color", "black");
+  
+            $("#nav").removeClass("navbar-dark bg-dark");
+            $("#nav").addClass("navbar-light bg-light");
+  
+            $(".div_post").css("background-color", "#dbdbdb");
+            $(".div_post").css("border", "2px solid #474747");
+            $(".div_post").css("color", "black");
+  
+            $("#fast_back").removeClass("rotation_left_fast");
+            $("#step_back").removeClass("rotation_left");
+            $("#step_for").removeClass("rotation_right");
+            $("#fast_for").removeClass("rotation_right_fast");
+  
+            $("#fast_back").addClass("rotation_left_fast_black");
+            $("#step_back").addClass("rotation_left_black");
+            $("#step_for").addClass("rotation_right_black");
+            $("#fast_for").addClass("rotation_right_fast_black");
 
-          $("#fast_back").removeClass("rotation_left_fast");
-          $("#step_back").removeClass("rotation_left");
-          $("#step_for").removeClass("rotation_right");
-          $("#fast_for").removeClass("rotation_right_fast");
+            
+            
+            $(".btn_close").addClass("bouton_close_claire");
+            $(".btn_close").removeClass("bouton_close_sombre");
+  
+            $(".test2").css("background-color", "#474747");
+            $(".bouton_options").css("border", "2px solid white");
+            $(".color_bouton_options").css("color", "white");
 
-          $("#fast_back").addClass("rotation_left_fast_black");
-          $("#step_back").addClass("rotation_left_black");
-          $("#step_for").addClass("rotation_right_black");
-          $("#fast_for").addClass("rotation_right_fast_black");
+          }
 
-          $(".test2").css("background-color", "#474747");
-          $(".bouton_options").css("border", "2px solid white");
-          $(".color_bouton_options").css("color", "white");
-      }
-      else{
+          else if(output == "success_theme_sombre"){
 
-        $("body").css("background-color", "#2b2a2a");
-        $(".footer").css("background-color", "#212529");
-        $(".footer").css("color", "white");
+            alert("sucess change theme sombre");
 
-        $("#nav").addClass("navbar-dark bg-dark");
-        $("#nav").removeClass("navbar-light bg-light");
+            $("body").css("background-color", "#2b2a2a");
+            $(".footer").css("background-color", "#212529");
+            $(".footer").css("color", "white");
+    
+            $("#nav").addClass("navbar-dark bg-dark");
+            $("#nav").removeClass("navbar-light bg-light");
+    
+            $(".div_post").css("background-color", "#2b2a2a");
+            $(".div_post").css("border", "2px solid #17a2b8");
+            $(".div_post").css("color", "#17a2b8");
+    
+            $("#fast_back").addClass("rotation_left_fast");
+            $("#step_back").addClass("rotation_left");
+            $("#step_for").addClass("rotation_right");
+            $("#fast_for").addClass("rotation_right_fast");
+    
+            $("#fast_back").removeClass("rotation_left_fast_black");
+            $("#step_back").removeClass("rotation_left_black");
+            $("#step_for").removeClass("rotation_right_black");
+            $("#fast_for").removeClass("rotation_right_fast_black");
+    
+            $(".test2").css("background-color", "#4d4d4d");
+            $(".bouton_options").css("border", "2px solid #17a2b8");
+            $(".color_bouton_options").css("color", "#17a2b8");
 
-        $(".div_post").css("background-color", "#2b2a2a");
-        $(".div_post").css("border", "2px solid #17a2b8");
-        $(".div_post").css("color", "#17a2b8");
+            
+            $(".btn_close").addClass("bouton_close_sombre");
+            $(".btn_close").removeClass("bouton_close_claire");
 
-        $("#fast_back").addClass("rotation_left_fast");
-        $("#step_back").addClass("rotation_left");
-        $("#step_for").addClass("rotation_right");
-        $("#fast_for").addClass("rotation_right_fast");
-
-        $("#fast_back").removeClass("rotation_left_fast_black");
-        $("#step_back").removeClass("rotation_left_black");
-        $("#step_for").removeClass("rotation_right_black");
-        $("#fast_for").removeClass("rotation_right_fast_black");
-
-        $(".test2").css("background-color", "#4d4d4d");
-        $(".bouton_options").css("border", "2px solid #17a2b8");
-        $(".color_bouton_options").css("color", "17a2b8");
-    }
+          }
+        }
+      });
   });
 
 
