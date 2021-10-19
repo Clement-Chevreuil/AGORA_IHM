@@ -264,9 +264,6 @@ $( ".data-article-like" ).on("click", function(event) {
             $(".footer").css("background-color", "white");
             $(".footer").css("color", "black");
   
-            $("#nav").removeClass("navbar-dark bg-dark");
-            $("#nav").addClass("navbar-light bg-light");
-  
             $(".div_post").css("background-color", "#dbdbdb");
             $(".div_post").css("border", "2px solid #474747");
             $(".div_post").css("color", "black");
@@ -290,6 +287,12 @@ $( ".data-article-like" ).on("click", function(event) {
             $(".bouton_options").css("border", "2px solid white");
             $(".color_bouton_options").css("color", "white");
 
+            $(".nav_lil").removeClass("li_sombre");
+            $(".nav_lil").addClass("li_claire");
+
+            $(".nav_ulu").removeClass("ul_sombre");
+            $(".nav_ulu").addClass("ul_claire");
+
           }
 
           else if(output == "success_theme_sombre"){
@@ -299,9 +302,6 @@ $( ".data-article-like" ).on("click", function(event) {
             $("body").css("background-color", "#2b2a2a");
             $(".footer").css("background-color", "#212529");
             $(".footer").css("color", "white");
-    
-            $("#nav").addClass("navbar-dark bg-dark");
-            $("#nav").removeClass("navbar-light bg-light");
     
             $(".div_post").css("background-color", "#2b2a2a");
             $(".div_post").css("border", "2px solid #17a2b8");
@@ -324,6 +324,12 @@ $( ".data-article-like" ).on("click", function(event) {
             
             $(".btn_close").addClass("bouton_close_sombre");
             $(".btn_close").removeClass("bouton_close_claire");
+
+            $(".nav_lil").removeClass("li_claire");
+            $(".nav_lil").addClass("li_sombre");
+
+            $(".nav_ulu").removeClass("ul_claire");
+            $(".nav_ulu").addClass("ul_sombre");
 
           }
         }

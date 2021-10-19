@@ -148,7 +148,6 @@ body {
         position: absolute;
         top: 0;
         
-        transition: all 0.3s;
         transform: translate3d(0, 0, 0) scale(1);
         z-index: 2;
         transition: all 0.3s;
@@ -365,27 +364,3 @@ textarea {
     color:white;
 }
 
-li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 25px 22px;
-    text-decoration: none;
-  }
-  
-  /* Change the link color to #111 (black) on hover */
-  li a:hover {
-    background-color: #111;
-    color: white;
-  }
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #212529;
-  }

@@ -123,4 +123,64 @@ textarea {
   color:white;
 }
 
+li {
+  float: left;
+}
+
+.li_sombre a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px 22px;
+  text-decoration: none;
+
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+
+.li_claire a{
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 25px 22px;
+  text-decoration: none;
+
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+
+/* Change the link color to #111 (black) on hover */
+.li_claire a:hover {
+  background-color: rgb(107, 107, 107);
+  color: black;
+
+  transition-duration: 0.8s;
+  transition-delay: 0s;
+}
+
+.li_sombre a:hover {
+  background-color: #111;
+  color: white;
+
+  transition-duration: 0.8s;
+  transition-delay: 0s;
+}
+
+
+.ul_sombre {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #212529;
+}
+
+.ul_claire {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
 /* @import '~@fortawesome/fontawesome-free/css/all.css'; */
