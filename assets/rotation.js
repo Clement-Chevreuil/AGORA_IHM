@@ -35,52 +35,52 @@ function tab(id, texte){
 var winSize = '';
 
 //test pour les changements de taille ecran
-$(window).resize(function() {
+// $(window).resize(function() {
   
-  if ($(this).width() >= 1200) {
-    $(".div_post").css('width', '700px');
-    $(".div_post").css('height', '500px');
-    $(".tourniquer").css('margin-top', '340px');
-    $(".tourniquer").css('z-index', '1');
-    $(".rotation_center").css('display', 'block');
-    $(".rotation_right").css('display', 'block');
-    $(".rotation_left").css('display', 'block');
-    $(".rotation_right_fast").css('display', 'block');
-    $(".rotation_left_fast").css('display', 'block');
+//   if ($(this).width() >= 1200) {
+//     // $(".div_post").css('width', '700px');
+//     // $(".div_post").css('height', '500px');
+//     $(".tourniquer").css('margin-top', '340px');
+//     $(".tourniquer").css('z-index', '1');
+//     $(".rotation_center").css('display', 'block');
+//     $(".rotation_right").css('display', 'block');
+//     $(".rotation_left").css('display', 'block');
+//     $(".rotation_right_fast").css('display', 'block');
+//     $(".rotation_left_fast").css('display', 'block');
     
-  } 
-  else if ($(this).width() >= 992) {
-    $(".div_post").css('width', '500px');
-    $(".div_post").css('height', '400px');
-    $(".tourniquer").css('z-index', '3');
-    $(".tourniquer").css('margin-top', '220px');
-    $(".rotation_center").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left_fast").css('display', 'none');
-  } 
-  else if ($(this).width() >= 768) {
-    $(".div_post").css('width', '400px');
-    $(".div_post").css('height', '300px');
-    $(".tourniquer").css('z-index', '3');
-    $(".rotation_center").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left_fast").css('display', 'none');
-  }
-  else if($(this).width() >= 576){
-    $(".div_post").css('width', '300px');
-    $(".div_post").css('height', '200px');
-    $(".tourniquer").css('z-index', '3');
-    $(".rotation_center").css('display', 'none');
-    $(".rotation_right").css('display', 'none');
-    $(".rotation_left").css('display', 'none');
-    $(".rotation_right_fast").css('display', 'none');
-    $(".rotation_left_fast").css('display', 'none');
-  }
-});
+//   } 
+//   else if ($(this).width() >= 992) {
+//     // $(".div_post").css('width', '500px');
+//     // $(".div_post").css('height', '400px');
+//     $(".tourniquer").css('z-index', '3');
+//     $(".tourniquer").css('margin-top', '220px');
+//     $(".rotation_center").css('display', 'none');
+//     $(".rotation_right").css('display', 'none');
+//     $(".rotation_left").css('display', 'none');
+//     $(".rotation_right_fast").css('display', 'none');
+//     $(".rotation_left_fast").css('display', 'none');
+//   } 
+//   else if ($(this).width() >= 768) {
+//     // $(".div_post").css('width', '400px');
+//     // $(".div_post").css('height', '300px');
+//     $(".tourniquer").css('z-index', '3');
+//     $(".rotation_center").css('display', 'none');
+//     $(".rotation_right").css('display', 'none');
+//     $(".rotation_left").css('display', 'none');
+//     $(".rotation_right_fast").css('display', 'none');
+//     $(".rotation_left_fast").css('display', 'none');
+//   }
+//   else if($(this).width() >= 576){
+//     // $(".div_post").css('width', '300px');
+//     // $(".div_post").css('height', '200px');
+//     $(".tourniquer").css('z-index', '3');
+//     $(".rotation_center").css('display', 'none');
+//     $(".rotation_right").css('display', 'none');
+//     $(".rotation_left").css('display', 'none');
+//     $(".rotation_right_fast").css('display', 'none');
+//     $(".rotation_left_fast").css('display', 'none');
+//   }
+// });
 
 
 $( ".shared" ).on("click", function(event) {
@@ -114,9 +114,9 @@ $( ".div_post" ).on("click", function() {
     var wa = this;
     $(wa).css(' transition-delay', '1s');
     $(wa).css('transition-duration', '2s');
-    $(wa).css("width", $(window).width()-10 + "px");
-    $(wa).css("height", $(window).height() - 130 + "px");
-    $(wa).css("margin-top","65px");
+    $(wa).css("width", "100vw");
+    $(wa).css("height", "88vh");
+    $(wa).css("margin-top","4vh");
 
     $(".btn_close").css('display', 'block');
     $(".descriptionLess").css('display', 'none');
@@ -134,9 +134,9 @@ $( ".btn_close" ).on("click", function(event) {
   var wa = $(".mid-slide").children()[0];
   $(wa).css(' transition-delay', '1s');
   $(wa).css('transition-duration', '2s');
-  $(wa).css("width", "900px");
-  $(wa).css("height", "500px");
-  $(wa).css("margin-top", "0px");
+  $(wa).css("width", "50vw");
+  $(wa).css("height", "50vh");
+  $(wa).css("margin-top","0vh");
   $(".rotation_center").css('display', 'block');
   $(".rotation_right").css('display', 'block');
   $(".rotation_left").css('display', 'block');
