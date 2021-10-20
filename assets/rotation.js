@@ -115,9 +115,10 @@ $( ".div_post" ).on("click", function() {
     $(wa).css(' transition-delay', '1s');
     $(wa).css('transition-duration', '2s');
     $(wa).css("width", "100vw");
-    $(wa).css("height", "88vh");
-    $(wa).css("margin-top","4vh");
-
+    $(wa).css("height", "84vh");
+    $(wa).css("margin-top","3vh");
+    var enfant = $(wa).children();
+    $(enfant[0]).css("height", "76vh");
     $(".btn_close").css('display', 'block');
     $(".descriptionLess").css('display', 'none');
     $(".descriptionMax").css('display', 'block');
@@ -135,8 +136,10 @@ $( ".btn_close" ).on("click", function(event) {
   $(wa).css(' transition-delay', '1s');
   $(wa).css('transition-duration', '2s');
   $(wa).css("width", "50vw");
-  $(wa).css("height", "50vh");
+  $(wa).css("height", "70vh");
   $(wa).css("margin-top","0vh");
+  var enfant = $(wa).children();
+  $(enfant[0]).css("height", "43vh");
   $(".rotation_center").css('display', 'block');
   $(".rotation_right").css('display', 'block');
   $(".rotation_left").css('display', 'block');

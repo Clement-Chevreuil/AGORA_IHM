@@ -8,6 +8,12 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+$postHeight : 70vh;
+$postWidth : 35vw;
+$postWidthOther : 50vw;
+$arrowTop : 5vh;
+
+
 .div_post {
     color: #17a2b8;
     position: absolute;
@@ -16,8 +22,8 @@ body {
     background-color: #2b2a2a;
     // background: linear-gradient(#2b2a2a, #2b2a2a);
     border-radius: 10px;
-    height:50vh;
-    width: 50vw;
+    height: $postHeight;
+    width: $postWidthOther;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -28,7 +34,7 @@ body {
 }
 
 .test1{
-    height:420px;
+    height:62vh;
     overflow-y: scroll;
 }
 
@@ -72,43 +78,6 @@ body {
   .test1::-webkit-scrollbar-thumb:hover {
     background: #3f3f3f; 
   }
-
-
-/* @include media-breakpoint-up(sm) { 
-    .div_post{
-        height:500px;
-        width: 300px;
-        background-color: #000;
-    }
-}
-@include media-breakpoint-up(md) {
-    .div_post{
-        height:500px;
-        width: 300px;
-        background-color: #000;
-    }
-}
-@include media-breakpoint-up(lg) { 
-    .div_post{
-        height:500px;
-        width: 300px;
-        background-color: #000;
-    }
-}
-@include media-breakpoint-up(xl) {
-    .div_post{
-        height:500px;
-        width: 300px;
-        background-color: #000;
-    }
-}
-@include media-breakpoint-up(xxl) {
-    .div_post{
-        height:500px;
-        width: 300px;
-        background-color: #000;
-    }
-} */
 
 
 .ensembleTourniquer
@@ -246,82 +215,82 @@ body {
 
 
 .rotation_left_fast{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #04040433;  */
-    height:520px; 
-    width: 278px; 
+    height: $postHeight;
+    width: $postWidth;
     z-index: 2;
     cursor: url("../../assets/image/fast-backward-solid-blue.png"), auto;
 
     
 }
 .rotation_left{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #3c3c3c2e;  */
-    height:520px; 
-    width: 250px; 
+    height: $postHeight;
+    width: $postWidth;
     z-index: 2;
     cursor: url("../../assets/image/step-backward-solid-blue.png"), auto;
 }
 .rotation_center{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #04040433;  */
-    height:520px; 
-    width: 400px; 
+    height: $postHeight;
+    width: $postWidth;
     z-index: 0;
     cursor: pointer;
 }
 
 .rotation_right{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #3c3c3c2e;  */
-    height:520px; 
-    width: 250px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/step-forward-solid-blue.png"), auto;
 }
 .rotation_right_fast{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #04040433;  */
-    height:520px; 
-    width: 278px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/fast-forward-solid-blue.png"), auto;
 }
 
 
 .rotation_left_fast_black{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #04040433;  */
-    height:520px; 
-    width: 278px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/fast-backward-solid.png"), auto;
 
     
 }
 .rotation_left_black{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #3c3c3c2e;  */
-    height:520px; 
-    width: 250px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/step-backward-solid.png"), auto;
 }
 
 .rotation_right_black{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #3c3c3c2e;  */
-    height:520px; 
-    width: 250px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/step-forward-solid.png"), auto;
 }
 .rotation_right_fast_black{
-    margin-top: 70px; 
+    margin-top: 5vh; 
     /* background-color: #04040433;  */
-    height:520px; 
-    width: 278px; 
+    height: $postHeight;
+    width: $postWidth; 
     z-index: 2;
     cursor: url("../../assets/image/fast-forward-solid.png"), auto;
 }
