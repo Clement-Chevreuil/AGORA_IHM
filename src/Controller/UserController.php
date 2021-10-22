@@ -123,6 +123,8 @@ class UserController extends AbstractController
             $archiveUser->setPassword($user->getPassword());
             $archiveUser->setName($user->getName());
             $archiveUser->setBlocked($user->getBlocked());
+            $archiveUser->setCreatedAt($user->getCreatedAt());
+            $archiveUser->setUpdatedAt($user->getUpdatedAt());
             $archiveUser->setSuppressedAt($date);
 
             $entityManager = $this->getDoctrine()->getManager();

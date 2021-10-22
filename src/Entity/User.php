@@ -85,6 +85,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ArchiveSupport::class, mappedBy="user")
+     */
+    private $archiveSupports;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $created_at;
+
 
 
     public function __construct()
@@ -93,6 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userArticleInformations = new ArrayCollection();
         $this->archiveArticles = new ArrayCollection();
         $this->supports = new ArrayCollection();
+        $this->archiveSupports = new ArrayCollection();
     }
 
 
@@ -350,6 +361,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArchiveSupport[]
+     */
+    public function getArchiveSupports(): Collection
+    {
+        return $this->archiveSupports;
+    }
+
+    public function addArchiveSupport(ArchiveSupport $archiveSupport): self
+    {
+        if (!$this->archiveSupports->contains($archiveSupport)) {
+            $this->archiveSupports[] = $archiveSupport;
+            $archiveSupport->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchiveSupport(ArchiveSupport $archiveSupport): self
+    {
+        if ($this->archiveSupports->removeElement($archiveSupport)) {
+            // set the owning side to null (unless already changed)
+            if ($archiveSupport->getUser() === $this) {
+                $archiveSupport->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

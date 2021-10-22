@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Support;
 use App\Form\SupportType;
+use App\Entity\ArchiveSupport;
+use App\Repository\ArchiveSupportRepository;
 use App\Repository\SupportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Monolog\DateTimeImmutable;
 
 /**
  * @Route("/support")
@@ -35,6 +38,8 @@ class SupportController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $date = new \DateTimeImmutable();
+            $support->setCreatedAt($date);
             $support->setVu(false);
             $support->setStatus("En cours");
             $support->setUser($this->getUser());
@@ -68,8 +73,23 @@ class SupportController extends AbstractController
     public function delete(Request $request, Support $support): Response
     {
         if ($this->isCsrfTokenValid('delete'.$support->getId(), $request->request->get('_token'))) {
+
+            $date = new \DateTimeImmutable();
+            $support->setCreatedAt($date);
+
+            $date = new \DateTimeImmutable();
+            $archiveSupport = new ArchiveSupport();
+            $archiveSupport->setUser($support->getUser());
+            $archiveSupport->setTitle($support->getTitle());
+            $archiveSupport->setInformations($support->getInformations());
+            $archiveSupport->setVu($support->getVu());
+            $archiveSupport->setStatus($support->getStatus());
+            $archiveSupport->setCreatedAt($support->getCreatedAt());
+            $archiveSupport->setSuppressedAt($date);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($support);
+            $entityManager->persist($archiveSupport);
             $entityManager->flush();
         }
 

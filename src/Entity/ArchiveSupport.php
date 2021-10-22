@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SupportRepository;
+use App\Repository\ArchiveSupportRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SupportRepository::class)
+ * @ORM\Entity(repositoryClass=ArchiveSupportRepository::class)
  */
-class Support
+class ArchiveSupport
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class Support
     /**
      * @ORM\Column(type="text")
      */
-    private $information;
+    private $informations;
 
     /**
      * @ORM\Column(type="boolean")
@@ -38,15 +38,20 @@ class Support
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="supports")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime_immutable")
      */
-    private $user;
+    private $created_at;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private $created_at;
+    private $suppressed_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="archiveSupports")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -65,14 +70,14 @@ class Support
         return $this;
     }
 
-    public function getInformation(): ?string
+    public function getInformations(): ?string
     {
-        return $this->information;
+        return $this->informations;
     }
 
-    public function setInformation(string $information): self
+    public function setInformations(string $informations): self
     {
-        $this->information = $information;
+        $this->informations = $informations;
 
         return $this;
     }
@@ -101,18 +106,6 @@ class Support
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -121,6 +114,30 @@ class Support
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getSuppressedAt(): ?\DateTimeImmutable
+    {
+        return $this->suppressed_at;
+    }
+
+    public function setSuppressedAt(\DateTimeImmutable $suppressed_at): self
+    {
+        $this->suppressed_at = $suppressed_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

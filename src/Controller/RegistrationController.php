@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Monolog\DateTimeImmutable;
 
 class RegistrationController extends AbstractController
 {
@@ -29,10 +30,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $date = new \DateTimeImmutable();
             $entityManager = $this->getDoctrine()->getManager();
             $user->setRoles(['ROLE_USER']);
             $user->setBlocked(false);
+            $user->setCreatedAt($date);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
