@@ -1,0 +1,128 @@
+
+
+<!DOCTYPE html>
+<html>
+
+{% if app.user != null %}
+    {% if app.user.getThemeSombre() == true %}
+        {% set body = "background-color: #2b2a2a" %}
+        {% set table = "table-dark" %}
+        {% set titleColor = "color_white"%}
+        {% set userCreateBlock = "block_informations_sombre"%}
+        {% set colorUserProfil = "color_blue"%}
+    {% else %}
+        {% set body = "background-color: #bfbfbf" %}
+        {% set table = "table-light" %}
+        {% set titleColor = "color_black"%}
+        {% set userCreateBlock = "block_informations_clair"%}
+        {% set colorUserProfil = "color_black"%}
+    {% endif %}
+{% else %}
+        {% set body = "background-color: #2b2a2a" %}
+        {% set table = "" %}
+        {% set titleColor = ""%}
+        {% set userCreateBlock = ""%}
+        {% set colorUserProfil = ""%}
+{% endif %}
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app_externe') }}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        {% endblock %}
+    </head>
+
+
+
+
+     <body style="{{body}}">
+        {% block nav %}
+
+            {% if app.user != null %}
+                {% if app.user.getThemeSombre() == true %}
+                    {% set check = "checked" %}
+                    {% set ul = "ul_sombre" %}
+                    {% set li = "li_sombre"%}
+                    {% set color = "#ffffff8c" %}
+                {% else %}
+                    {% set check = "" %}
+                    {% set ul = "ul_claire" %}
+                    {% set li = "li_claire"%}
+                {% endif %}
+            {% else %}
+
+                {% set check = "checked" %}
+                {% set ul = "ul_sombre" %}
+                {% set li = "li_sombre"%}
+                {% set color = "#ffffff8c" %}
+
+            {% endif %}
+
+                    <ul class="nav_ulu {{ul}}">
+                        <li class="nav_lil d-inline {{li}}">
+                            <a href="">
+                                <i class="fas fa-home fa-2x"></i><br>Agora
+                            </a>
+                        </li>
+                        <li class="nav_lil d-inline {{li}}">
+                            <a href="">
+                                <i class="fas fa-newspaper fa-2x"></i><br>Article
+                            </a>
+                        </li>
+                        <li class="nav_lil d-inline {{li}}">
+                            <a href="">
+                                <i class="fas fa-bookmark fa-2x"></i><br>Signet
+                            </a>
+                        </li>
+                        <li class="nav_lil d-inline {{li}}">
+                            <a href="">
+                                <i class="fas fa-question-circle fa-2x"></i><br>Support
+                            </a>
+                        </li>
+                        <li class="nav_lil d-inline {{li}}">
+                            <a href="">
+                                <i class="fas fa-user fa-2x"></i><br>Profil
+                            </a>
+                        </li>
+                        <li class="nav_lil d-inline {{li}} ">
+                            <div class="form-check form-switch " style="margin-top: 30px; margin-left:10px; font-size: 20px">
+                                <input class="form-check-input sombre" type="checkbox" id="theme" {{check}}>
+                            </div>
+                        </li>
+                    </ul>
+
+        {% endblock %}
+
+        
+        {% block body %}
+                
+        {% endblock %}
+
+        {% block footer %}
+
+            {% set footerBackgroundColor = "background-color: #212529" %}
+            {% set footerColor = "color: white" %}
+
+            <div class="text-center p-3 footer" style="{{ footerBackgroundColor}} ; {{ footerColor }}">      
+                © 2021 Copyright:
+                <a class="text-white">Agora.com</a>
+            </div>
+        {% endblock %}
+
+
+    </body>
+</html>
+
+
+
+
+

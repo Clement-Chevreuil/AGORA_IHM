@@ -95,3 +95,27 @@ $.ajax({
   }
 });
 });
+
+$( ".text_left" ).on("click", function() {
+
+    $("#article_description").removeClass( "text-end");
+    $("#article_description").removeClass( "text-center");
+    $("#article_description").addClass( "text-start")
+
+});
+
+$( ".text_center" ).on("click", function() {
+
+    $("#article_description").removeClass( "text-end");
+    $("#article_description").removeClass( "text-start");
+    $("#article_description").addClass( "text-center")
+
+});
+
+$( ".text_right" ).on("click", function() {
+
+    $("#article_description").removeClass( "text-start");
+    $("#article_description").removeClass( "text-center");
+    $("#article_description").addClass( "text-end");
+
+});

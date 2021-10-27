@@ -114,15 +114,15 @@
 
                     
                     <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
-                        <div class="div_post  text-center" style="{{divBackgroundColor}}; {{divBorder}}; {{divColor}}" >
+                        <div class="div_post" style="{{divBackgroundColor}}; {{divBorder}}; {{divColor}}" >
                             <div class="test1 p-3 ">
                                 <button class="btn position-absolute top-0 end-0 btn_close {{buttonClose}}"><i class="far fa-times-circle fa-2x color_bouton_option_close"></i></button>
                                 <h1> {{ article.name }} </h1>
                                 
-                                <div>
+                                <div class="{{ article.getTextPosition() }}">
                                     {# <p class="mt-5"> {{ article.description }} </p> #}
-                                    <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|slice(0, 700) ~ '...' : article.description }} </p>
-                                    <p  class="mt-5 descriptionMax d-none d-flex align-items-center " style="font-size: 20px;"> {{ article.description }} </p>
+                                    <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|u.truncate(700, '...', false)|nl2br   : article.description|nl2br }} </p>
+                                    <p  class="mt-5 descriptionMax d-none align-items-center " style="font-size: 20px;"> {{ article.description|nl2br }} </p>
                                 </div>
                                 
 

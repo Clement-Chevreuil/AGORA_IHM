@@ -33,6 +33,7 @@ class RegistrationController extends AbstractController
             $date = new \DateTimeImmutable();
             $entityManager = $this->getDoctrine()->getManager();
             $user->setRoles(['ROLE_USER']);
+            $user->setThemeSombre(true);
             $user->setBlocked(false);
             $user->setCreatedAt($date);
             $entityManager->persist($user);

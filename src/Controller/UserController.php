@@ -143,14 +143,8 @@ class UserController extends AbstractController
     public function signet(): Response
     {
         $user = $this->getUser();
-        if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
-            return $this->render('user/signet.html.twig', ['user' => $user,]);
-        }
 
-        else{
-            $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
-            return $this->redirectToRoute('article_index');
-        }
+        return $this->render('user/signet.html.twig', ['user' => $user,]);
         
     }
 

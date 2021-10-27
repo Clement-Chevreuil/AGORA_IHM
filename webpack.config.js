@@ -24,6 +24,7 @@ Encore
     .addEntry('rotation', './assets/rotation.js')
     .addEntry('admin_control', './assets/admin_control.js')
     .addEntry('user_informations', './assets/user_informations.js')
+    .addEntry('app_externe', './assets/app_externe.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

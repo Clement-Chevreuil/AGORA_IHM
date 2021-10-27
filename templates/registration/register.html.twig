@@ -2,4 +2,5 @@
 
 {% block title %}Register{% endblock %}
 
-{{ include('registration/form.html.twig') }} 
+{% block body %}{{ include('registration/form.html.twig') }} {% endblock %}
+

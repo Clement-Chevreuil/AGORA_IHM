@@ -142,9 +142,10 @@ textarea {
 .footer{
   
   background-color: #212529;
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  bottom:0;
+  height: 50px;
+  bottom:0px;
   color:white;
 }
 
@@ -326,3 +327,26 @@ li {
   border-left: 1px solid black;
 }
 
+.card_article{
+  overflow-y: scroll;
+}
+
+.card_article::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+.card_article::-webkit-scrollbar-track {
+  display: none;
+}
+ 
+/* Handle */
+.card_article::-webkit-scrollbar-thumb {
+  background: rgb(27, 27, 27); 
+  border-radius: px;
+}
+
+.card_article_show{
+  height: 73vh; 
+  border-radius: 15px;
+}

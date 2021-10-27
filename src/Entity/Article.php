@@ -55,6 +55,11 @@ class Article
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $text_position;
+
 
     public function __construct()
     {
@@ -166,6 +171,18 @@ class Article
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getTextPosition(): ?string
+    {
+        return $this->text_position;
+    }
+
+    public function setTextPosition(string $text_position): self
+    {
+        $this->text_position = $text_position;
 
         return $this;
     }

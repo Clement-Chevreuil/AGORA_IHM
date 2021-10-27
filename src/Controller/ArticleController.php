@@ -57,7 +57,6 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            
             $brochureFile = $form->get('picture')->getData();
             if ($brochureFile)
             {
@@ -80,9 +79,17 @@ class ArticleController extends AbstractController
                 
             }
 
+            $text_position = $request->get('text_position');
+
+            if($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end"){
+                $text_position = "text-start";
+            }
+
+            
             $date = new \DateTimeImmutable();
             $article->setCreatedAt($date);
             $article->setUpdatedAt($date);
+            $article->setTextPosition($text_position);
             $article->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
@@ -142,8 +149,18 @@ class ArticleController extends AbstractController
                     
                 }
 
+                
+                $text_position = $request->get('text_position');
+
+                
+
+                if($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end"){
+                    $text_position = "text-start";
+                }
+
                 $date = new \DateTimeImmutable();
                 $article->setUpdatedAt($date);
+                $article->setTextPosition($text_position);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($article);
                 $entityManager->flush();
