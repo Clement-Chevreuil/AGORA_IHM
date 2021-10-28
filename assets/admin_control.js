@@ -84,6 +84,35 @@ $( ".set_blocked" ).on("change", function() {
 });
 
 
+$( ".choose_status" ).on("change", function() {
+
+  var ad = this;
+  var idSupport = $(this).attr('id');
+  var value;
+  value = $("option:selected", this).attr('value');
+
+  console.log(value);
+  if(value != "EnAttente" && value != "EnCours" && value != "Resolu" && value != "Abandon" )
+    { alert("arrete ca petit malin et recharge la page"); }
+  else{
+    $.ajax({
+      url: Routing.generate("change_status", {idSupport: idSupport, value: value}),  //Cible du script coté serveur à appeler 
+      
+      success : function (output) {
+        console.log(output);
+        if(output == "success"){
+          alert("Changement de status");
+        }
+        if(output == "error"){
+          alert("arrete ca petit malin et recharge la page");
+        }
+      }
+    });
+  }
+
+});
+
+
 
 $(window).resize(function() {
   

@@ -95,6 +95,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Support::class, mappedBy="user_solver")
+     */
+    private $user_support_resolver;
+
 
 
     public function __construct()
@@ -104,6 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->archiveArticles = new ArrayCollection();
         $this->supports = new ArrayCollection();
         $this->archiveSupports = new ArrayCollection();
+        $this->user_support_resolver = new ArrayCollection();
     }
 
 
@@ -403,6 +409,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Support[]
+     */
+    public function getUserSupportResolver(): Collection
+    {
+        return $this->user_support_resolver;
+    }
+
+    public function addUserSupportResolver(Support $userSupportResolver): self
+    {
+        if (!$this->user_support_resolver->contains($userSupportResolver)) {
+            $this->user_support_resolver[] = $userSupportResolver;
+            $userSupportResolver->setUserSolver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSupportResolver(Support $userSupportResolver): self
+    {
+        if ($this->user_support_resolver->removeElement($userSupportResolver)) {
+            // set the owning side to null (unless already changed)
+            if ($userSupportResolver->getUserSolver() === $this) {
+                $userSupportResolver->setUserSolver(null);
+            }
+        }
 
         return $this;
     }

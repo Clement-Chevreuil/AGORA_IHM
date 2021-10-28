@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Monolog\DateTimeImmutable;
 
 /**
- * @Route("/support")
+ * @Route("/admin/support")
  */
 class SupportController extends AbstractController
 {
@@ -92,7 +92,7 @@ class SupportController extends AbstractController
             $entityManager->persist($archiveSupport);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('support_index', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('success', 'Report Resolu');
+        return $this->redirectToRoute('admin_gestion_user_article', [], Response::HTTP_SEE_OTHER);
     }
 }

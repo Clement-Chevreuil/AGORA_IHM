@@ -115,6 +115,31 @@ class AdminController extends AbstractController
         }
     }
 
+        /**
+     * @Route("/{idSupport}/{value}/change/status", name="change_status", options={"expose"=true}, methods={"GET","POST"})
+     */
+    public function changeStatus(SupportRepository $supportRepository, $idSupport, $value): Response
+    {
+
+        if($value != "EnAttente" && $value != "EnCours" && $value != "Resolu" && $value != "Abandon" )
+        {
+            return new Response("error");
+        }
+        else
+        {
+            $support = new Support();
+            $support = $supportRepository->find($idSupport);
+            $support->setStatus($value);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($support);
+            $entityManager->flush();
+            //dd($support);
+            return new Response("success");
+        }
+
+        
+    }
+
     /**
      * @Route("/{id}/delete/user", name="user_delete_admin", methods={"POST"})
      */

@@ -95,21 +95,28 @@
                         <tr>
                             <th>Title</th>
                             <th>Status</th>
-                            <th>User</th>
                             <th>Contact</th>
                             <th>Show</th>
-                            <th>Résolu</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for support in supports %}
                         <tr>
                             <td>{{ support.title }}</td>
-                            <td>{{ support.status }}</td>
-                            <td>{{ support.user.name }}</td>
-                            <td>{{ support.user.email }}</td>
-                            <td><a type="button" class="btn btn-secondary">Show</a></td>
-                            <td><a type="button" class="btn btn-secondary">Resolu</a></td>
+                            <td>
+                                <select class="form-select choose_status" name="choose_status" id="{{support.id}}"  aria-label="Default select example">
+                                    <option value="EnAttente">En Attente</option>
+                                    <option value="EnCours">En Cours</option>
+                                    <option value="Resolu">Resolus</option>
+                                    <option value="Abandon">Abandon</option>
+                                </select>
+                            </td>
+                            <td>
+                                {{ support.user.email }}
+                                <br>
+                                {{ support.user.name }}
+                            </td>
+                            <td><a type="button" href="{{ path('support_show', {'id': support.id}) }}" class="btn btn-secondary">Show</a></td>
                         </tr>
                     {% else %}
                         <tr>

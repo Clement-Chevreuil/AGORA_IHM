@@ -48,6 +48,11 @@ class Support
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="user_support_resolver")
+     */
+    private $user_solver;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Support
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUserSolver(): ?User
+    {
+        return $this->user_solver;
+    }
+
+    public function setUserSolver(?User $user_solver): self
+    {
+        $this->user_solver = $user_solver;
 
         return $this;
     }
