@@ -8,6 +8,7 @@ import 'jquery-ui/themes/base/selectable.css';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/selectable';
 
+
 import bsCustomFileInput from 'bs-custom-file-input';
 bsCustomFileInput.init();
 
@@ -119,3 +120,35 @@ $( ".text_right" ).on("click", function() {
     $("#article_description").addClass( "text-end");
 
 });
+
+
+var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+  ];
+  
+//   $( "#tags" ).on("change", function() {
+//   $( "#tags" ).autocomplete({
+//     source: availableTags
+//   });
+// } );

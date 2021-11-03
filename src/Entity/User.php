@@ -100,6 +100,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $user_support_resolver;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="userSend")
+     */
+    private $messagesSend;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="userReceive")
+     */
+    private $messagesReceive;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="user_send")
+     */
+    private $commentaires;
+
 
 
     public function __construct()
@@ -110,6 +125,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->supports = new ArrayCollection();
         $this->archiveSupports = new ArrayCollection();
         $this->user_support_resolver = new ArrayCollection();
+        $this->messagesSend = new ArrayCollection();
+        $this->messagesReceive = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
 
@@ -437,6 +455,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userSupportResolver->getUserSolver() === $this) {
                 $userSupportResolver->setUserSolver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesSend(): Collection
+    {
+        return $this->messagesSend;
+    }
+
+    public function addMessagesSend(Message $messagesSend): self
+    {
+        if (!$this->messagesSend->contains($messagesSend)) {
+            $this->messagesSend[] = $messagesSend;
+            $messagesSend->setUserSend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesSend(Message $messagesSend): self
+    {
+        if ($this->messagesSend->removeElement($messagesSend)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesSend->getUserSend() === $this) {
+                $messagesSend->setUserSend(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesReceive(): Collection
+    {
+        return $this->messagesReceive;
+    }
+
+    public function addMessagesReceive(Message $messagesReceive): self
+    {
+        if (!$this->messagesReceive->contains($messagesReceive)) {
+            $this->messagesReceive[] = $messagesReceive;
+            $messagesReceive->setUserReceive($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesReceive(Message $messagesReceive): self
+    {
+        if ($this->messagesReceive->removeElement($messagesReceive)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesReceive->getUserReceive() === $this) {
+                $messagesReceive->setUserReceive(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUserSend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUserSend() === $this) {
+                $commentaire->setUserSend(null);
             }
         }
 

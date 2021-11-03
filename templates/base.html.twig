@@ -36,6 +36,9 @@
             {{ encore_entry_script_tags('app') }}
             <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+            
+                <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+                <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
         {% endblock %}
     </head>
 
