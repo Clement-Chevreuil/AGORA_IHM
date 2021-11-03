@@ -17,6 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/user")
@@ -97,6 +98,17 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    /**
+     * @Route("/search/{userName}", name="search_user", options={"expose"=true}, methods={"GET", "POST"})
+     */
+    public function search(UserRepository $userRepository, $userName): Response
+    {
+        
+        $listUser = $userRepository->findUserByName($userName);
+        $listUserSimp = array_column($listUser, 'name');
+        return new JsonResponse($listUserSimp);
     }
 
     /**

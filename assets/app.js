@@ -1,10 +1,16 @@
 import './styles/app.scss';
 import 'bootstrap';
 import './bootstrap';
-import 'jquery-ui'; 
+import 'jquery-ui/ui/widgets/autocomplete'; 
+import 'jquery-ui/demos/demos.css'; 
+
+import 'jquery-ui/themes/base/tooltip.css'; 
+import 'jquery-ui/themes/base/base.css'; 
 import 'jquery-ui/themes/base/core.css';
 import 'jquery-ui/themes/base/theme.css';
 import 'jquery-ui/themes/base/selectable.css';
+import 'jquery-ui/themes/base/autocomplete.css';
+
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/selectable';
 
@@ -13,8 +19,10 @@ import bsCustomFileInput from 'bs-custom-file-input';
 bsCustomFileInput.init();
 
 var $ = require('jquery');
-require('jquery-ui');
+// require('jquery-ui');
+
 require('bootstrap');
+
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
@@ -122,33 +130,30 @@ $( ".text_right" ).on("click", function() {
 });
 
 
-var availableTags = [
-    "ActionScript",
-    "AppleScript",
-    "Asp",
-    "BASIC",
-    "C",
-    "C++",
-    "Clojure",
-    "COBOL",
-    "ColdFusion",
-    "Erlang",
-    "Fortran",
-    "Groovy",
-    "Haskell",
-    "Java",
-    "JavaScript",
-    "Lisp",
-    "Perl",
-    "PHP",
-    "Python",
-    "Ruby",
-    "Scala",
-    "Scheme"
-  ];
   
-//   $( "#tags" ).on("change", function() {
+//   $( function() {
+
+
 //   $( "#tags" ).autocomplete({
-//     source: availableTags
+   
+//     source: availableTags,
+    
 //   });
 // } );
+
+  $( "#tags" ).on("keyup", function(event) {
+    var userName = $('#tags').val();
+    console.log(userName);
+    $.ajax({
+  
+      url: Routing.generate("search_user", {userName: userName}),  //Cible du script coté serveur à appeler 
+      
+      success : function (output) {
+        $( "#tags" ).autocomplete({
+   
+              source: output,
+              
+        });
+      }
+    });
+  });
