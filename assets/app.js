@@ -130,30 +130,67 @@ $( ".text_right" ).on("click", function() {
 });
 
 
-  
-//   $( function() {
 
+$( function() {
+  $( "#tags" ).autocomplete({
 
-//   $( "#tags" ).autocomplete({
-   
-//     source: availableTags,
-    
-//   });
-// } );
-
-  $( "#tags" ).on("keyup", function(event) {
-    var userName = $('#tags').val();
-    console.log(userName);
-    $.ajax({
-  
-      url: Routing.generate("search_user", {userName: userName}),  //Cible du script coté serveur à appeler 
-      
-      success : function (output) {
-        $( "#tags" ).autocomplete({
-   
-              source: output,
+      source: function( request, response ) {
+        $.ajax({
+          url: Routing.generate("search_user", {userName: request.term}), 
+          dataType: "json",
+          success: function( data ) {
+            response($.map(data, function (item) {
+            
+              return {
+                label: item.name,
+                value: item.name
+            };
               
+          }));
+          }
         });
-      }
-    });
+      },
+
+      select: function( event, ui ) { 
+
+        $.ajax({
+  
+          url: Routing.generate("search_user_by_name", {userName: ui["item"]["label"]}),  //Cible du script coté serveur à appeler 
+          
+          success : function (output) {
+            if(output == "error")
+            {
+              window.document.location = Routing.generate('article_index');
+            }
+            else
+            {
+              window.document.location = Routing.generate('user_show', {id: output});
+            }
+            
+          }
+        });
+
+       },      
+
   });
+});
+$( ".tags" ).on( "menufocus", function( event, ui ) {console.log("hey")} );
+  // $( "#tags" ).on("keyup", function(event) {
+  //   var userName = $('#tags').val();
+  //   console.log(userName);
+  //   $.ajax({
+  
+  //     url: Routing.generate("search_user", {userName: userName}),  //Cible du script coté serveur à appeler 
+      
+  //     success : function (output) {
+  //       console.log(output);
+  //       $( "#tags" ).autocomplete({
+   
+  //             source: output,
+  //             select: function( event, ui ) {console.log(ui);}
+              
+  //       });
+
+  //     }
+  //   });
+  // });

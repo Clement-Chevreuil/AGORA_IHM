@@ -91,7 +91,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="user_show", methods={"GET"})
+     * @Route("/show/{id}", name="user_show", options={"expose"=true}, methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -108,7 +108,25 @@ class UserController extends AbstractController
         
         $listUser = $userRepository->findUserByName($userName);
         $listUserSimp = array_column($listUser, 'name');
-        return new JsonResponse($listUserSimp);
+        return new JsonResponse($listUser);
+    }
+
+        /**
+     * @Route("/search/verify/{userName}", name="search_user_by_name", options={"expose"=true}, methods={"GET", "POST"})
+     */
+    public function searchByName(UserRepository $userRepository, $userName): Response
+    {
+        
+        $listUser = $userRepository->findUserByNameVerify($userName);
+        if($listUser == null || $listUser == "[]")
+        {
+            return "error";
+        }
+        else{
+             $id = $listUser[0]['id'];
+            return new JsonResponse($id); 
+        }
+      
     }
 
     /**

@@ -24,7 +24,7 @@ use Monolog\DateTimeImmutable;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_index", methods={"GET"})
+     * @Route("/", name="article_index",options={"expose"=true}, methods={"GET"})
      */
     public function index(ArticleRepository $articleRepository): Response
     {
