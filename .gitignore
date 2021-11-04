@@ -30,3 +30,13 @@ phpunit.xml.dist
 symfony.lock
 .env.test
 .env.local
+
+.env
+
+composer.json
+
+package-lock.json
+
+package.json
+
+*.png
