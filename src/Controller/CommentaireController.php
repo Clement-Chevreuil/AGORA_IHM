@@ -83,7 +83,7 @@ class CommentaireController extends AbstractController
      */
     public function delete(Request $request, Commentaire $commentaire): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $commentaire->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($commentaire);
             $entityManager->flush();

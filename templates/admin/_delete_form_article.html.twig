@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('article_delete_admin', {'id': article[0].id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cet article ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article[0].id) }}">
-    <button class="btn btn-secondary">Delete</button>
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article[0].id) }}">
+	<button class="btn btn-secondary">Delete</button>
 </form>

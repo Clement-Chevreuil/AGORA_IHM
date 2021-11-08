@@ -1,17 +1,20 @@
 {% extends 'public/layout.html.twig' %}
 
-{% block title %}New Article{% endblock %}
+{% block title %}New Article
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-9 mt-5">
-            <div class="p-2">
-                <h1 class="text_color {{titleColor}}"> New Article </h1>
-                {{ include('article/_form.html.twig') }}
-            </div>
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-9 mt-5">
+				<div class="p-2">
+					<h1 class="text_color {{titleColor}}">
+						New Article
+					</h1>
+					{{ include('article/_form.html.twig') }}
+				</div>
 
-        </div>
-    </div>
-</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

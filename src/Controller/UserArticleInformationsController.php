@@ -26,9 +26,9 @@ class UserArticleInformationsController extends AbstractController
         $article = $articleRepository->find($idArticle);
 
         $infos = $informationsRep->findUserArticleInformations($this->getUser()->getId(), $article->getId());
-        
 
-        if($infos == []){
+
+        if ($infos == []) {
 
             $informations = new UserArticleInformations();
             $informations->setArticle($article);
@@ -37,32 +37,27 @@ class UserArticleInformationsController extends AbstractController
             $informations->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($informations);
-            $entityManager->flush(); 
-        }
-        else{
-            if($infos[0]->getLiker() == true){
-                if($infos[0]->getReport() == false){
-                    
+            $entityManager->flush();
+        } else {
+            if ($infos[0]->getLiker() == true) {
+                if ($infos[0]->getReport() == false) {
+
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->remove($infos[0]);
                     $entityManager->flush();
-                    
-                }
-                else{
-                   $infos[0]->setLiker(false); 
+                } else {
+                    $infos[0]->setLiker(false);
                 }
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($infos[0]);
-                $entityManager->flush();    
+                $entityManager->flush();
                 return new Response("success_delete");
-            }
-            else{
+            } else {
                 $infos[0]->setLiker(true);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($infos[0]);
-                $entityManager->flush(); 
+                $entityManager->flush();
             }
-                
         }
 
         return new Response("success_like");
@@ -80,24 +75,21 @@ class UserArticleInformationsController extends AbstractController
 
         $infos = $informationsRep->findUserArticleInformations($this->getUser()->getId(), $article->getId());
 
-        if($infos[0]->getReport() == false){
+        if ($infos[0]->getReport() == false) {
             // dd("hey");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($infos[0]);
             $entityManager->flush();
-            
-        }
-        else{
-            $infos[0]->setLiker(false); 
+        } else {
+            $infos[0]->setLiker(false);
             // dd($infos[0]);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($infos[0]);
-            $entityManager->flush();    
-        }       
+            $entityManager->flush();
+        }
 
         $this->addFlash('success', 'Article enlever de vos favoris');
         return $this->render('user/signet.html.twig', ['user' => $this->getUser(),]);
-        
     }
 
     /**
@@ -110,8 +102,8 @@ class UserArticleInformationsController extends AbstractController
         $article = $articleRepository->find($idArticle);
 
         $infos = $informationsRep->findUserArticleInformations($this->getUser()->getId(), $article->getId());
-        
-        if($infos == []){
+
+        if ($infos == []) {
             $informations = new UserArticleInformations();
             $informations->setArticle($article);
             $informations->setLiker(false);
@@ -119,23 +111,18 @@ class UserArticleInformationsController extends AbstractController
             $informations->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($informations);
-            $entityManager->flush(); 
-        }
-        else{
-            if($infos[0]->getReport() == true){
+            $entityManager->flush();
+        } else {
+            if ($infos[0]->getReport() == true) {
                 return new Response("error_impossible");
-            }
-            else{
+            } else {
                 $infos[0]->setReport(true);
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($infos[0]);
-            $entityManager->flush();     
+            $entityManager->flush();
         }
 
         return new Response("success_report");
     }
-
-
-    
 }

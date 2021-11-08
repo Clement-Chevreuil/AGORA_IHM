@@ -14,13 +14,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
 
-        /**
+    /**
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-      
-        
+
+
         if ($this->getUser()) {
             return $this->redirectToRoute('article_index');
         }
@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         // $form->handleRequest($request);
         // dd($form->handleRequest($request))
-        
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
     //  */
     // public function login(AuthenticationUtils $authenticationUtils): Response
     // {
-        
+
     //     if ($this->getUser()) {
     //         return $this->redirectToRoute('article_index');
     //     }

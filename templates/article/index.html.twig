@@ -1,181 +1,203 @@
 {% extends 'public/layout.html.twig' %}
 
-{% block title %}Article index{% endblock %}
-
-{% block stylesheets %} 
-    {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('rotation') }}
+{% block title %}Article index
 {% endblock %}
 
-{% block javascripts %} 
-    {{ encore_entry_script_tags('rotation') }}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	{{ encore_entry_link_tags('rotation') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('rotation') }}
+	<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 {% endblock %}
 
 
 {% block body %}
 
-        {% if app.user.getThemeSombre() == true %}
-            {% set fast_back = "rotation_left_fast" %}
-            {% set step_back = "rotation_left" %}
-            {% set step_for = "rotation_right" %}
-            {% set fast_for = "rotation_right_fast" %}
+	{% if app.user.getThemeSombre() == true %}
+		{% set fast_back = "rotation_left_fast" %}
+		{% set step_back = "rotation_left" %}
+		{% set step_for = "rotation_right" %}
+		{% set fast_for = "rotation_right_fast" %}
 
-            {% set divBackgroundColor = "background-color: #2b2a2a " %}
-            {% set divBorder = "border: 2px solid #17a2b8" %}
-            {% set divColor = "color: #17a2b8" %}
-            {% set buttonBorder = "border: 2px solid #17a2b8" %}
-            {% set bandePost = "background-color: #4d4d4d" %}
-            {% set body = "background-color: #2b2a2a" %}
-            {% set buttonColor = "color: 17a2b8" %}
-            {% set buttonClose = "bouton_close_sombre" %}
+		{% set divBackgroundColor = "background-color: #2b2a2a " %}
+		{% set divBorder = "border: 2px solid #17a2b8" %}
+		{% set divColor = "color: #17a2b8" %}
+		{% set buttonBorder = "border: 2px solid #17a2b8" %}
+		{% set bandePost = "background-color: #4d4d4d" %}
+		{% set body = "background-color: #2b2a2a" %}
+		{% set buttonColor = "color: 17a2b8" %}
+		{% set buttonClose = "bouton_close_sombre" %}
 
-        {% else %}
-            {% set fast_back = "rotation_left_fast_black" %}
-            {% set step_back = "rotation_left_black" %}
-            {% set step_for = "rotation_right_black" %}
-            {% set fast_for = "rotation_right_fast_black" %}
+	{% else %}
+		{% set fast_back = "rotation_left_fast_black" %}
+		{% set step_back = "rotation_left_black" %}
+		{% set step_for = "rotation_right_black" %}
+		{% set fast_for = "rotation_right_fast_black" %}
 
-            {% set divBackgroundColor = "background-color: #dbdbdb " %}
-            {% set divBorder = "border: 2px solid #474747" %}
-            {% set divColor = "color: black" %}
-            {% set buttonBorder = "border: 2px solid white" %}
-            {% set buttonColor = "color: white" %}
-            {% set bandePost = "background-color: #474747" %}
-            {% set body = "background-color: #bfbfbf" %}
-            {% set buttonClose = "bouton_close_claire" %}
-        {% endif %}
-            
+		{% set divBackgroundColor = "background-color: #dbdbdb " %}
+		{% set divBorder = "border: 2px solid #474747" %}
+		{% set divColor = "color: black" %}
+		{% set buttonBorder = "border: 2px solid white" %}
+		{% set buttonColor = "color: white" %}
+		{% set bandePost = "background-color: #474747" %}
+		{% set body = "background-color: #bfbfbf" %}
+		{% set buttonClose = "bouton_close_claire" %}
+	{% endif %}
 
-   
-        {% for msg in app.session.flashBag.get('error_bad_redirection_user') %}
-            <div class="alert alert-success">
-                {{ msg }}
-            </div>
-        {% endfor %}
 
-        {% for msg in app.session.flashBag.get('success') %}
-            <div class="alert alert-success">
-                {{ msg }}
-            </div>
-        {% endfor %}
+	{% for msg in app.session.flashBag.get('error_bad_redirection_user') %}
+		<div class="alert alert-success">
+			{{ msg }}
+		</div>
+	{% endfor %}
 
-        
-        
+	{% for msg in app.session.flashBag.get('success') %}
+		<div class="alert alert-success">
+			{{ msg }}
+		</div>
+	{% endfor %}
 
-        {# passer des infos pour le systeme de rotation #}
 
-        <div class="js-user-rating" data-is-authenticated="{{ articles|length - 1}}">
-            <!-- ... -->
-        </div>
-        
-        <tbody>
-            <div class="d-flex justify-content-center">
+	{# passer des infos pour le systeme de rotation #}
 
-                {% if articles|length > 3 %}
-                        <div class="rotation_left_fast {{ fast_back }} " id="fast_back"></div>
-                        <div class="rotation_left {{ step_back }}" id="step_back"></div>
-                        <div class="rotation_center"></div>
-                        <div class="rotation_right {{ step_for }}" id="step_for"></div>
-                        <div class="rotation_right_fast {{ fast_for }}" id="fast_for"></div>
-                {% endif %}
+	<div
+		class="js-user-rating" data-is-authenticated="{{ articles|length - 1}}"><!-- ... -->
+	</div>
 
-                <div class="tourniquer position-fixed">
+	<tbody>
+		<div class="d-flex justify-content-center">
 
-                {% for article in articles %}
-                    {% if articles|length == 1 %}
-                        {% if loop.first %}
-                            {% set slideclass = "mid-slide" %}
-                        {% else %}
-                            {% set slideclass = "vide" %}
-                        {% endif %}
+			{% if articles|length > 3 %}
+				<div class="rotation_left_fast {{ fast_back }} " id="fast_back"></div>
+				<div class="rotation_left {{ step_back }}" id="step_back"></div>
+				<div class="rotation_center"></div>
+				<div class="rotation_right {{ step_for }}" id="step_for"></div>
+				<div class="rotation_right_fast {{ fast_for }}" id="fast_for"></div>
+			{% endif %}
 
-                    {% elseif articles|length == 2 %}
-                    {% if loop.first %}
-                            {% set slideclass = "left-slide" %}
-                        {% elseif loop.index == 2 %}
-                            {% set slideclass = "right-slide" %}
-                        {% else %}
-                            {% set slideclass = "vide" %}
-                        {% endif %}
+			<div class="tourniquer position-fixed">
 
-                    {% else %}
-                        {% if loop.first %}
-                            {% set slideclass = "left-slide" %}
-                        {% elseif loop.index == 2 %}
-                            {% set slideclass = "mid-slide" %}
-                        {% elseif loop.index == 3 %}
-                            {% set slideclass = "right-slide" %}
-                        {% else %}
-                            {% set slideclass = "vide" %}
-                        {% endif %}
-                    {% endif %}
+				{% for article in articles %}
+					{% if articles|length == 1 %}
+						{% if loop.first %}
+							{% set slideclass = "mid-slide" %}
+						{% else %}
+							{% set slideclass = "vide" %}
+						{% endif %}
 
-                    
-                    <div id= {{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
-                        <div class="div_post" style="{{divBackgroundColor}}; {{divBorder}}; {{divColor}}" >
-                            <div class="test1 p-3 ">
-                                <button class="btn position-absolute top-0 end-0 btn_close {{buttonClose}}"><i class="far fa-times-circle fa-2x color_bouton_option_close"></i></button>
-                                <h1> {{ article.name }} </h1>
-                                
-                                <div class="{{ article.getTextPosition() }}">
-                                    {# <p class="mt-5"> {{ article.description }} </p> #}
-                                    <p  class="mt-5 descriptionLess" style="font-size: 20px;"> {{ article.description|length > 150 ? article.description|u.truncate(700, '...', false)|nl2br   : article.description|nl2br }} </p>
-                                    <p  class="mt-5 descriptionMax d-none align-items-center " style="font-size: 20px;"> {{ article.description|nl2br }} </p>
-                                </div>
-                                
+					{% elseif articles|length == 2 %}
+						{% if loop.first %}
+							{% set slideclass = "left-slide" %}
+						{% elseif loop.index == 2 %}
+							{% set slideclass = "right-slide" %}
+						{% else %}
+							{% set slideclass = "vide" %}
+						{% endif %}
 
-                                {% if article.picture %}
-                                    <img style="width : 200px; height: 100px;"src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
-                                {% endif %}
-                                
-                                {% set user  = app.user.id %}
-    
+					{% else %}
+						{% if loop.first %}
+							{% set slideclass = "left-slide" %}
+						{% elseif loop.index == 2 %}
+							{% set slideclass = "mid-slide" %}
+						{% elseif loop.index == 3 %}
+							{% set slideclass = "right-slide" %}
+						{% else %}
+							{% set slideclass = "vide" %}
+						{% endif %}
+					{% endif %}
 
-                                <a href="{{ path('user_show', {'id': article.user.id}) }}" class="h3 text-end p-2"> {{ article.user.name }} </a>
-                            
-                            
-                            </div>
 
-                            <div class="test2 align-middle" style="{{bandePost}}">
-                            <center> 
-                                {% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
-                                    {% if infos.getUser() == app.user%}
-                                        {% if infos.user.id == user and infos.liker == true %}
-                                            <button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                        {% else %}
-                                            <button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                        {% endif %}
+					<div id={{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
+						<div class="div_post" style="{{divBackgroundColor}}; {{divBorder}}; {{divColor}}">
+							<div class="test1 p-3 ">
+								<button class="btn position-absolute top-0 end-0 btn_close {{buttonClose}}">
+									<i class="far fa-times-circle fa-2x color_bouton_option_close"></i>
+								</button>
+								<h1>
+									{{ article.name }}
+								</h1>
 
-                                        {% if infos.user.id == user and infos.report == true %}
-                                            <button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}" disabled><i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                        {% else %}
-                                            <button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                        {% endif %}
-                                        <button class="btn bouton_options mt-2 mb-2 shared" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="fas fa-share fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                    {% endif %}
+								<div
+									class="{{ article.getTextPosition() }}">
+									{# <p class="mt-5"> {{ article.description }} </p> #}
+									<p class="mt-5 descriptionLess" style="font-size: 20px;">
+										{{ article.description|length > 150 ? article.description|u.truncate(700, '...', false)|nl2br   : article.description|nl2br }}
+									</p>
+									<p class="mt-5 descriptionMax d-none align-items-center " style="font-size: 20px;">
+										{{ article.description|nl2br }}
+									</p>
+								</div>
 
-                                {% else %} 
-                                    <button class="btn bouton_options like-article data-article-like mt-2 mb-2"  style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                    <button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i></button> 
-                                    <button class="btn bouton_options mt-2 mb-2 shared" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}"><i class="fas fa-share fa-2x color_bouton_options" style="{{buttonColor}}"></i></button>
-                                {% endfor %}
-                            </center>
-                            </div>
-                        </div>
-                        
-                    </div>
-                {% else %}
-                    <tr>
-                        <td colspan="3">no records found</td>
-                    </tr>
-                {% endfor %}
-                </div>
-            </div>
-        </tbody>
+
+								{% if article.picture %}
+									<img style="width : 200px; height: 100px;" src="{{ asset('uploads/brochures/' ~ article.picture) }}"/>
+								{% endif %}
+
+								{% set user  = app.user.id %}
+
+
+								<a href="{{ path('user_show', {'id': article.user.id}) }}" class="h3 text-end p-2">
+									{{ article.user.name }}
+								</a>
+
+
+							</div>
+
+							<div class="test2 align-middle" style="{{bandePost}}">
+								<center>
+									{% for infos in article.getUserArticleInformations()|filter(infos => infos.user == app.user)  %}
+										{% if infos.getUser() == app.user%}
+											{% if infos.user.id == user and infos.liker == true %}
+												<button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+													<i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+												</button>
+											{% else %}
+												<button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+													<i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+												</button>
+											{% endif %}
+
+											{% if infos.user.id == user and infos.report == true %}
+												<button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}" disabled>
+													<i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+												</button>
+											{% else %}
+												<button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+													<i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+												</button>
+											{% endif %}
+											<button class="btn bouton_options mt-2 mb-2 shared" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+												<i class="fas fa-share fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+											</button>
+										{% endif %}
+
+									{% else %}
+										<button class="btn bouton_options like-article data-article-like mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+											<i class="far fa-bookmark fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+										</button>
+										<button class="btn bouton_options like-article data-article-report mt-2 mb-2" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+											<i class="far fa-flag fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+										</button>
+										<button class="btn bouton_options mt-2 mb-2 shared" style="{{buttonBorder}}" id="{{article.id}}" data-articleid="{{article.id}}">
+											<i class="fas fa-share fa-2x color_bouton_options" style="{{buttonColor}}"></i>
+										</button>
+									{% endfor %}
+								</center>
+							</div>
+						</div>
+
+					</div>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</div>
+		</div>
+	</tbody>
 
 {% endblock %}
-
-
-

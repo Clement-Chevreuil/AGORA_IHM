@@ -72,7 +72,7 @@ class SupportController extends AbstractController
      */
     public function delete(Request $request, Support $support): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$support->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $support->getId(), $request->request->get('_token'))) {
 
             $date = new \DateTimeImmutable();
             $support->setCreatedAt($date);

@@ -32,7 +32,7 @@ class ArticleController extends AbstractController
             'articles' => $articleRepository->findAll(),
         ]);
     }
-    
+
     /**
      * @Route("/ArticleUser", name="article_user", methods={"GET"})
      */
@@ -50,7 +50,7 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger): Response
     {
-        
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -58,34 +58,29 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $brochureFile = $form->get('picture')->getData();
-            if ($brochureFile)
-            {
+            if ($brochureFile) {
                 $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
 
-                try 
-                {
+                try {
                     $brochureFile->move(
                         $this->getParameter('brochures_directory'),
                         $newFilename
                     );
-                } 
-                catch (FileException $e) 
-                {
+                } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
                 $article->setPicture($newFilename);
-                
             }
 
             $text_position = $request->get('text_position');
 
-            if($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end"){
+            if ($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end") {
                 $text_position = "text-start";
             }
 
-            
+
             $date = new \DateTimeImmutable();
             $article->setCreatedAt($date);
             $article->setUpdatedAt($date);
@@ -121,40 +116,35 @@ class ArticleController extends AbstractController
     public function edit(Request $request, Article $article, SluggerInterface $slugger): Response
     {
 
-        if($this->getUser()->getId() == $article->getUser()->getId()){
-           $form = $this->createForm(ArticleType::class, $article);
+        if ($this->getUser()->getId() == $article->getUser()->getId()) {
+            $form = $this->createForm(ArticleType::class, $article);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $brochureFile = $form->get('picture')->getData();
-                if ($brochureFile)
-                {
+                if ($brochureFile) {
                     $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
                     $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
 
-                    try 
-                    {
+                    try {
                         $brochureFile->move(
                             $this->getParameter('brochures_directory'),
                             $newFilename
                         );
-                    } 
-                    catch (FileException $e) 
-                    {
+                    } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
                     $article->setPicture($newFilename);
-                    
                 }
 
-                
+
                 $text_position = $request->get('text_position');
 
-                
 
-                if($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end"){
+
+                if ($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end") {
                     $text_position = "text-start";
                 }
 
@@ -174,8 +164,7 @@ class ArticleController extends AbstractController
                 'article' => $article,
                 'form' => $form,
             ]);
-        }
-        else{  
+        } else {
             $this->addFlash('error_bad_redirection_user', 'Cette page est malheuresement pas pour vous');
             return $this->redirectToRoute('article_index');
         }
@@ -186,10 +175,9 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if($this->getUser() == $article->getUser())
-        {
-                
-            if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->getUser() == $article->getUser()) {
+
+            if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
 
                 $date = new \DateTimeImmutable();
                 $archiveArticle = new ArchiveArticle();
@@ -208,13 +196,9 @@ class ArticleController extends AbstractController
 
             $this->addFlash('success', 'Votre article a bien été supprimé');
             return $this->redirectToRoute('article_user', [], Response::HTTP_SEE_OTHER);
-        }
-        else{
+        } else {
             $this->addFlash('error', 'Vous ne pouvez supprimer que vos articles');
             return $this->redirectToRoute('article_user', [], Response::HTTP_SEE_OTHER);
         }
-        
     }
-
-
 }

@@ -28,66 +28,59 @@ class UserController extends AbstractController
     /**
      * @Route("/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder,AuthenticationUtils $authenticationUtils, SluggerInterface $slugger ): Response
+    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthenticationUtils $authenticationUtils, SluggerInterface $slugger): Response
     {
 
-            $user = $this->getUser();
-            $form = $this->createForm(UserType::class, $user);
-            $form->handleRequest($request);
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-            
-            if ($form->isSubmitted() && $form->isValid()) {
 
-                $pass = $form->get('plainPassword')->getData();
-                $this->passwordEncoder = $passwordEncoder;
-                
-                if($this->passwordEncoder->isPasswordValid($user, $pass)){
+        if ($form->isSubmitted() && $form->isValid()) {
 
-                    $brochureFile = $form->get('picture')->getData();
-                    if ($brochureFile)
-                    {
-                        $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                        $safeFilename = $slugger->slug($originalFilename);
-                        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+            $pass = $form->get('plainPassword')->getData();
+            $this->passwordEncoder = $passwordEncoder;
 
-                        try 
-                        {
-                            $brochureFile->move(
-                                $this->getParameter('brochures_directory'),
-                                $newFilename
-                            );
-                        } 
-                        catch (FileException $e) 
-                        {
-                            // ... handle exception if something happens during file upload
-                        }
-                        $user->setPicture($newFilename);
-                        
+            if ($this->passwordEncoder->isPasswordValid($user, $pass)) {
+
+                $brochureFile = $form->get('picture')->getData();
+                if ($brochureFile) {
+                    $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+
+                    try {
+                        $brochureFile->move(
+                            $this->getParameter('brochures_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
                     }
-
-                    $user->setName($form->get('name')->getData());
-                    $user->setEmail($form->get('email')->getData());
-
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-                    $this->addFlash('success', 'Modification effectuée avec succès');
-                    return $this->render('user/show.html.twig', ['user' => $this->getUser()]);
+                    $user->setPicture($newFilename);
                 }
-                else{
-                    $this->addFlash('error', 'Le mot de passe est incorect');
-                    return $this->renderForm('user/edit.html.twig', [
-                        'user' => $user,
-                        'form' => $form,
-                    ]);
-                }
-                    
+
+                $user->setName($form->get('name')->getData());
+                $user->setEmail($form->get('email')->getData());
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Modification effectuée avec succès');
+                return $this->render('user/show.html.twig', ['user' => $this->getUser()]);
+            } else {
+                $this->addFlash('error', 'Le mot de passe est incorect');
+                return $this->renderForm('user/edit.html.twig', [
+                    'user' => $user,
+                    'form' => $form,
+                ]);
             }
+        }
 
-            return $this->renderForm('user/edit.html.twig', [
-                'user' => $user,
-                'form' => $form,
-            ]);
+        return $this->renderForm('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 
     /**
@@ -105,28 +98,25 @@ class UserController extends AbstractController
      */
     public function search(UserRepository $userRepository, $userName): Response
     {
-        
+
         $listUser = $userRepository->findUserByName($userName);
         $listUserSimp = array_column($listUser, 'name');
         return new JsonResponse($listUser);
     }
 
-        /**
+    /**
      * @Route("/search/verify/{userName}", name="search_user_by_name", options={"expose"=true}, methods={"GET", "POST"})
      */
     public function searchByName(UserRepository $userRepository, $userName): Response
     {
-        
+
         $listUser = $userRepository->findUserByNameVerify($userName);
-        if($listUser == null || $listUser == "[]")
-        {
+        if ($listUser == null || $listUser == "[]") {
             return "error";
+        } else {
+            $id = $listUser[0]['id'];
+            return new JsonResponse($id);
         }
-        else{
-             $id = $listUser[0]['id'];
-            return new JsonResponse($id); 
-        }
-      
     }
 
     /**
@@ -144,7 +134,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
 
             $date = new \DateTimeImmutable();
             $archiveUser = new ArchiveUser();
@@ -167,7 +157,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('article_index', [], Response::HTTP_SEE_OTHER);
     }
 
-        /**
+    /**
      * @Route("/signet", name="user_signet", methods={"GET"})
      */
     public function signet(): Response
@@ -175,7 +165,6 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         return $this->render('user/signet.html.twig', ['user' => $user,]);
-        
     }
 
     /**
@@ -185,18 +174,16 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        if($user->getThemeSombre() == false){
+        if ($user->getThemeSombre() == false) {
 
             $user->setThemeSombre(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-        
+
             //dd($user);
             return new Response("success_theme_sombre");
-
-        }
-        else{
+        } else {
 
             $user->setThemeSombre(false);
             $entityManager = $this->getDoctrine()->getManager();
@@ -205,7 +192,5 @@ class UserController extends AbstractController
             //dd($user);
             return new Response("success_theme_claire");
         }
-
     }
-   
 }
