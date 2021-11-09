@@ -75,6 +75,7 @@ class ArticleController extends AbstractController
             }
 
             $text_position = $request->get('text_position');
+            $article_description = $request->get('article_description');
 
             if ($text_position != "text-start" && $text_position != "text-center" && $text_position != "text-end") {
                 $text_position = "text-start";
@@ -84,6 +85,8 @@ class ArticleController extends AbstractController
             $date = new \DateTimeImmutable();
             $article->setCreatedAt($date);
             $article->setUpdatedAt($date);
+            $article->setDescription($article_description);
+            
             $article->setTextPosition($text_position);
             $article->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
