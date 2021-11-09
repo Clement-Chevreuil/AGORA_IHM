@@ -174,23 +174,3 @@ $( function() {
 
   });
 });
-$( ".tags" ).on( "menufocus", function( event, ui ) {console.log("hey")} );
-  // $( "#tags" ).on("keyup", function(event) {
-  //   var userName = $('#tags').val();
-  //   console.log(userName);
-  //   $.ajax({
-  
-  //     url: Routing.generate("search_user", {userName: userName}),  //Cible du script coté serveur à appeler 
-      
-  //     success : function (output) {
-  //       console.log(output);
-  //       $( "#tags" ).autocomplete({
-   
-  //             source: output,
-  //             select: function( event, ui ) {console.log(ui);}
-              
-  //       });
-
-  //     }
-  //   });
-  // });
