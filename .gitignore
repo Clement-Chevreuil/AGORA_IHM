@@ -30,3 +30,4 @@ phpunit.xml.dist
 symfony.lock
 .env.test
 .env.local
+.env
