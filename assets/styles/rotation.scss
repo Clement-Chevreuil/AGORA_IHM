@@ -333,3 +333,57 @@ textarea {
     color:white;
 }
 
+
+
+.rotation_left_fast{
+    margin-top: 5vh; 
+    /* background-color: #04040433;  */
+    height: $postHeight;
+    width: $postWidth;
+    z-index: 2;
+    cursor: url("../../assets/image/fast-backward-solid-blue.png"), auto;
+
+    
+}
+.rotation_left_fast_mini{
+    background-color: #04040433;
+    height: 50px;
+    width: $postWidth;
+    z-index: 2;
+}
+.rotation_left_mini{
+    background-color: #3c3c3c2e;
+    height: 50px;
+    width: $postWidth;
+    z-index: 2;
+}
+.rotation_center_mini{
+
+    background-color: #04040433;  
+    height: 50px;
+    width: $postWidth;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.rotation_right_mini{
+
+    background-color: #3c3c3c2e;  
+    height: 50px;
+    width: $postWidth; 
+    z-index: 2;
+}
+.rotation_right_fast_mini{
+    background-color: #04040433;  
+    height: 50px;
+    width: $postWidth; 
+    z-index: 2;
+}
+
+.color_white{
+    color:white;
+}
+
+.color_black{
+    color:black;
+}

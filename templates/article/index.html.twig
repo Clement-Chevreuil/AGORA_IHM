@@ -79,6 +79,7 @@
 				<div class="rotation_right_fast {{ fast_for }}" id="fast_for"></div>
 			{% endif %}
 
+
 			<div class="tourniquer position-fixed">
 
 				{% for article in articles %}
@@ -113,13 +114,16 @@
 
 					<div id={{ 'slide' ~ loop.index }} class="{{ slideclass }} ">
 						<div class="div_post" style="{{divBackgroundColor}}; {{divBorder}}; {{divColor}}">
+							<div class="text-center" style="background-color: #4d4d4d; padding: 10px">
+								<h1>
+									{{ article.name }}
+								</h1>
+							</div>
+
 							<div class="test1 p-3 ">
 								<button class="btn position-absolute top-0 end-0 btn_close {{buttonClose}}">
 									<i class="far fa-times-circle fa-2x color_bouton_option_close"></i>
 								</button>
-								<h1>
-									{{ article.name }}
-								</h1>
 
 								<div
 									class="{{ article.getTextPosition() }}">
@@ -198,6 +202,26 @@
 				{% endfor %}
 			</div>
 		</div>
+		<div class="d-flex justify-content-center mt-3 text-center">
+			{% if articles|length > 3 %}
+				<div class="rotation_left_fast_mini ">
+					<i class="fas fa-fast-backward fa-2x color_white mt-2"></i>
+				</div>
+				<div class="rotation_left_mini ">
+					<i class="fas fa-step-backward fa-2x color_white mt-2"></i>
+				</div>
+				<div class="rotation_center_mini color_white">
+					<h3 class="p-2" >Center</h3>
+				</div>
+				<div class="rotation_right_mini">
+					<i class="fas fa-step-forward fa-2x color_white mt-2"></i>
+				</div>
+				<div class="rotation_right_fast_mini">
+					<i class="fas fa-fast-forward fa-2x color_white mt-2"></i>
+				</div>
+			{% endif %}
+		</div>
 	</tbody>
+
 
 {% endblock %}
